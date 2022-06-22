@@ -5314,16 +5314,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/NewQuestionModal.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/NewQuestionModal.js ***!
-  \*****************************************************/
+/***/ "./resources/js/components/QuestionModal.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/QuestionModal.js ***!
+  \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ NewQuestionModal)
+/* harmony export */   "default": () => (/* binding */ QuestionModal)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
@@ -5356,19 +5356,20 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+ // import AddQuestionModal from "./NewQuestionModal";
 
 
 
 
-var NewQuestionModal = /*#__PURE__*/function (_Component) {
-  _inherits(NewQuestionModal, _Component);
+var QuestionModal = /*#__PURE__*/function (_Component) {
+  _inherits(QuestionModal, _Component);
 
-  var _super = _createSuper(NewQuestionModal);
+  var _super = _createSuper(QuestionModal);
 
-  function NewQuestionModal() {
+  function QuestionModal() {
     var _this;
 
-    _classCallCheck(this, NewQuestionModal);
+    _classCallCheck(this, QuestionModal);
 
     _this = _super.call(this);
     _this.state = {
@@ -5378,12 +5379,18 @@ var NewQuestionModal = /*#__PURE__*/function (_Component) {
         id: "",
         question: "",
         answer: ""
-      }
+      },
+      updateQuestionData: {
+        id: "",
+        question: "",
+        answer: ""
+      },
+      updateQuestionModal: false
     };
     return _this;
   }
 
-  _createClass(NewQuestionModal, [{
+  _createClass(QuestionModal, [{
     key: "loadQuestion",
     value: function loadQuestion() {
       var _this2 = this;
@@ -5400,7 +5407,7 @@ var NewQuestionModal = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
-        console.log("Load part...");
+        // console.log("Load part...");
         var questions = _this3.state.questions;
 
         _this3.loadQuestion();
@@ -5424,16 +5431,93 @@ var NewQuestionModal = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "callUpdateQuestion",
+    value: function callUpdateQuestion(id, question, answer) {
+      this.setState({
+        updateQuestionData: {
+          id: id,
+          question: question,
+          answer: answer
+        },
+        updateQuestionModal: !this.state.updateQuestionModal
+      });
+    }
+  }, {
+    key: "updateQuestion",
+    value: function updateQuestion() {
+      var _this4 = this;
+
+      var _this$state$updateQue = this.state.updateQuestionData,
+          id = _this$state$updateQue.id,
+          question = _this$state$updateQue.question,
+          answer = _this$state$updateQue.answer;
+      axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
+        question: question,
+        answer: answer
+      }).then(function (response) {
+        _this4.loadQuestion();
+
+        _this4.setState({
+          updateQuestionModal: false,
+          updateQuestionData: {
+            id: "",
+            question: "",
+            answer: ""
+          }
+        });
+      });
+    }
+  }, {
+    key: "deleteQuestion",
+    value: function deleteQuestion(id) {
+      var _this5 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
+        _this5.loadQuestion();
+      });
+    }
+  }, {
     key: "componentWillMount",
     value: function componentWillMount() {
       this.loadQuestion();
     }
   }, {
+    key: "toggleUpdateQuestionModal",
+    value: function toggleUpdateQuestionModal() {
+      this.setState({
+        updateQuestionModal: !this.state.updateQuestionModal
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this6 = this;
 
+      var questions = this.state.questions.map(function (question) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+            children: question.question
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+            children: question.answer
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Button, {
+              color: "success",
+              size: "sm",
+              outline: true,
+              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.question, question.answer),
+              children: "Edit"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Button, {
+              color: "danger",
+              size: "sm",
+              outline: true,
+              onClick: _this6.deleteQuestion.bind(_this6, question.id),
+              children: "Delete"
+            })]
+          })]
+        }, question.id);
+      });
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "container",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Button, {
           color: "primary",
           onClick: this.togglenewQuestionModal.bind(this),
@@ -5453,10 +5537,10 @@ var NewQuestionModal = /*#__PURE__*/function (_Component) {
                 id: "question",
                 value: this.state.newQuestionData.title,
                 onChange: function onChange(e) {
-                  var newQuestionData = _this4.state.newQuestionData;
+                  var newQuestionData = _this6.state.newQuestionData;
                   newQuestionData.question = e.target.value;
 
-                  _this4.setState({
+                  _this6.setState({
                     newQuestionData: newQuestionData
                   });
                 }
@@ -5469,10 +5553,10 @@ var NewQuestionModal = /*#__PURE__*/function (_Component) {
                 id: "answer",
                 value: this.state.newQuestionData.answer,
                 onChange: function onChange(e) {
-                  var newQuestionData = _this4.state.newQuestionData;
+                  var newQuestionData = _this6.state.newQuestionData;
                   newQuestionData.answer = e.target.value;
 
-                  _this4.setState({
+                  _this6.setState({
                     newQuestionData: newQuestionData
                   });
                 }
@@ -5489,255 +5573,69 @@ var NewQuestionModal = /*#__PURE__*/function (_Component) {
               children: [" ", "Cancel", " "]
             })]
           })]
-        })]
-      });
-    }
-  }]);
-
-  return NewQuestionModal;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
-
-
-
-if (document.getElementById("newQuestionModal")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(NewQuestionModal, {}), document.getElementById("newQuestionModal"));
-}
-
-/***/ }),
-
-/***/ "./resources/js/components/QuestionModal.js":
-/*!**************************************************!*\
-  !*** ./resources/js/components/QuestionModal.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ QuestionModal)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/dist/reactstrap.modern.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _NewQuestionModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NewQuestionModal */ "./resources/js/components/NewQuestionModal.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-
-
-
-
-
-
-
-
-var QuestionModal = /*#__PURE__*/function (_Component) {
-  _inherits(QuestionModal, _Component);
-
-  var _super = _createSuper(QuestionModal);
-
-  function QuestionModal() {
-    var _this;
-
-    _classCallCheck(this, QuestionModal);
-
-    _this = _super.call(this);
-    _this.state = {
-      questions: [],
-      updateQuestionData: {
-        id: "",
-        question: "",
-        answer: ""
-      },
-      updateQuestionModal: false
-    };
-    return _this;
-  }
-
-  _createClass(QuestionModal, [{
-    key: "loadQuestion",
-    value: function loadQuestion() {
-      var _this2 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/questions").then(function (response) {
-        _this2.setState({
-          questions: response.data
-        });
-      });
-    }
-  }, {
-    key: "callUpdateQuestion",
-    value: function callUpdateQuestion(id, question, answer) {
-      this.setState({
-        updateQuestionData: {
-          id: id,
-          question: question,
-          answer: answer
-        },
-        updateQuestionModal: !this.state.updateQuestionModal
-      });
-    }
-  }, {
-    key: "updateQuestion",
-    value: function updateQuestion() {
-      var _this3 = this;
-
-      var _this$state$updateQue = this.state.updateQuestionData,
-          id = _this$state$updateQue.id,
-          question = _this$state$updateQue.question,
-          answer = _this$state$updateQue.answer;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
-        question: question,
-        answer: answer
-      }).then(function (response) {
-        _this3.loadQuestion();
-
-        _this3.setState({
-          updateQuestionModal: false,
-          updateQuestionData: {
-            id: "",
-            question: "",
-            answer: ""
-          }
-        });
-      });
-    }
-  }, {
-    key: "deleteQuestion",
-    value: function deleteQuestion(id) {
-      var _this4 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
-        _this4.loadQuestion();
-      });
-    }
-  }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      this.loadQuestion();
-    }
-  }, {
-    key: "toggleUpdateQuestionModal",
-    value: function toggleUpdateQuestionModal() {
-      this.setState({
-        updateQuestionModal: !this.state.updateQuestionModal
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this5 = this;
-
-      var questions = this.state.questions.map(function (question) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-            children: question.question
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-            children: question.answer
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
-              color: "success",
-              size: "sm",
-              outline: true,
-              onClick: _this5.callUpdateQuestion.bind(_this5, question.id, question.question, question.answer),
-              children: "Edit"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
-              color: "danger",
-              size: "sm",
-              outline: true,
-              onClick: _this5.deleteQuestion.bind(_this5, question.id),
-              children: "Delete"
-            })]
-          })]
-        }, question.id);
-      });
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "container",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_NewQuestionModal__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Modal, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Modal, {
           isOpen: this.state.updateQuestionModal,
           toggle: this.toggleUpdateQuestionModal.bind(this),
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalHeader, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.ModalHeader, {
             toggle: this.toggleUpdateQuestionModal.bind(this),
             children: [" ", "Update New Question"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalBody, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.ModalBody, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.FormGroup, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Label, {
                 "for": "question",
                 children: "Question"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Input, {
                 id: "question",
                 value: this.state.updateQuestionData.question,
                 onChange: function onChange(e) {
-                  var updateQuestionData = _this5.state.updateQuestionData;
+                  var updateQuestionData = _this6.state.updateQuestionData;
                   updateQuestionData.question = e.target.value;
 
-                  _this5.setState({
+                  _this6.setState({
                     updateQuestionData: updateQuestionData
                   });
                 }
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.FormGroup, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Label, {
                 "for": "content",
                 children: "Answer"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Input, {
                 id: "answer",
                 value: this.state.updateQuestionData.answer,
                 onChange: function onChange(e) {
-                  var updateQuestionData = _this5.state.updateQuestionData;
+                  var updateQuestionData = _this6.state.updateQuestionData;
                   updateQuestionData.answer = e.target.value;
 
-                  _this5.setState({
+                  _this6.setState({
                     updateQuestionData: updateQuestionData
                   });
                 }
               })]
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalFooter, {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.ModalFooter, {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Button, {
               color: "primary",
               onClick: this.updateQuestion.bind(this),
               children: ["Update Question", " "]
-            }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
+            }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Button, {
               color: "secondary",
               onClick: this.toggleUpdateQuestionModal.bind(this),
               children: [" ", "Cancel", " "]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Table, {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Table, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                 children: "ID"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                 children: "Question"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
                 children: "Answer"
               })]
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tbody", {
             children: questions
           })]
         })]
@@ -5751,7 +5649,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
 
 
 if (document.getElementById("questionModal")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(QuestionModal, {}), document.getElementById("questionModal"));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(QuestionModal, {}), document.getElementById("questionModal"));
 }
 
 /***/ }),
