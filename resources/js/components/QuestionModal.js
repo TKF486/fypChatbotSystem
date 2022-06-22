@@ -12,6 +12,7 @@ import {
     Label,
 } from "reactstrap";
 import axios from "axios";
+import AddQuestionModal from "./NewQuestionModal";
 
 export default class QuestionModal extends Component {
     constructor() {
@@ -109,7 +110,7 @@ export default class QuestionModal extends Component {
         });
         return (
             <div className="container">
-                {/* <Addpostmodal /> */}
+                <AddQuestionModal />
                 <Modal
                     isOpen={this.state.updateQuestionModal}
                     toggle={this.toggleUpdateQuestionModal.bind(this)}
