@@ -10,6 +10,9 @@ import {
     Input,
     FormGroup,
     Label,
+    Nav,
+    NavItem,
+    NavLink,
 } from "reactstrap";
 import axios from "axios";
 
@@ -136,131 +139,159 @@ export default class QuestionModal extends Component {
         });
         return (
             <div className="container">
-                {/* <AddQuestionModal /> */}
-                <Button
-                    color="primary"
-                    onClick={this.togglenewQuestionModal.bind(this)}
-                >
-                    Add Question
-                </Button>
+                <div className="sidebar">
+                    <p className="sidebar_welcome">Welcome Back xx</p>
+                    <Nav vertical>
+                        <NavItem>
+                            <NavLink href="#">Dashboard</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="#">Database</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="#">Logout</NavLink>
+                        </NavItem>
+                        {/* <NavItem>
+                            <NavLink disabled href="#">
+                                Disabled Link
+                            </NavLink>
+                        </NavItem> */}
+                    </Nav>
+                </div>
 
-                <Modal
-                    isOpen={this.state.newQuestionModal}
-                    toggle={this.togglenewQuestionModal.bind(this)}
-                >
-                    <ModalHeader
+                <div className="main">
+                    <h1>Database</h1>
+                    <Button
+                        color="primary"
+                        onClick={this.togglenewQuestionModal.bind(this)}
+                    >
+                        Add Question
+                    </Button>
+
+                    <Modal
+                        isOpen={this.state.newQuestionModal}
                         toggle={this.togglenewQuestionModal.bind(this)}
                     >
-                        {" "}
-                        Add New Question
-                    </ModalHeader>
-                    <ModalBody>
-                        <FormGroup>
-                            <Label for="question">Question</Label>
-                            <Input
-                                id="question"
-                                value={this.state.newQuestionData.title}
-                                onChange={(e) => {
-                                    let { newQuestionData } = this.state;
-                                    newQuestionData.question = e.target.value;
-                                    this.setState({ newQuestionData });
-                                }}
-                            ></Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="answer">Answer</Label>
-                            <Input
-                                id="answer"
-                                value={this.state.newQuestionData.answer}
-                                onChange={(e) => {
-                                    let { newQuestionData } = this.state;
-                                    newQuestionData.answer = e.target.value;
-                                    this.setState({ newQuestionData });
-                                }}
-                            ></Input>
-                        </FormGroup>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button
-                            color="primary"
-                            onClick={this.addQuestion.bind(this)}
-                        >
-                            Add Question{" "}
-                        </Button>{" "}
-                        <Button
-                            color="secondary"
-                            onClick={this.togglenewQuestionModal.bind(this)}
+                        <ModalHeader
+                            toggle={this.togglenewQuestionModal.bind(this)}
                         >
                             {" "}
-                            Cancel{" "}
-                        </Button>
-                    </ModalFooter>
-                </Modal>
+                            Add New Question
+                        </ModalHeader>
+                        <ModalBody>
+                            <FormGroup>
+                                <Label for="question">Question</Label>
+                                <Input
+                                    id="question"
+                                    value={this.state.newQuestionData.title}
+                                    onChange={(e) => {
+                                        let { newQuestionData } = this.state;
+                                        newQuestionData.question =
+                                            e.target.value;
+                                        this.setState({ newQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="answer">Answer</Label>
+                                <Input
+                                    id="answer"
+                                    value={this.state.newQuestionData.answer}
+                                    onChange={(e) => {
+                                        let { newQuestionData } = this.state;
+                                        newQuestionData.answer = e.target.value;
+                                        this.setState({ newQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button
+                                color="primary"
+                                onClick={this.addQuestion.bind(this)}
+                            >
+                                Add Question{" "}
+                            </Button>{" "}
+                            <Button
+                                color="secondary"
+                                onClick={this.togglenewQuestionModal.bind(this)}
+                            >
+                                {" "}
+                                Cancel{" "}
+                            </Button>
+                        </ModalFooter>
+                    </Modal>
 
-                <Modal
-                    isOpen={this.state.updateQuestionModal}
-                    toggle={this.toggleUpdateQuestionModal.bind(this)}
-                >
-                    <ModalHeader
+                    <Modal
+                        isOpen={this.state.updateQuestionModal}
                         toggle={this.toggleUpdateQuestionModal.bind(this)}
                     >
-                        {" "}
-                        Update New Question
-                    </ModalHeader>
-                    <ModalBody>
-                        <FormGroup>
-                            <Label for="question">Question</Label>
-                            <Input
-                                id="question"
-                                value={this.state.updateQuestionData.question}
-                                onChange={(e) => {
-                                    let { updateQuestionData } = this.state;
-                                    updateQuestionData.question =
-                                        e.target.value;
-                                    this.setState({ updateQuestionData });
-                                }}
-                            ></Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="content">Answer</Label>
-                            <Input
-                                id="answer"
-                                value={this.state.updateQuestionData.answer}
-                                onChange={(e) => {
-                                    let { updateQuestionData } = this.state;
-                                    updateQuestionData.answer = e.target.value;
-                                    this.setState({ updateQuestionData });
-                                }}
-                            ></Input>
-                        </FormGroup>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button
-                            color="primary"
-                            onClick={this.updateQuestion.bind(this)}
-                        >
-                            Update Question{" "}
-                        </Button>{" "}
-                        <Button
-                            color="secondary"
-                            onClick={this.toggleUpdateQuestionModal.bind(this)}
+                        <ModalHeader
+                            toggle={this.toggleUpdateQuestionModal.bind(this)}
                         >
                             {" "}
-                            Cancel{" "}
-                        </Button>
-                    </ModalFooter>
-                </Modal>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Question</th>
-                            <th>Answer</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>{questions}</tbody>
-                </Table>
+                            Update New Question
+                        </ModalHeader>
+                        <ModalBody>
+                            <FormGroup>
+                                <Label for="question">Question</Label>
+                                <Input
+                                    id="question"
+                                    value={
+                                        this.state.updateQuestionData.question
+                                    }
+                                    onChange={(e) => {
+                                        let { updateQuestionData } = this.state;
+                                        updateQuestionData.question =
+                                            e.target.value;
+                                        this.setState({ updateQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="content">Answer</Label>
+                                <Input
+                                    id="answer"
+                                    value={this.state.updateQuestionData.answer}
+                                    onChange={(e) => {
+                                        let { updateQuestionData } = this.state;
+                                        updateQuestionData.answer =
+                                            e.target.value;
+                                        this.setState({ updateQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button
+                                color="primary"
+                                onClick={this.updateQuestion.bind(this)}
+                            >
+                                Update Question{" "}
+                            </Button>{" "}
+                            <Button
+                                color="secondary"
+                                onClick={this.toggleUpdateQuestionModal.bind(
+                                    this
+                                )}
+                            >
+                                {" "}
+                                Cancel{" "}
+                            </Button>
+                        </ModalFooter>
+                    </Modal>
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Question</th>
+                                <th>Answer</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>{questions}</tbody>
+                    </Table>
+                </div>
             </div>
         );
     }
