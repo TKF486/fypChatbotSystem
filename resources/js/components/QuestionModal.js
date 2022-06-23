@@ -12,7 +12,6 @@ import {
     Label,
 } from "reactstrap";
 import axios from "axios";
-// import AddQuestionModal from "./NewQuestionModal";
 
 export default class QuestionModal extends Component {
     constructor() {
