@@ -102,6 +102,7 @@ export default class QuestionModal extends Component {
         let questions = this.state.questions.map((question) => {
             return (
                 <tr key={question.id}>
+                    <td>{question.id}</td>
                     <td>{question.question}</td>
                     <td>{question.answer}</td>
                     <td>
@@ -255,6 +256,7 @@ export default class QuestionModal extends Component {
                             <th>ID</th>
                             <th>Question</th>
                             <th>Answer</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>{questions}</tbody>
