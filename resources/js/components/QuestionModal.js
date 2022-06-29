@@ -15,6 +15,7 @@ import {
     NavLink,
 } from "reactstrap";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 export default class QuestionModal extends Component {
     constructor() {
@@ -139,26 +140,7 @@ export default class QuestionModal extends Component {
         });
         return (
             <div className="container">
-                <div className="sidebar">
-                    <p className="sidebar_welcome">Welcome Back xx</p>
-                    <Nav vertical>
-                        <NavItem>
-                            <NavLink href="#">Dashboard</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">Database</NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink href="#">Logout</NavLink>
-                        </NavItem>
-                        {/* <NavItem>
-                            <NavLink disabled href="#">
-                                Disabled Link
-                            </NavLink>
-                        </NavItem> */}
-                    </Nav>
-                </div>
-
+                <NavBar />
                 <div className="main">
                     <h1>Database</h1>
                     <Button

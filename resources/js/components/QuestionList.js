@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Accordion from "react-bootstrap/Accordion";
 import axios from "axios";
+import NavBar from "./NavBar";
 
 export default class QuestionList extends Component {
     constructor() {
@@ -33,6 +34,8 @@ export default class QuestionList extends Component {
         });
         return (
             <div className="container">
+                {/* <NavBar /> */}
+                <h1>FAQ LIST</h1>
                 <Accordion defaultActiveKey="0">{questions}</Accordion>
             </div>
         );

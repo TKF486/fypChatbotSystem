@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\QuestionController;
+use App\Http\controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\controllers\QuestionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('view');
 });
 
 Route::get('/view', function () {
@@ -27,6 +28,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('questions', [QuestionController::class, 'index']);
-// Route::get('/question/create', [QuestionController::class, 'create']);
-// Route::get('/question/edit', [QuestionController::class, 'edit']);
-// Route::delete('/question/{id}', [QuestionController::class, 'destroy']);
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Auth::routes();
+
+Route::group(['middleware' => ['admin']], function () {
+    Route::get('/', [HomeController::class, 'adminView'])->name('admin.view');
+ });
