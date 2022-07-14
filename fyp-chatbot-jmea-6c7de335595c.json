@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fyp-chatbot-jmea",
+  "private_key_id": "6c7de335595c6f6fdc4e5be50fb983efe5e2c015",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD3Il7dNZwY5HbN\nXRHUJDIwfThB0t4R7psm12qnHTfOeOtcrxuVEPrMs00am873b/j9vgab95Bs5lf2\nI2JhZMC0J5PUt2iA2fnRuMIDUxptOFtghsMPdHMivFHDrqywJMynbv3k1UX8dSTi\naAFjHqfnCmWzKoMn+uzgHGz8aLT0+m7PWqip0WAkBJoDv8RIacA5H9UUH812hgrA\nqyHO8z57eBf/L4Oa187WAa/o3AyypTuuQU02KrQLxX+IyXtbccm4BmPER1x939c0\nTj/mUnzEi8ebpevSyE9cJr7hoD53pzvYMbIbvUa288/oQHv8CYkRwjhPke8RWb2g\noh/byR4TAgMBAAECggEAInsxMTwho3d8+/pYWnkSZ6GRD94UDfx0uV6lCtwQxUYp\n0Ky99HaCB72crHHA1tVQsFarJWfNRuR8sWMOfvhHytsazTsp4ZCIQrK8nyohLcwH\nM9iZrrZYuif8YIkmnw0DYPkjg6IeObM+ijhouSO12Y6h0fXEhveDxWEx86XIWcWx\nLpj4YZffS3XPYgnSYFqVulj7sC4MXP+xtCyJaa9Hemtw7grQC4AiLKkLtawunr3o\nblPfZ8j8xQuLH4p3gK2/3gMGcQ+la5f40quiuSyQl+dPVYJNB8u6mbp51tjrkPhS\nHZnelp1B8+XTK3j4enNkMXGqEu4DtJuvcvPMw3NyAQKBgQD+aXQBVXg4jgcZTRdW\nCZ1Dh49xn10udq7URMW4K1rfuzTG9nnPYvh2Nb5krRoGmXfCOynGTPdtusBUWboJ\ndhPN1Dhpuxhd5REzGNCwpKjC4uabDI63Mp+2GG7sk48eJEDu9p2hjHA/S4I2BARQ\nPCe+mWNGMXwIqNvTnI3yOCnxcwKBgQD4rUmth2giyghl11L5RWEIwxHmOSKT8H86\naDxhoDdbkV7+y3Xs7i4/2tp28aBOzrExb5yhPLsZIRTXjlDfGzKEoabhgi6WzqIr\nwqw3/ynJ4d80Q1ejbt0Nk8IGOrphrDUp/+1P7ihIHYH6KcZAQlluDvCnLqgxJDKL\nwwk2K8p44QKBgQDSJ1nkIC4GyYujosK8F4UI21nqibH3R6JzRbvtviJ63bFjCQbm\nAOMtAogbscHl4a/Diguf+sQIqFNnWhcK6bbCN6PB8wLVzPrAMqdwwxOEqNnFCkJ5\noh+708MNOXbndxsMSjs7zz6Jil4tMHQ/svFByILw4L+Mh6/OxWubwjkjcQKBgFo3\ng+NQnJcCdMl9tLx6Txm+q1+6mrDRL1chOcaxOWQe+Te22LF8N4sy+s7sGhx9IAuv\nUkOspLQZLFaHaw+F7m3vt3tYn05W6L63gYNPLvnu1+s+Ay1nqwqh8GISLEwDDcaO\n8qls3XBMRDtdrG7jo04qXWRJqPsrBqtttonQmUQBAoGBAIBL3faCc3Mdn24KnTa4\njYM+NZz+FyWBi0jjoYgxjf2IMmj0s/9TbD2sh1V5yJnNsraN1hm+7x8ubeZvZE2h\nXFPLmjT96O0cB4SnC06eF0rSRJoL6eJsmxV2kHy6LArOwCO5qTUBtB673BMbnkan\nN4n9OgCXHE/L8+Zdo2Wv+ENt\n-----END PRIVATE KEY-----\n",
+  "client_email": "fyp-chatbot@fyp-chatbot-jmea.iam.gserviceaccount.com",
+  "client_id": "105837502146898803017",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fyp-chatbot%40fyp-chatbot-jmea.iam.gserviceaccount.com"
+}

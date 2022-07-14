@@ -2,15 +2,23 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "botman/botman": "^2.7",
+        "botman/driver-web": "^1.5",
+        "botman/tinker": "dev-master",
         "fruitcake/laravel-cors": "^2.0",
+        "google/cloud-dialogflow": "^0.27.1",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "vincechen/botman-studio-dialogflow-v2": "^0.2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

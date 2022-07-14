@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\QuestionController;
 use App\Http\controllers\HomeController;
+use App\Http\controllers\BotManController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,6 @@ use App\Http\controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('view');
 });
@@ -23,15 +23,13 @@ Route::get('/view', function () {
     return view('view');
 });
 
-
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('questions', [QuestionController::class, 'index']);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle'])->name('botman');
 Auth::routes();
 
 Route::group(['middleware' => ['admin']], function () {
     Route::get('/', [HomeController::class, 'adminView'])->name('admin.view');
  });
+
