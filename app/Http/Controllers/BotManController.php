@@ -7,6 +7,7 @@ use Dialogflow2\DialogFlowV2;
 use BotMan\BotMan\Cache\LaravelCache;
 use BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Messages\Conversations\InlineConversation;
 
 class BotManController extends Controller
 {
@@ -33,10 +34,10 @@ class BotManController extends Controller
             $bot->reply($apiReply);
         })->middleware($dialogFlow);
 
-        $botman->hears('input.welcome', function ($bot) {
-            $bot->reply('yo wasupssss!');
-            // $bot->userStorage()->delete();
-        })->middleware($dialogFlow);
+        // $botman->hears('input.welcome', function ($bot) {
+        //     $bot->reply('yo wasupssss!');
+        //     // $bot->userStorage()->delete();
+        // })->middleware($dialogFlow);
 
         $botman->hears('AgeSearch', function ($bot) {
             $bot->reply('my age is unknown!');
@@ -47,7 +48,10 @@ class BotManController extends Controller
         $botman->fallback(function ($bot) {
             $bot->reply(__('Sorry, I did not understand you. Please try again.'));
         });
-        
+
+        $botman->hears('Hello', function($bot) {
+            $bot->startConversation(new InlineConversation);
+        });
         
         $botman->listen();
     }
