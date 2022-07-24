@@ -7,7 +7,7 @@ use Dialogflow2\DialogFlowV2;
 use BotMan\BotMan\Cache\LaravelCache;
 use BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
-use BotMan\BotMan\Messages\Conversations\InlineConversation;
+use App\Http\Conversations\InlineConversation;
 
 class BotManController extends Controller
 {
