@@ -8,6 +8,7 @@ use BotMan\BotMan\Cache\LaravelCache;
 use BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use App\Http\Conversations\InlineConversation;
+use App\Http\Conversations\HelpConversation;
 
 class BotManController extends Controller
 {
@@ -44,6 +45,10 @@ class BotManController extends Controller
             // $bot->userStorage()->delete();
         })->middleware($dialogFlow);
 
+        $botman->hears('help', function ($bot) {
+            $bot->startConversation(new HelpConversation);
+            // $bot->userStorage()->delete();
+        })->middleware($dialogFlow);
 
         $botman->fallback(function ($bot) {
             $bot->reply(__('Sorry, I did not understand you. Please try again.'));
