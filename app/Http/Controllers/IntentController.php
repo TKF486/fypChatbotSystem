@@ -89,43 +89,6 @@ function intent_create($projectId, $displayName, $trainingPhraseParts, $messageT
    return $intentID;
 }
 
-    function detect_intent_texts($projectId = 'fyp-chatbot-jmea', $text = 'hi', $sessionId = '123456', $languageCode = 'en-US')
-{
-    // new session
-    $test = array('credentials' => 'F:/GITHUB/fypChatbotSystem/fyp-chatbot-jmea-6c7de335595c.json');
-    $sessionsClient = new SessionsClient($test);
-    $session = $sessionsClient->sessionName($projectId, $sessionId ?: uniqid());
-    printf('Session path: %s' . PHP_EOL, $session);
-
-    // create text input
-    $textInput = new TextInput();
-    $textInput->setText($text);
-    $textInput->setLanguageCode($languageCode);
-
-    // create query input
-    $queryInput = new QueryInput();
-    $queryInput->setText($textInput);
-
-    // get response and relevant info
-    $response = $sessionsClient->detectIntent($session, $queryInput);
-    $queryResult = $response->getQueryResult();
-    $queryText = $queryResult->getQueryText();
-    $intent = $queryResult->getIntent();
-    $displayName = $intent->getDisplayName();
-    $confidence = $queryResult->getIntentDetectionConfidence();
-    $fulfilmentText = $queryResult->getFulfillmentText();
-
-    // output relevant info
-    print(str_repeat("=", 20) . PHP_EOL);
-    printf('Query text: %s' . PHP_EOL, $queryText);
-    printf('Detected intent: %s (confidence: %f)' . PHP_EOL, $displayName,
-        $confidence);
-    print(PHP_EOL);
-    printf('Fulfilment text: %s' . PHP_EOL, $fulfilmentText);
-
-    $sessionsClient->close();
-}
-
 function intent_delete($projectId = 'fyp-chatbot-jmea', $intentId)
 {
     $intentsClient = new IntentsClient();
@@ -134,4 +97,50 @@ function intent_delete($projectId = 'fyp-chatbot-jmea', $intentId)
     printf('Intent deleted: %s' . PHP_EOL, $intentName);
     $intentsClient->close();
 }
+
+function intent_update($projectId = 'fyp-chatbot-jmea', $intentId)
+{
+    $intentsClient = new IntentsClient();
+    $intentName = $intentsClient->intentName($projectId, $intentId);
+    $intentsClient->deleteIntent($intentName);
+    printf('Intent deleted: %s' . PHP_EOL, $intentName);
+    $intentsClient->close();
+}
+
+//     function detect_intent_texts($projectId = 'fyp-chatbot-jmea', $text = 'hi', $sessionId = '123456', $languageCode = 'en-US')
+// {
+//     // new session
+//     $test = array('credentials' => 'F:/GITHUB/fypChatbotSystem/fyp-chatbot-jmea-6c7de335595c.json');
+//     $sessionsClient = new SessionsClient($test);
+//     $session = $sessionsClient->sessionName($projectId, $sessionId ?: uniqid());
+//     printf('Session path: %s' . PHP_EOL, $session);
+
+//     // create text input
+//     $textInput = new TextInput();
+//     $textInput->setText($text);
+//     $textInput->setLanguageCode($languageCode);
+
+//     // create query input
+//     $queryInput = new QueryInput();
+//     $queryInput->setText($textInput);
+
+//     // get response and relevant info
+//     $response = $sessionsClient->detectIntent($session, $queryInput);
+//     $queryResult = $response->getQueryResult();
+//     $queryText = $queryResult->getQueryText();
+//     $intent = $queryResult->getIntent();
+//     $displayName = $intent->getDisplayName();
+//     $confidence = $queryResult->getIntentDetectionConfidence();
+//     $fulfilmentText = $queryResult->getFulfillmentText();
+
+//     // output relevant info
+//     print(str_repeat("=", 20) . PHP_EOL);
+//     printf('Query text: %s' . PHP_EOL, $queryText);
+//     printf('Detected intent: %s (confidence: %f)' . PHP_EOL, $displayName,
+//         $confidence);
+//     print(PHP_EOL);
+//     printf('Fulfilment text: %s' . PHP_EOL, $fulfilmentText);
+
+//     $sessionsClient->close();
+// }
 }
