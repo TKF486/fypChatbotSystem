@@ -5387,10 +5387,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/dist/reactstrap.modern.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var reactstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reactstrap */ "./node_modules/reactstrap/dist/reactstrap.modern.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5419,7 +5417,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var NavBar = /*#__PURE__*/function (_Component) {
   _inherits(NavBar, _Component);
 
@@ -5434,31 +5431,31 @@ var NavBar = /*#__PURE__*/function (_Component) {
   _createClass(NavBar, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "sidebar",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
           className: "sidebar_welcome",
           children: "Welcome Back Admin"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.Nav, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.Nav, {
           vertical: true,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavItem, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavItem, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
               href: "#",
               children: "Dashboard"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavItem, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavItem, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
               href: "../",
               children: "Database"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavItem, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavItem, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
               href: "/view",
               target: "_blank",
               children: "FAQ View List"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavItem, {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavItem, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
               href: "/logout",
               children: "Logout"
             })
@@ -5474,7 +5471,7 @@ var NavBar = /*#__PURE__*/function (_Component) {
 
 
 if (document.getElementById("navbar")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(NavBar, {}), document.getElementById("navbar"));
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(NavBar, {}), document.getElementById("navbar"));
 }
 
 /***/ }),
@@ -5660,13 +5657,21 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       newQuestionModal: false,
       newQuestionData: {
         id: "",
-        question: "",
-        answer: ""
+        intentName: "",
+        trainingPhrase1: "",
+        trainingPhrase2: "",
+        trainingPhrase3: "",
+        trainingPhrase4: "",
+        response: ""
       },
       updateQuestionData: {
         id: "",
-        question: "",
-        answer: ""
+        intentName: "",
+        trainingPhrase1: "",
+        trainingPhrase2: "",
+        trainingPhrase3: "",
+        trainingPhrase4: "",
+        response: ""
       },
       updateQuestionModal: false
     };
@@ -5690,7 +5695,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
-        // console.log("Load part...");
+        console.log(_this3.state.newQuestionData);
         var questions = _this3.state.questions;
 
         _this3.loadQuestion();
@@ -5700,8 +5705,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           newQuestionModal: false,
           newQuestionData: {
             id: "",
-            question: "",
-            answer: ""
+            intentName: "",
+            trainingPhrase1: "",
+            trainingPhrase2: "",
+            trainingPhrase3: "",
+            trainingPhrase4: "",
+            response: ""
           }
         });
       });
@@ -5715,12 +5724,16 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "callUpdateQuestion",
-    value: function callUpdateQuestion(id, question, answer) {
+    value: function callUpdateQuestion(id, intentName, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
       this.setState({
         updateQuestionData: {
           id: id,
-          question: question,
-          answer: answer
+          intentName: intentName,
+          trainingPhrase1: trainingPhrase1,
+          trainingPhrase2: trainingPhrase2,
+          trainingPhrase3: trainingPhrase3,
+          trainingPhrase4: trainingPhrase4,
+          response: response
         },
         updateQuestionModal: !this.state.updateQuestionModal
       });
@@ -5732,11 +5745,19 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
 
       var _this$state$updateQue = this.state.updateQuestionData,
           id = _this$state$updateQue.id,
-          question = _this$state$updateQue.question,
-          answer = _this$state$updateQue.answer;
+          intentName = _this$state$updateQue.intentName,
+          trainingPhrase1 = _this$state$updateQue.trainingPhrase1,
+          trainingPhrase2 = _this$state$updateQue.trainingPhrase2,
+          trainingPhrase3 = _this$state$updateQue.trainingPhrase3,
+          trainingPhrase4 = _this$state$updateQue.trainingPhrase4,
+          response = _this$state$updateQue.response;
       axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
-        question: question,
-        answer: answer
+        intentName: intentName,
+        trainingPhrase1: trainingPhrase1,
+        trainingPhrase2: trainingPhrase2,
+        trainingPhrase3: trainingPhrase3,
+        trainingPhrase4: trainingPhrase4,
+        response: response
       }).then(function (response) {
         _this4.loadQuestion();
 
@@ -5744,8 +5765,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           updateQuestionModal: false,
           updateQuestionData: {
             id: "",
-            question: "",
-            answer: ""
+            intentName: "",
+            trainingPhrase1: "",
+            trainingPhrase2: "",
+            trainingPhrase3: "",
+            trainingPhrase4: "",
+            response: ""
           }
         });
       });
@@ -5781,15 +5806,23 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.id
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-            children: question.question
+            children: question.intentName
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-            children: question.answer
+            children: question.trainingPhrase1
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: question.trainingPhrase2
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: question.trainingPhrase3
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: question.trainingPhrase4
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: question.response
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
               color: "success",
               size: "sm",
               outline: true,
-              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.question, question.answer),
+              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
               children: "Edit"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
               color: "danger",
@@ -5820,14 +5853,14 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalBody, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
-                  "for": "question",
-                  children: "Question"
+                  "for": "intentName",
+                  children: "intentName"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
-                  id: "question",
-                  value: this.state.newQuestionData.title,
+                  id: "intentName",
+                  value: this.state.newQuestionData.intentName,
                   onChange: function onChange(e) {
                     var newQuestionData = _this6.state.newQuestionData;
-                    newQuestionData.question = e.target.value;
+                    newQuestionData.intentName = e.target.value;
 
                     _this6.setState({
                       newQuestionData: newQuestionData
@@ -5836,14 +5869,78 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
-                  "for": "answer",
-                  children: "Answer"
+                  "for": "trainingPhrase1",
+                  children: "trainingPhrase1"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
-                  id: "answer",
-                  value: this.state.newQuestionData.answer,
+                  id: "trainingPhrase1",
+                  value: this.state.newQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
                     var newQuestionData = _this6.state.newQuestionData;
-                    newQuestionData.answer = e.target.value;
+                    newQuestionData.trainingPhrase1 = e.target.value;
+
+                    _this6.setState({
+                      newQuestionData: newQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "trainingPhrase2",
+                  children: "trainingPhrase2"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "trainingPhrase2",
+                  value: this.state.newQuestionData.trainingPhrase2,
+                  onChange: function onChange(e) {
+                    var newQuestionData = _this6.state.newQuestionData;
+                    newQuestionData.trainingPhrase2 = e.target.value;
+
+                    _this6.setState({
+                      newQuestionData: newQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "trainingPhrase3",
+                  children: "trainingPhrase3"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "trainingPhrase3",
+                  value: this.state.newQuestionData.trainingPhrase3,
+                  onChange: function onChange(e) {
+                    var newQuestionData = _this6.state.newQuestionData;
+                    newQuestionData.trainingPhrase3 = e.target.value;
+
+                    _this6.setState({
+                      newQuestionData: newQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "trainingPhrase4",
+                  children: "trainingPhrase4"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "trainingPhrase4",
+                  value: this.state.newQuestionData.trainingPhrase4,
+                  onChange: function onChange(e) {
+                    var newQuestionData = _this6.state.newQuestionData;
+                    newQuestionData.trainingPhrase4 = e.target.value;
+
+                    _this6.setState({
+                      newQuestionData: newQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "response",
+                  children: "response"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "response",
+                  value: this.state.newQuestionData.response,
+                  onChange: function onChange(e) {
+                    var newQuestionData = _this6.state.newQuestionData;
+                    newQuestionData.response = e.target.value;
 
                     _this6.setState({
                       newQuestionData: newQuestionData
@@ -5871,14 +5968,14 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalBody, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
-                  "for": "question",
-                  children: "Question"
+                  "for": "intentName",
+                  children: "intentName"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
-                  id: "question",
-                  value: this.state.updateQuestionData.question,
+                  id: "intentName",
+                  value: this.state.updateQuestionData.intentName,
                   onChange: function onChange(e) {
                     var updateQuestionData = _this6.state.updateQuestionData;
-                    updateQuestionData.question = e.target.value;
+                    updateQuestionData.intentName = e.target.value;
 
                     _this6.setState({
                       updateQuestionData: updateQuestionData
@@ -5887,14 +5984,78 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
-                  "for": "content",
-                  children: "Answer"
+                  "for": "trainingPhrase1",
+                  children: "trainingPhrase1"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
-                  id: "answer",
-                  value: this.state.updateQuestionData.answer,
+                  id: "trainingPhrase1",
+                  value: this.state.updateQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
                     var updateQuestionData = _this6.state.updateQuestionData;
-                    updateQuestionData.answer = e.target.value;
+                    updateQuestionData.trainingPhrase1 = e.target.value;
+
+                    _this6.setState({
+                      updateQuestionData: updateQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "trainingPhrase2",
+                  children: "trainingPhrase2"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "trainingPhrase2",
+                  value: this.state.updateQuestionData.trainingPhrase2,
+                  onChange: function onChange(e) {
+                    var updateQuestionData = _this6.state.updateQuestionData;
+                    updateQuestionData.trainingPhrase2 = e.target.value;
+
+                    _this6.setState({
+                      updateQuestionData: updateQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "trainingPhrase3",
+                  children: "trainingPhrase3"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "trainingPhrase3",
+                  value: this.state.updateQuestionData.trainingPhrase3,
+                  onChange: function onChange(e) {
+                    var updateQuestionData = _this6.state.updateQuestionData;
+                    updateQuestionData.trainingPhrase3 = e.target.value;
+
+                    _this6.setState({
+                      updateQuestionData: updateQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "trainingPhrase4",
+                  children: "trainingPhrase4"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "trainingPhrase4",
+                  value: this.state.updateQuestionData.trainingPhrase4,
+                  onChange: function onChange(e) {
+                    var updateQuestionData = _this6.state.updateQuestionData;
+                    updateQuestionData.trainingPhrase4 = e.target.value;
+
+                    _this6.setState({
+                      updateQuestionData: updateQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "response",
+                  children: "response"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "response",
+                  value: this.state.updateQuestionData.response,
+                  onChange: function onChange(e) {
+                    var updateQuestionData = _this6.state.updateQuestionData;
+                    updateQuestionData.response = e.target.value;
 
                     _this6.setState({
                       updateQuestionData: updateQuestionData
@@ -5919,11 +6080,17 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "ID"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                  children: "Question"
+                  children: "intentName"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                  children: "Answer"
+                  children: "trainingPhrase1"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                  children: "Action"
+                  children: "trainingPhrase2"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "trainingPhrase3"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "trainingPhrase4"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "response"
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {

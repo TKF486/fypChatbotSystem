@@ -60,7 +60,7 @@ class IntentController extends Controller
 //         }
 // }
 
-function intent_create($projectId = 'fyp-chatbot-jmea', $displayName = 'fuckIntent', $trainingPhraseParts = ['fuck', 'my pussy is so wet'],
+function intent_create($projectId = 'fyp-chatbot-jmea', $displayName = 'fuckIntent', $trainingPhraseParts = ['fuck'],
     $messageTexts = ['nice, lets fuck!'])
 {
     $intentsClient = new IntentsClient();

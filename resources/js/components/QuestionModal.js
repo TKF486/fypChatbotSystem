@@ -23,8 +23,24 @@ export default class QuestionModal extends Component {
         this.state = {
             questions: [],
             newQuestionModal: false,
-            newQuestionData: { id: "", question: "", answer: "" },
-            updateQuestionData: { id: "", question: "", answer: "" },
+            newQuestionData: {
+                id: "",
+                intentName: "",
+                trainingPhrase1: "",
+                trainingPhrase2: "",
+                trainingPhrase3: "",
+                trainingPhrase4: "",
+                response: "",
+            },
+            updateQuestionData: {
+                id: "",
+                intentName: "",
+                trainingPhrase1: "",
+                trainingPhrase2: "",
+                trainingPhrase3: "",
+                trainingPhrase4: "",
+                response: "",
+            },
             updateQuestionModal: false,
         };
     }
@@ -43,13 +59,21 @@ export default class QuestionModal extends Component {
                 this.state.newQuestionData
             )
             .then((response) => {
-                // console.log("Load part...");
+                // console.log(this.state.newQuestionData);
                 let { questions } = this.state;
                 this.loadQuestion();
                 this.setState({
                     questions,
                     newQuestionModal: false,
-                    newQuestionData: { id: "", question: "", answer: "" },
+                    newQuestionData: {
+                        id: "",
+                        intentName: "",
+                        trainingPhrase1: "",
+                        trainingPhrase2: "",
+                        trainingPhrase3: "",
+                        trainingPhrase4: "",
+                        response: "",
+                    },
                 });
             });
     }
@@ -60,19 +84,50 @@ export default class QuestionModal extends Component {
         });
     }
 
-    callUpdateQuestion(id, question, answer) {
+    callUpdateQuestion(
+        id,
+        intentName,
+        trainingPhrase1,
+        trainingPhrase2,
+        trainingPhrase3,
+        trainingPhrase4,
+        response
+    ) {
         this.setState({
-            updateQuestionData: { id, question, answer },
+            updateQuestionData: {
+                id,
+                intentName,
+                trainingPhrase1,
+                trainingPhrase2,
+                trainingPhrase3,
+                trainingPhrase4,
+                response,
+            },
             updateQuestionModal: !this.state.updateQuestionModal,
         });
     }
     updateQuestion() {
-        let { id, question, answer } = this.state.updateQuestionData;
+        let {
+            id,
+            intentName,
+            trainingPhrase1,
+            trainingPhrase2,
+            trainingPhrase3,
+            trainingPhrase4,
+            response,
+        } = this.state.updateQuestionData;
         axios
             .put(
                 "http://127.0.0.1:8000/api/questionUpdate/" +
                     this.state.updateQuestionData.id,
-                { question, answer }
+                {
+                    intentName,
+                    trainingPhrase1,
+                    trainingPhrase2,
+                    trainingPhrase3,
+                    trainingPhrase4,
+                    response,
+                }
             )
             .then((response) => {
                 this.loadQuestion();
@@ -80,8 +135,12 @@ export default class QuestionModal extends Component {
                     updateQuestionModal: false,
                     updateQuestionData: {
                         id: "",
-                        question: "",
-                        answer: "",
+                        intentName: "",
+                        trainingPhrase1: "",
+                        trainingPhrase2: "",
+                        trainingPhrase3: "",
+                        trainingPhrase4: "",
+                        response: "",
                     },
                 });
             });
@@ -107,8 +166,12 @@ export default class QuestionModal extends Component {
             return (
                 <tr key={question.id}>
                     <td>{question.id}</td>
-                    <td>{question.question}</td>
-                    <td>{question.answer}</td>
+                    <td>{question.intentName}</td>
+                    <td>{question.trainingPhrase1}</td>
+                    <td>{question.trainingPhrase2}</td>
+                    <td>{question.trainingPhrase3}</td>
+                    <td>{question.trainingPhrase4}</td>
+                    <td>{question.response}</td>
                     <td>
                         <Button
                             color="success"
@@ -117,8 +180,12 @@ export default class QuestionModal extends Component {
                             onClick={this.callUpdateQuestion.bind(
                                 this,
                                 question.id,
-                                question.question,
-                                question.answer
+                                question.intentName,
+                                question.trainingPhrase1,
+                                question.trainingPhrase2,
+                                question.trainingPhrase3,
+                                question.trainingPhrase4,
+                                question.response
                             )}
                         >
                             Edit
@@ -162,26 +229,105 @@ export default class QuestionModal extends Component {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup>
-                                <Label for="question">Question</Label>
+                                <Label for="intentName">intentName</Label>
                                 <Input
-                                    id="question"
-                                    value={this.state.newQuestionData.title}
+                                    id="intentName"
+                                    value={
+                                        this.state.newQuestionData.intentName
+                                    }
                                     onChange={(e) => {
                                         let { newQuestionData } = this.state;
-                                        newQuestionData.question =
+                                        newQuestionData.intentName =
                                             e.target.value;
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="answer">Answer</Label>
+                                <Label for="trainingPhrase1">
+                                    trainingPhrase1
+                                </Label>
                                 <Input
-                                    id="answer"
-                                    value={this.state.newQuestionData.answer}
+                                    id="trainingPhrase1"
+                                    value={
+                                        this.state.newQuestionData
+                                            .trainingPhrase1
+                                    }
                                     onChange={(e) => {
                                         let { newQuestionData } = this.state;
-                                        newQuestionData.answer = e.target.value;
+                                        newQuestionData.trainingPhrase1 =
+                                            e.target.value;
+                                        this.setState({ newQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="trainingPhrase2">
+                                    trainingPhrase2
+                                </Label>
+                                <Input
+                                    id="trainingPhrase2"
+                                    value={
+                                        this.state.newQuestionData
+                                            .trainingPhrase2
+                                    }
+                                    onChange={(e) => {
+                                        let { newQuestionData } = this.state;
+                                        newQuestionData.trainingPhrase2 =
+                                            e.target.value;
+                                        this.setState({ newQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="trainingPhrase3">
+                                    trainingPhrase3
+                                </Label>
+                                <Input
+                                    id="trainingPhrase3"
+                                    value={
+                                        this.state.newQuestionData
+                                            .trainingPhrase3
+                                    }
+                                    onChange={(e) => {
+                                        let { newQuestionData } = this.state;
+                                        newQuestionData.trainingPhrase3 =
+                                            e.target.value;
+                                        this.setState({ newQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="trainingPhrase4">
+                                    trainingPhrase4
+                                </Label>
+                                <Input
+                                    id="trainingPhrase4"
+                                    value={
+                                        this.state.newQuestionData
+                                            .trainingPhrase4
+                                    }
+                                    onChange={(e) => {
+                                        let { newQuestionData } = this.state;
+                                        newQuestionData.trainingPhrase4 =
+                                            e.target.value;
+                                        this.setState({ newQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="response">response</Label>
+                                <Input
+                                    id="response"
+                                    value={this.state.newQuestionData.response}
+                                    onChange={(e) => {
+                                        let { newQuestionData } = this.state;
+                                        newQuestionData.response =
+                                            e.target.value;
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
@@ -216,28 +362,106 @@ export default class QuestionModal extends Component {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup>
-                                <Label for="question">Question</Label>
+                                <Label for="intentName">intentName</Label>
                                 <Input
-                                    id="question"
+                                    id="intentName"
                                     value={
-                                        this.state.updateQuestionData.question
+                                        this.state.updateQuestionData.intentName
                                     }
                                     onChange={(e) => {
                                         let { updateQuestionData } = this.state;
-                                        updateQuestionData.question =
+                                        updateQuestionData.intentName =
                                             e.target.value;
                                         this.setState({ updateQuestionData });
                                     }}
                                 ></Input>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="content">Answer</Label>
+                                <Label for="trainingPhrase1">
+                                    trainingPhrase1
+                                </Label>
                                 <Input
-                                    id="answer"
-                                    value={this.state.updateQuestionData.answer}
+                                    id="trainingPhrase1"
+                                    value={
+                                        this.state.updateQuestionData
+                                            .trainingPhrase1
+                                    }
                                     onChange={(e) => {
                                         let { updateQuestionData } = this.state;
-                                        updateQuestionData.answer =
+                                        updateQuestionData.trainingPhrase1 =
+                                            e.target.value;
+                                        this.setState({ updateQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="trainingPhrase2">
+                                    trainingPhrase2
+                                </Label>
+                                <Input
+                                    id="trainingPhrase2"
+                                    value={
+                                        this.state.updateQuestionData
+                                            .trainingPhrase2
+                                    }
+                                    onChange={(e) => {
+                                        let { updateQuestionData } = this.state;
+                                        updateQuestionData.trainingPhrase2 =
+                                            e.target.value;
+                                        this.setState({ updateQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="trainingPhrase3">
+                                    trainingPhrase3
+                                </Label>
+                                <Input
+                                    id="trainingPhrase3"
+                                    value={
+                                        this.state.updateQuestionData
+                                            .trainingPhrase3
+                                    }
+                                    onChange={(e) => {
+                                        let { updateQuestionData } = this.state;
+                                        updateQuestionData.trainingPhrase3 =
+                                            e.target.value;
+                                        this.setState({ updateQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="trainingPhrase4">
+                                    trainingPhrase4
+                                </Label>
+                                <Input
+                                    id="trainingPhrase4"
+                                    value={
+                                        this.state.updateQuestionData
+                                            .trainingPhrase4
+                                    }
+                                    onChange={(e) => {
+                                        let { updateQuestionData } = this.state;
+                                        updateQuestionData.trainingPhrase4 =
+                                            e.target.value;
+                                        this.setState({ updateQuestionData });
+                                    }}
+                                ></Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="response">response</Label>
+                                <Input
+                                    id="response"
+                                    value={
+                                        this.state.updateQuestionData.response
+                                    }
+                                    onChange={(e) => {
+                                        let { updateQuestionData } = this.state;
+                                        updateQuestionData.response =
                                             e.target.value;
                                         this.setState({ updateQuestionData });
                                     }}
@@ -266,9 +490,12 @@ export default class QuestionModal extends Component {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Question</th>
-                                <th>Answer</th>
-                                <th>Action</th>
+                                <th>intentName</th>
+                                <th>trainingPhrase1</th>
+                                <th>trainingPhrase2</th>
+                                <th>trainingPhrase3</th>
+                                <th>trainingPhrase4</th>
+                                <th>response</th>
                             </tr>
                         </thead>
                         <tbody>{questions}</tbody>
