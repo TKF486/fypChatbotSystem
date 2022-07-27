@@ -98,13 +98,38 @@ function intent_delete($projectId = 'fyp-chatbot-jmea', $intentId)
     $intentsClient->close();
 }
 
-function intent_update($projectId = 'fyp-chatbot-jmea', $intentId)
+function intent_update($displayName, $trainingPhraseParts, $messageTexts, $intentObject)
 {
     $intentsClient = new IntentsClient();
-    $intentName = $intentsClient->intentName($projectId, $intentId);
-    $intentsClient->deleteIntent($intentName);
-    printf('Intent deleted: %s' . PHP_EOL, $intentName);
-    $intentsClient->close();
+    try {
+        // prepare training phrases for intent
+        $trainingPhrases = [];
+        foreach ($trainingPhraseParts as $trainingPhrasePart) {
+            $part = (new Part())
+                ->setText($trainingPhrasePart);
+
+            // create new training phrase for each provided part
+            $trainingPhrase = (new TrainingPhrase())
+                ->setParts([$part]);
+            $trainingPhrases[] = $trainingPhrase;
+        }
+
+         // prepare messages for intent
+        $text = (new Text())
+        ->setText($messageTexts);
+        $message = (new Message())
+        ->setText($text);
+
+        // prepare intent
+        $intent = $intentObject
+        ->setDisplayName($displayName)
+        ->setTrainingPhrases($trainingPhrases)
+        ->setMessages([$message]);
+
+        $response = $intentsClient->updateIntent($intent);
+    } finally {
+        $intentsClient->close();
+    }
 }
 
 //     function detect_intent_texts($projectId = 'fyp-chatbot-jmea', $text = 'hi', $sessionId = '123456', $languageCode = 'en-US')

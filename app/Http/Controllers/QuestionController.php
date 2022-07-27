@@ -70,7 +70,23 @@ class QuestionController extends Controller
     }
 
     public function update(Request $req, $id){
+        $projectId = 'fyp-chatbot-jmea';
+        $input = $req->all();
+        $displayName = $input['intentName'];
+        $trainingPhraseParts = [$input['trainingPhrase1'],$input['trainingPhrase2'],$input['trainingPhrase3'],$input['trainingPhrase4']];
+        $messageTexts = [$input['response']];
+
         $question = Question::findOrFail($id);
+        // $intentObject = Intent::findOrFail($id);
+        $intentID = $question['intentID'];   
+        $intentsClient = new IntentsClient();
+        try {
+            $formattedName = $intentsClient->intentName($projectId, $intentID);
+            $intentObject = $intentsClient->getIntent($formattedName);
+        } finally {
+            $intentsClient->close();
+        }
+        app('App\Http\Controllers\IntentController')->intent_update($displayName, $trainingPhraseParts, $messageTexts, $intentObject);
         $question->update($req->all());
         return $question;
     }
@@ -78,6 +94,7 @@ class QuestionController extends Controller
     public function destroy($id){
         $projectId = 'fyp-chatbot-jmea';
         $question = Question::findOrFail($id);
+        $intentObject = Intent::findOrFail($id);
         $intentID = $question['intentID'];   
         app('App\Http\Controllers\IntentController')->intent_delete($projectId, $intentID);
         $question->delete();
