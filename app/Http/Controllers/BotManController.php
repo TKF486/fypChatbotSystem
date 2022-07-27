@@ -35,11 +35,6 @@ class BotManController extends Controller
             $bot->reply($apiReply);
         })->middleware($dialogFlow);
 
-        // $botman->hears('input.welcome', function ($bot) {
-        //     $bot->reply('yo wasupssss!');
-        //     // $bot->userStorage()->delete();
-        // })->middleware($dialogFlow);
-
         $botman->hears('AgeSearch', function ($bot) {
             $bot->reply('my age is unknown!');
             // $bot->userStorage()->delete();
