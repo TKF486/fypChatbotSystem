@@ -48,19 +48,8 @@ use Google\Cloud\Dialogflow\V2\Intent\Message;
 
 class IntentController extends Controller
 {
-//     public function createIntents(){
-//         $intentsClient = new IntentsClient();
-//         try {
-//             $formattedParent = $intentsClient->agentName('fyp-chatbot-jmea');
-//             $intent = new Intent();
-//             $temp = $intent->setDisplayName("abcdef");
-//             $response = $intentsClient->createIntent($formattedParent, $temp);
-//         } finally {
-//             $intentsClient->close();
-//         }
-// }
 
-function intent_create($projectId = 'fyp-chatbot-jmea', $displayName, $trainingPhraseParts, $messageTexts)
+function intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts)
 {
     $intentsClient = new IntentsClient();
 
@@ -94,6 +83,17 @@ function intent_create($projectId = 'fyp-chatbot-jmea', $displayName, $trainingP
     // create intent
     $response = $intentsClient->createIntent($parent, $intent);
     printf('Intent created: %s' . PHP_EOL, $response->getName());
+
+    $intentsClient->close();
+}
+
+function intent_delete($projectId, $intentId)
+{
+    $intentsClient = new IntentsClient();
+    $intentName = $intentsClient->intentName($projectId, $intentId);
+
+    $intentsClient->deleteIntent($intentName);
+    printf('Intent deleted: %s' . PHP_EOL, $intentName);
 
     $intentsClient->close();
 }
