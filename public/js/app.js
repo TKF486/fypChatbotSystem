@@ -5950,21 +5950,6 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   onChange: function onChange(e) {
                     var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.response = e.target.value;
-
-                    _this6.setState({
-                      newQuestionData: newQuestionData
-                    });
-                  }
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
-                  "for": "intentID",
-                  children: "intentID"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
-                  id: "intentID",
-                  value: this.state.newQuestionData.intentID,
-                  onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.intentID = e.target.value;
 
                     _this6.setState({

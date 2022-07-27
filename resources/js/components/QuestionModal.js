@@ -338,12 +338,14 @@ export default class QuestionModal extends Component {
                                         let { newQuestionData } = this.state;
                                         newQuestionData.response =
                                             e.target.value;
+                                        newQuestionData.intentID =
+                                            e.target.value;
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
                             </FormGroup>
 
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="intentID">intentID</Label>
                                 <Input
                                     id="intentID"
@@ -355,7 +357,7 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
-                            </FormGroup>
+                            </FormGroup> */}
                         </ModalBody>
                         <ModalFooter>
                             <Button
