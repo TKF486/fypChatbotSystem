@@ -5695,7 +5695,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
-        console.log(_this3.state.newQuestionData);
+        // console.log(this.state.newQuestionData);
         var questions = _this3.state.questions;
 
         _this3.loadQuestion();

@@ -58,6 +58,7 @@ class QuestionController extends Controller
     }
 
     public function store(Request $req){
+        $projectId = 'fyp-chatbot-jmea';
         $input = $req->all();
         $displayName = $input['intentName'];
         $trainingPhraseParts = [$input['trainingPhrase1'],$input['trainingPhrase2'],$input['trainingPhrase3'],$input['trainingPhrase4']];
