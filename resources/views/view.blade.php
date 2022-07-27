@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{ url('css/customised.css') }}">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
+        <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> -->
         <title>React Posts</title>
 
         <!-- Fonts -->
@@ -24,11 +24,15 @@
     </head>
     <body class="antialiased">
         <div id="questionList"></div>
+     
     </body>
+
     <script src="/js/app.js"></script>
-    <script>
-var botmanWidget = {  
-};
-</script>
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-</html>
+
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+    intent="WELCOME"
+    chat-title="FYP_CHATBOT"
+    agent-id="6dfd7ef8-4a81-45a1-b2a8-594475d892c8"
+    language-code="en"
+    ></df-messenger>
