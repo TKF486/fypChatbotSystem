@@ -60,7 +60,7 @@ class IntentController extends Controller
 //         }
 // }
 
-function intent_create($projectId = 'fyp-chatbot-jmea', $displayName, $trainingPhraseParts, $messageTexts)
+function intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts)
 {
     $intentsClient = new IntentsClient();
 
@@ -94,8 +94,10 @@ function intent_create($projectId = 'fyp-chatbot-jmea', $displayName, $trainingP
     // create intent
     $response = $intentsClient->createIntent($parent, $intent);
     printf('Intent created: %s' . PHP_EOL, $response->getName());
-
-    $intentsClient->close();
+//    $intentFullPath = $response->getName();
+//    $intentID = substr($intentFullPath, strrpos($somestring, '/') + 1);
+   $intentsClient->close();
+//    return $intentID;
 }
 
     function detect_intent_texts($projectId = 'fyp-chatbot-jmea', $text = 'hi', $sessionId = '123456', $languageCode = 'en-US')
