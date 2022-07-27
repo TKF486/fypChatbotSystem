@@ -5658,6 +5658,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       newQuestionData: {
         id: "",
         intentName: "",
+        intentID: "",
         trainingPhrase1: "",
         trainingPhrase2: "",
         trainingPhrase3: "",
@@ -5667,6 +5668,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       updateQuestionData: {
         id: "",
         intentName: "",
+        intentID: "",
         trainingPhrase1: "",
         trainingPhrase2: "",
         trainingPhrase3: "",
@@ -5706,6 +5708,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           newQuestionData: {
             id: "",
             intentName: "",
+            intentID: "",
             trainingPhrase1: "",
             trainingPhrase2: "",
             trainingPhrase3: "",
@@ -5724,11 +5727,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "callUpdateQuestion",
-    value: function callUpdateQuestion(id, intentName, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
+    value: function callUpdateQuestion(id, intentName, intentID, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
       this.setState({
         updateQuestionData: {
           id: id,
           intentName: intentName,
+          intentID: intentID,
           trainingPhrase1: trainingPhrase1,
           trainingPhrase2: trainingPhrase2,
           trainingPhrase3: trainingPhrase3,
@@ -5746,6 +5750,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       var _this$state$updateQue = this.state.updateQuestionData,
           id = _this$state$updateQue.id,
           intentName = _this$state$updateQue.intentName,
+          intentID = _this$state$updateQue.intentID,
           trainingPhrase1 = _this$state$updateQue.trainingPhrase1,
           trainingPhrase2 = _this$state$updateQue.trainingPhrase2,
           trainingPhrase3 = _this$state$updateQue.trainingPhrase3,
@@ -5753,6 +5758,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           response = _this$state$updateQue.response;
       axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
         intentName: intentName,
+        intentID: intentID,
         trainingPhrase1: trainingPhrase1,
         trainingPhrase2: trainingPhrase2,
         trainingPhrase3: trainingPhrase3,
@@ -5766,6 +5772,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           updateQuestionData: {
             id: "",
             intentName: "",
+            intentID: "",
             trainingPhrase1: "",
             trainingPhrase2: "",
             trainingPhrase3: "",
@@ -5808,6 +5815,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.intentName
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: question.intentID
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.trainingPhrase1
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.trainingPhrase2
@@ -5822,7 +5831,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
               color: "success",
               size: "sm",
               outline: true,
-              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
+              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.intentID, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
               children: "Edit"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
               color: "danger",
@@ -5941,6 +5950,22 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   onChange: function onChange(e) {
                     var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.response = e.target.value;
+
+                    _this6.setState({
+                      newQuestionData: newQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "intentID",
+                  children: "intentID"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "intentID",
+                  value: this.state.newQuestionData.intentID,
+                  onChange: function onChange(e) {
+                    var newQuestionData = _this6.state.newQuestionData;
+                    newQuestionData.intentID = e.target.value;
 
                     _this6.setState({
                       newQuestionData: newQuestionData
@@ -6081,6 +6106,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   children: "ID"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "intentName"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "intentID"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "trainingPhrase1"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
