@@ -76,7 +76,10 @@ class QuestionController extends Controller
     }
 
     public function destroy($id){
+        $projectId = 'fyp-chatbot-jmea';
         $question = Question::findOrFail($id);
+        $intentID = $question['intentID'];   
+        app('App\Http\Controllers\IntentController')->intent_delete($projectId, $intentID);
         $question->delete();
         return 204;
     }

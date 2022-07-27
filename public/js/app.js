@@ -5564,9 +5564,9 @@ var QuestionList = /*#__PURE__*/function (_Component) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
           eventKey: question.id,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Header, {
-            children: question.question
+            children: question.trainingPhrase1
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Body, {
-            children: question.answer
+            children: question.response
           })]
         });
       });
