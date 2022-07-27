@@ -16,7 +16,9 @@ class QuestionController extends Controller
         $displayName = $input['intentName'];
         $trainingPhraseParts = [$input['trainingPhrase1'],$input['trainingPhrase2'],$input['trainingPhrase3'],$input['trainingPhrase4']];
         $messageTexts = [$input['response']];
-        app('App\Http\Controllers\IntentController')->intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts);
+        $input['intentID'] = dsadsads; 
+        // $input['intentID'] = app('App\Http\Controllers\IntentController')->intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts);
+        // app('App\Http\Controllers\IntentController')->intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts);
         return Question::create($req->all());
     }
 

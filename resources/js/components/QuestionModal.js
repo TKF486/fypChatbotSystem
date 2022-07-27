@@ -26,6 +26,7 @@ export default class QuestionModal extends Component {
             newQuestionData: {
                 id: "",
                 intentName: "",
+                intentID: "",
                 trainingPhrase1: "",
                 trainingPhrase2: "",
                 trainingPhrase3: "",
@@ -35,6 +36,7 @@ export default class QuestionModal extends Component {
             updateQuestionData: {
                 id: "",
                 intentName: "",
+                intentID: "",
                 trainingPhrase1: "",
                 trainingPhrase2: "",
                 trainingPhrase3: "",
@@ -68,6 +70,7 @@ export default class QuestionModal extends Component {
                     newQuestionData: {
                         id: "",
                         intentName: "",
+                        intentID: "",
                         trainingPhrase1: "",
                         trainingPhrase2: "",
                         trainingPhrase3: "",
@@ -87,6 +90,7 @@ export default class QuestionModal extends Component {
     callUpdateQuestion(
         id,
         intentName,
+        intentID,
         trainingPhrase1,
         trainingPhrase2,
         trainingPhrase3,
@@ -97,6 +101,7 @@ export default class QuestionModal extends Component {
             updateQuestionData: {
                 id,
                 intentName,
+                intentID,
                 trainingPhrase1,
                 trainingPhrase2,
                 trainingPhrase3,
@@ -110,6 +115,7 @@ export default class QuestionModal extends Component {
         let {
             id,
             intentName,
+            intentID,
             trainingPhrase1,
             trainingPhrase2,
             trainingPhrase3,
@@ -122,6 +128,7 @@ export default class QuestionModal extends Component {
                     this.state.updateQuestionData.id,
                 {
                     intentName,
+                    intentID,
                     trainingPhrase1,
                     trainingPhrase2,
                     trainingPhrase3,
@@ -136,6 +143,7 @@ export default class QuestionModal extends Component {
                     updateQuestionData: {
                         id: "",
                         intentName: "",
+                        intentID: "",
                         trainingPhrase1: "",
                         trainingPhrase2: "",
                         trainingPhrase3: "",
@@ -167,6 +175,7 @@ export default class QuestionModal extends Component {
                 <tr key={question.id}>
                     <td>{question.id}</td>
                     <td>{question.intentName}</td>
+                    <td>{question.intentID}</td>
                     <td>{question.trainingPhrase1}</td>
                     <td>{question.trainingPhrase2}</td>
                     <td>{question.trainingPhrase3}</td>
@@ -181,6 +190,7 @@ export default class QuestionModal extends Component {
                                 this,
                                 question.id,
                                 question.intentName,
+                                question.intentID,
                                 question.trainingPhrase1,
                                 question.trainingPhrase2,
                                 question.trainingPhrase3,
@@ -491,6 +501,7 @@ export default class QuestionModal extends Component {
                             <tr>
                                 <th>ID</th>
                                 <th>intentName</th>
+                                <th>intentID</th>
                                 <th>trainingPhrase1</th>
                                 <th>trainingPhrase2</th>
                                 <th>trainingPhrase3</th>

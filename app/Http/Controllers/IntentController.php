@@ -82,9 +82,12 @@ function intent_create($projectId, $displayName, $trainingPhraseParts, $messageT
 
     // create intent
     $response = $intentsClient->createIntent($parent, $intent);
-    printf('Intent created: %s' . PHP_EOL, $response->getName());
+    // printf('Intent created: %s' . PHP_EOL, $response->getName());
+    $intentFullPath = $response->getName();
+    // $intentID = substr($intentFullPath, strrpos($somestring, '/') + 1);
 
     $intentsClient->close();
+    // return $intentID;
 }
 
 function intent_delete($projectId, $intentId)
