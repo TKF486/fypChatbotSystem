@@ -93,12 +93,9 @@ function intent_create($projectId = 'fyp-chatbot-jmea', $displayName, $trainingP
 
     // create intent
     $response = $intentsClient->createIntent($parent, $intent);
-    // printf('Intent created: %s' . PHP_EOL, $response->getName());
-    $intentFullPath = $response->getName();
-    // $intentID = substr($intentFullPath, strrpos($somestring, '/') + 1);
+    printf('Intent created: %s' . PHP_EOL, $response->getName());
 
     $intentsClient->close();
-    // return $intentID;
 }
 
     function detect_intent_texts($projectId = 'fyp-chatbot-jmea', $text = 'hi', $sessionId = '123456', $languageCode = 'en-US')

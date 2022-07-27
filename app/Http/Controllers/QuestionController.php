@@ -62,42 +62,8 @@ class QuestionController extends Controller
         $displayName = $input['intentName'];
         $trainingPhraseParts = [$input['trainingPhrase1'],$input['trainingPhrase2'],$input['trainingPhrase3'],$input['trainingPhrase4']];
         $messageTexts = [$input['response']];
-
-        $intentsClient = new IntentsClient();
-
-    // prepare parent
-    $parent = $intentsClient->agentName("fyp-chatbot-jmea");
-
-    // prepare training phrases for intent
-    $trainingPhrases = [];
-    foreach ($trainingPhraseParts as $trainingPhrasePart) {
-        $part = (new Part())
-            ->setText($trainingPhrasePart);
-
-        // create new training phrase for each provided part
-        $trainingPhrase = (new TrainingPhrase())
-            ->setParts([$part]);
-        $trainingPhrases[] = $trainingPhrase;
-    }
-
-    // prepare messages for intent
-    $text = (new Text())
-        ->setText($messageTexts);
-    $message = (new Message())
-        ->setText($text);
-
-    // prepare intent
-    $intent = (new Intent())
-        ->setDisplayName($displayName)
-        ->setTrainingPhrases($trainingPhrases)
-        ->setMessages([$message]);
-
-    // create intent
-    $response = $intentsClient->createIntent($parent, $intent);
-    // printf('Intent created: %s' . PHP_EOL, $response->getName());
-
-    $intentsClient->close();
-        return Question::create($input);
+        app('App\Http\Controllers\IntentController')->intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts);
+        return Question::create($req->all());
     }
 
     public function update(Request $req, $id){
