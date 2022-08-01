@@ -7,8 +7,11 @@ use Dialogflow2\DialogFlowV2;
 use BotMan\BotMan\Cache\LaravelCache;
 use BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Messages\Incoming;
+
 use App\Http\Conversations\InlineConversation;
 use App\Http\Conversations\HelpConversation;
+
 
 class BotManController extends Controller
 {
@@ -28,17 +31,17 @@ class BotManController extends Controller
         $botman->middleware->received($dialogFlow);
 
        
-        $botman->hears('weathersearch', function ($bot) {
-            // $bot->reply('No is segs time!');
-            $extras = $bot->getMessage()->getExtras();
-            $apiReply = $extras['apiReply'];
-            $bot->reply($apiReply);
-        })->middleware($dialogFlow);
+        // $botman->hears('weathersearch', function ($bot) {
+        //     // $bot->reply('No is segs time!');
+        //     $extras = $bot->getMessage()->getExtras();
+        //     $apiReply = $extras['apiReply'];
+        //     $bot->reply($apiReply);
+        // })->middleware($dialogFlow);
 
-        $botman->hears('AgeSearch', function ($bot) {
-            $bot->reply('my age is unknown!');
-            // $bot->userStorage()->delete();
-        })->middleware($dialogFlow);
+        // $botman->hears('AgeSearch', function ($bot) {
+        //     $bot->reply('my age is unknown!');
+        //     // $bot->userStorage()->delete();
+        // })->middleware($dialogFlow);
 
         $botman->hears('help', function ($bot) {
             $bot->startConversation(new HelpConversation);
@@ -52,6 +55,8 @@ class BotManController extends Controller
         $botman->hears('Hello', function($bot) {
             $bot->startConversation(new InlineConversation);
         });
+
+
         
         $botman->listen();
     }

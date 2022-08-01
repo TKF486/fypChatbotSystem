@@ -27,7 +27,7 @@ Route::get('/view', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('questions', [QuestionController::class, 'index']);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-// Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle'])->name('botman');
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle'])->name('botman');
 Auth::routes();
 
 Route::group(['middleware' => ['admin']], function () {
