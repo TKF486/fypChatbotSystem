@@ -274,7 +274,7 @@ export default class QuestionModal extends Component {
                                 ></Input>
                             </FormGroup>
 
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="category">category</Label>
                                 <Input
                                     id="category"
@@ -286,6 +286,34 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                            </FormGroup> */}
+
+                            <FormGroup>
+                                <Label for="category">Select</Label>
+                                <Input
+                                    id="category"
+                                    name="category"
+                                    type="select"
+                                    value={this.state.newQuestionData.category}
+                                    onChange={(e) => {
+                                        let { newQuestionData } = this.state;
+                                        newQuestionData.category =
+                                            e.target.value;
+                                        this.setState({ newQuestionData });
+                                    }}
+                                >
+                                    <option>Course Navigation</option>
+                                    <option>Course Syllabus</option>
+                                    <option>Course Structure</option>
+                                    <option>Technical Issues</option>
+                                    <option>Course Calendar</option>
+                                    <option>Project Deliverables & Tips</option>
+                                    <option>Assessment</option>
+                                    <option>
+                                        Discussion Forums & Course Activities
+                                    </option>
+                                    <option>Resources</option>
+                                </Input>
                             </FormGroup>
 
                             <FormGroup>
