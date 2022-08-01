@@ -168,4 +168,31 @@ function intent_update($displayName, $trainingPhraseParts, $messageTexts, $inten
 
 //     $sessionsClient->close();
 // }
+// $projectId, $text , $sessionId , $languageCode
+function detect_intent_texts($projectId, $text , $sessionId , $languageCode)
+{
+    // new session
+    $test = array('credentials' => 'F:/GITHUB/fypChatbotSystem/fyp-chatbot-jmea-6c7de335595c.json');
+    $sessionsClient = new SessionsClient($test);
+    $session = $sessionsClient->sessionName($projectId, $sessionId ?: uniqid());
+    // printf('Session path: %s' . PHP_EOL, $session);
+
+    // create text input
+    $textInput = new TextInput();
+    $textInput->setText($text);
+    $textInput->setLanguageCode($languageCode);
+
+    // create query input
+    $queryInput = new QueryInput();
+    $queryInput->setText($textInput);
+
+    // get response and relevant info
+    $response = $sessionsClient->detectIntent($session, $queryInput);
+    $queryResult = $response->getQueryResult();
+    $queryText = $queryResult->getQueryText();
+    $fulfilmentText = $queryResult->getFulfillmentText();
+
+    $sessionsClient->close();
+    return $fulfilmentText;
+}
 }

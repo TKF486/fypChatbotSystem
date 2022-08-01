@@ -11,7 +11,11 @@ use BotMan\BotMan\Messages\Incoming;
 
 use App\Http\Conversations\InlineConversation;
 use App\Http\Conversations\HelpConversation;
+use App\Http\Middleware\ReceivedMiddleware;
 
+use App\Http\Controllers\IntentController;
+
+$GlobalAction = "";
 
 class BotManController extends Controller
 {
@@ -24,10 +28,11 @@ class BotManController extends Controller
             //    "token" => "TOKEN"
             // ]
         ];
-        $botman = BotManFactory::create($config, new LaravelCache());
+        // $botman = BotManFactory::create($config, new LaravelCache());
         $botman = app('botman');
 
         $dialogFlow = DialogFlowV2::create()->listenForAction();
+        // $botman->middleware->received(new ReceivedMiddleware());
         $botman->middleware->received($dialogFlow);
 
        
@@ -43,21 +48,34 @@ class BotManController extends Controller
         //     // $bot->userStorage()->delete();
         // })->middleware($dialogFlow);
 
-        $botman->hears('help', function ($bot) {
-            $bot->startConversation(new HelpConversation);
-            // $bot->userStorage()->delete();
-        })->middleware($dialogFlow);
+        // $botman->hears('help', function ($bot) {
+        //     $bot->startConversation(new HelpConversation);
+        //     // $bot->userStorage()->delete();
+        // })->middleware($dialogFlow);
 
-        $botman->fallback(function ($bot) {
-            $bot->reply(__('Sorry, I did not understand you. Please try again.'));
-        });
+        // $botman->fallback(function ($bot) {
+        //     $bot->reply(__('Sorry, I did not understand you. Please try again.'));
+        // });
 
-        $botman->hears('Hello', function($bot) {
-            $bot->startConversation(new InlineConversation);
-        });
+        // $botman->hears('Hello', function($bot) {
+        //     $bot->startConversation(new InlineConversation);
+        // });
 
-
+        // $botman->hears('(.*)', function($bot) {
+        //     $bot->reply($bot->getMessage()->getText());
+        // });
         
+        $botman->hears('(.*)', function ($bot) {
+            $projectId = 'fyp-chatbot-jmea';
+            $sessionId = '123456';
+            $languageCode = 'en-US';
+            $msg = $bot->getMessage()->getText();
+            $IntentController = new IntentController();
+            $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
+            $bot->reply($response);
+            
+        });
+
         $botman->listen();
     }
     
