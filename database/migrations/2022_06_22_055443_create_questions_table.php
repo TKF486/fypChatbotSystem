@@ -17,10 +17,12 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->string('intentName');
             $table->string('intentID');
+            $table->string('category');
+            $table->integer('noOfInteractions')->nullable();
             $table->string('trainingPhrase1');
-            $table->string('trainingPhrase2');
-            $table->string('trainingPhrase3');
-            $table->string('trainingPhrase4');
+            $table->string('trainingPhrase2')->nullable();
+            $table->string('trainingPhrase3')->nullable();
+            $table->string('trainingPhrase4')->nullable();
             $table->string('response');
             $table->timestamps();
         });

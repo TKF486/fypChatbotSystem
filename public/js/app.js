@@ -5659,6 +5659,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
         id: "",
         intentName: "",
         intentID: "",
+        category: "",
+        noOfInteractions: "",
         trainingPhrase1: "",
         trainingPhrase2: "",
         trainingPhrase3: "",
@@ -5669,6 +5671,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
         id: "",
         intentName: "",
         intentID: "",
+        category: "",
+        noOfInteractions: "",
         trainingPhrase1: "",
         trainingPhrase2: "",
         trainingPhrase3: "",
@@ -5709,6 +5713,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             id: "",
             intentName: "",
             intentID: "",
+            category: "",
+            noOfInteractions: "",
             trainingPhrase1: "",
             trainingPhrase2: "",
             trainingPhrase3: "",
@@ -5727,12 +5733,14 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "callUpdateQuestion",
-    value: function callUpdateQuestion(id, intentName, intentID, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
+    value: function callUpdateQuestion(id, intentName, intentID, category, noOfInteractions, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
       this.setState({
         updateQuestionData: {
           id: id,
           intentName: intentName,
           intentID: intentID,
+          category: category,
+          noOfInteractions: noOfInteractions,
           trainingPhrase1: trainingPhrase1,
           trainingPhrase2: trainingPhrase2,
           trainingPhrase3: trainingPhrase3,
@@ -5751,6 +5759,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           id = _this$state$updateQue.id,
           intentName = _this$state$updateQue.intentName,
           intentID = _this$state$updateQue.intentID,
+          category = _this$state$updateQue.category,
+          noOfInteractions = _this$state$updateQue.noOfInteractions,
           trainingPhrase1 = _this$state$updateQue.trainingPhrase1,
           trainingPhrase2 = _this$state$updateQue.trainingPhrase2,
           trainingPhrase3 = _this$state$updateQue.trainingPhrase3,
@@ -5759,6 +5769,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
         intentName: intentName,
         intentID: intentID,
+        category: category,
+        noOfInteractions: noOfInteractions,
         trainingPhrase1: trainingPhrase1,
         trainingPhrase2: trainingPhrase2,
         trainingPhrase3: trainingPhrase3,
@@ -5773,6 +5785,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             id: "",
             intentName: "",
             intentID: "",
+            category: "",
+            noOfInteractions: "",
             trainingPhrase1: "",
             trainingPhrase2: "",
             trainingPhrase3: "",
@@ -5817,6 +5831,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.intentID
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: question.category
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: question.noOfInteractions
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.trainingPhrase1
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.trainingPhrase2
@@ -5831,7 +5849,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
               color: "success",
               size: "sm",
               outline: true,
-              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.intentID, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
+              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.intentID, question.category, question.noOfInteractions, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
               children: "Edit"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
               color: "danger",
@@ -5870,6 +5888,22 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   onChange: function onChange(e) {
                     var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.intentName = e.target.value;
+
+                    _this6.setState({
+                      newQuestionData: newQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "category",
+                  children: "category"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "category",
+                  value: this.state.newQuestionData.category,
+                  onChange: function onChange(e) {
+                    var newQuestionData = _this6.state.newQuestionData;
+                    newQuestionData.category = e.target.value;
 
                     _this6.setState({
                       newQuestionData: newQuestionData
@@ -5949,7 +5983,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   value: this.state.newQuestionData.response,
                   onChange: function onChange(e) {
                     var newQuestionData = _this6.state.newQuestionData;
-                    newQuestionData.response = e.target.value;
+                    newQuestionData.response = e.target.value; //**add intentID
+
                     newQuestionData.intentID = e.target.value;
 
                     _this6.setState({
@@ -5986,6 +6021,22 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   onChange: function onChange(e) {
                     var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.intentName = e.target.value;
+
+                    _this6.setState({
+                      updateQuestionData: updateQuestionData
+                    });
+                  }
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
+                  "for": "category",
+                  children: "category"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "category",
+                  value: this.state.updateQuestionData.category,
+                  onChange: function onChange(e) {
+                    var updateQuestionData = _this6.state.updateQuestionData;
+                    updateQuestionData.category = e.target.value;
 
                     _this6.setState({
                       updateQuestionData: updateQuestionData
@@ -6093,6 +6144,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   children: "intentName"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "intentID"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "category"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "noOfInteractions"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "trainingPhrase1"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
