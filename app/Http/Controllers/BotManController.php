@@ -28,42 +28,13 @@ class BotManController extends Controller
             //    "token" => "TOKEN"
             // ]
         ];
-        // $botman = BotManFactory::create($config, new LaravelCache());
+        $botman = BotManFactory::create($config, new LaravelCache());
         $botman = app('botman');
 
         $dialogFlow = DialogFlowV2::create()->listenForAction();
-        // $botman->middleware->received(new ReceivedMiddleware());
+
         $botman->middleware->received($dialogFlow);
 
-       
-        // $botman->hears('weathersearch', function ($bot) {
-        //     // $bot->reply('No is segs time!');
-        //     $extras = $bot->getMessage()->getExtras();
-        //     $apiReply = $extras['apiReply'];
-        //     $bot->reply($apiReply);
-        // })->middleware($dialogFlow);
-
-        // $botman->hears('AgeSearch', function ($bot) {
-        //     $bot->reply('my age is unknown!');
-        //     // $bot->userStorage()->delete();
-        // })->middleware($dialogFlow);
-
-        // $botman->hears('help', function ($bot) {
-        //     $bot->startConversation(new HelpConversation);
-        //     // $bot->userStorage()->delete();
-        // })->middleware($dialogFlow);
-
-        // $botman->fallback(function ($bot) {
-        //     $bot->reply(__('Sorry, I did not understand you. Please try again.'));
-        // });
-
-        // $botman->hears('Hello', function($bot) {
-        //     $bot->startConversation(new InlineConversation);
-        // });
-
-        // $botman->hears('(.*)', function($bot) {
-        //     $bot->reply($bot->getMessage()->getText());
-        // });
         
         $botman->hears('(.*)', function ($bot) {
             $projectId = 'fyp-chatbot-jmea';
