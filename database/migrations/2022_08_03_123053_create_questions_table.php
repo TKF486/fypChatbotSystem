@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->string('intentName');
             $table->string('intentID');
-            $table->string('category');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->integer('noOfInteractions')->default('0');
             $table->string('trainingPhrase1');
             $table->string('trainingPhrase2')->nullable();

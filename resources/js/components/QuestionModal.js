@@ -22,12 +22,13 @@ export default class QuestionModal extends Component {
         super();
         this.state = {
             questions: [],
+            categories: [],
             newQuestionModal: false,
             newQuestionData: {
                 id: "",
                 intentName: "",
                 intentID: "",
-                category: "Course Navigation",
+                category_id: 1,
                 noOfInteractions: 0,
                 trainingPhrase1: "",
                 trainingPhrase2: "",
@@ -39,7 +40,7 @@ export default class QuestionModal extends Component {
                 id: "",
                 intentName: "",
                 intentID: "",
-                category: "",
+                category_id: "",
                 noOfInteractions: "",
                 trainingPhrase1: "",
                 trainingPhrase2: "",
@@ -58,6 +59,14 @@ export default class QuestionModal extends Component {
         });
     }
 
+    loadCategory() {
+        axios.get("http://127.0.0.1:8000/api/categories").then((response) => {
+            this.setState({
+                categories: response.data,
+            });
+        });
+    }
+
     addQuestion() {
         axios
             .post(
@@ -65,7 +74,6 @@ export default class QuestionModal extends Component {
                 this.state.newQuestionData
             )
             .then((response) => {
-                // console.log(this.state.newQuestionData);
                 let { questions } = this.state;
                 this.loadQuestion();
                 this.setState({
@@ -75,7 +83,7 @@ export default class QuestionModal extends Component {
                         id: "",
                         intentName: "",
                         intentID: "",
-                        category: "Course Navigation",
+                        category_id: 1,
                         noOfInteractions: 0,
                         trainingPhrase1: "",
                         trainingPhrase2: "",
@@ -97,7 +105,7 @@ export default class QuestionModal extends Component {
         id,
         intentName,
         intentID,
-        category,
+        category_id,
         noOfInteractions,
         trainingPhrase1,
         trainingPhrase2,
@@ -110,7 +118,7 @@ export default class QuestionModal extends Component {
                 id,
                 intentName,
                 intentID,
-                category,
+                category_id,
                 noOfInteractions,
                 trainingPhrase1,
                 trainingPhrase2,
@@ -126,7 +134,7 @@ export default class QuestionModal extends Component {
             id,
             intentName,
             intentID,
-            category,
+            category_id,
             noOfInteractions,
             trainingPhrase1,
             trainingPhrase2,
@@ -141,7 +149,7 @@ export default class QuestionModal extends Component {
                 {
                     intentName,
                     intentID,
-                    category,
+                    category_id,
                     noOfInteractions,
                     trainingPhrase1,
                     trainingPhrase2,
@@ -158,7 +166,7 @@ export default class QuestionModal extends Component {
                         id: "",
                         intentName: "",
                         intentID: "",
-                        category: "",
+                        category_id: "",
                         noOfInteractions: "",
                         trainingPhrase1: "",
                         trainingPhrase2: "",
@@ -178,6 +186,7 @@ export default class QuestionModal extends Component {
     }
     componentWillMount() {
         this.loadQuestion();
+        this.loadCategory();
     }
 
     toggleUpdateQuestionModal() {
@@ -192,7 +201,7 @@ export default class QuestionModal extends Component {
                     <td>{question.id}</td>
                     <td>{question.intentName}</td>
                     <td>{question.intentID}</td>
-                    <td>{question.category}</td>
+                    <td>{question.category_id}</td>
                     <td>{question.noOfInteractions}</td>
                     <td>{question.trainingPhrase1}</td>
                     <td>{question.trainingPhrase2}</td>
@@ -209,7 +218,7 @@ export default class QuestionModal extends Component {
                                 question.id,
                                 question.intentName,
                                 question.intentID,
-                                question.category,
+                                question.category_id,
                                 question.noOfInteractions,
                                 question.trainingPhrase1,
                                 question.trainingPhrase2,
@@ -235,6 +244,15 @@ export default class QuestionModal extends Component {
                 </tr>
             );
         });
+
+        let categories = this.state.categories.map((category) => {
+            return (
+                <option key={category.id} value={category.id}>
+                    {category.categoryName}
+                </option>
+            );
+        });
+
         return (
             <div className="container">
                 <NavBar />
@@ -275,13 +293,13 @@ export default class QuestionModal extends Component {
                             </FormGroup>
 
                             {/* <FormGroup>
-                                <Label for="category">category</Label>
+                                <Label for="category_id">category_id</Label>
                                 <Input
-                                    id="category"
-                                    value={this.state.newQuestionData.category}
+                                    id="category_id"
+                                    value={this.state.newQuestionData.category_id}
                                     onChange={(e) => {
                                         let { newQuestionData } = this.state;
-                                        newQuestionData.category =
+                                        newQuestionData.category_id =
                                             e.target.value;
                                         this.setState({ newQuestionData });
                                     }}
@@ -289,33 +307,24 @@ export default class QuestionModal extends Component {
                             </FormGroup> */}
 
                             <FormGroup>
-                                <Label for="category">Select</Label>
+                                <Label for="category_id">Select</Label>
                                 <Input
-                                    id="category"
-                                    name="category"
+                                    id="category_id"
+                                    name="category_id"
                                     type="select"
-                                    value={this.state.newQuestionData.category}
+                                    value={
+                                        this.state.newQuestionData.category_id
+                                    }
                                     onChange={(e) => {
                                         let { newQuestionData } = this.state;
-                                        newQuestionData.category =
+                                        newQuestionData.category_id =
                                             e.target.value;
                                         this.setState({ newQuestionData });
                                     }}
                                 >
-                                    <option>Course Navigation</option>
-                                    <option>Course Syllabus</option>
-                                    <option>Course Structure</option>
-                                    <option>Technical Issues</option>
-                                    <option>Course Calendar</option>
-                                    <option>Project Deliverables & Tips</option>
-                                    <option>Assessment</option>
-                                    <option>
-                                        Discussion Forums & Course Activities
-                                    </option>
-                                    <option>Resources</option>
+                                    {categories}
                                 </Input>
                             </FormGroup>
-
                             <FormGroup>
                                 <Label for="trainingPhrase1">
                                     trainingPhrase1
@@ -468,15 +477,15 @@ export default class QuestionModal extends Component {
                             </FormGroup>
 
                             {/* <FormGroup>
-                                <Label for="category">category</Label>
+                                <Label for="category_id">category_id</Label>
                                 <Input
-                                    id="category"
+                                    id="category_id"
                                     value={
-                                        this.state.updateQuestionData.category
+                                        this.state.updateQuestionData.category_id
                                     }
                                     onChange={(e) => {
                                         let { updateQuestionData } = this.state;
-                                        updateQuestionData.category =
+                                        updateQuestionData.category_id =
                                             e.target.value;
                                         this.setState({ updateQuestionData });
                                     }}
@@ -484,32 +493,23 @@ export default class QuestionModal extends Component {
                             </FormGroup> */}
 
                             <FormGroup>
-                                <Label for="category">Select</Label>
+                                <Label for="category_id">Select</Label>
                                 <Input
-                                    id="category"
-                                    name="category"
+                                    id="category_id"
+                                    name="category_id"
                                     type="select"
                                     value={
-                                        this.state.updateQuestionData.category
+                                        this.state.updateQuestionData
+                                            .category_id
                                     }
                                     onChange={(e) => {
                                         let { updateQuestionData } = this.state;
-                                        updateQuestionData.category =
+                                        updateQuestionData.category_id =
                                             e.target.value;
                                         this.setState({ updateQuestionData });
                                     }}
                                 >
-                                    <option>Course Navigation</option>
-                                    <option>Course Syllabus</option>
-                                    <option>Course Structure</option>
-                                    <option>Technical Issues</option>
-                                    <option>Course Calendar</option>
-                                    <option>Project Deliverables & Tips</option>
-                                    <option>Assessment</option>
-                                    <option>
-                                        Discussion Forums & Course Activities
-                                    </option>
-                                    <option>Resources</option>
+                                    {categories}
                                 </Input>
                             </FormGroup>
 
@@ -629,7 +629,7 @@ export default class QuestionModal extends Component {
                                 <th>ID</th>
                                 <th>intentName</th>
                                 <th>intentID</th>
-                                <th>category</th>
+                                <th>category_id</th>
                                 <th>noOfInteractions</th>
                                 <th>trainingPhrase1</th>
                                 <th>trainingPhrase2</th>

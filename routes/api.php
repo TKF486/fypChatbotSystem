@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\controllers\QuestionController;
+use App\Http\controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,5 @@ Route::get('questions', [QuestionController::class, 'index']);
 Route::post('question', [QuestionController::class, 'store']);
 Route::put('questionUpdate/{id}', [QuestionController::class, 'update']);
 Route::delete('questionDelete/{id}', [QuestionController::class, 'destroy']);
+
+Route::get('categories', [CategoryController::class, 'index']);

@@ -5654,12 +5654,13 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     _this = _super.call(this);
     _this.state = {
       questions: [],
+      categories: [],
       newQuestionModal: false,
       newQuestionData: {
         id: "",
         intentName: "",
         intentID: "",
-        category: "Course Navigation",
+        category_id: 1,
         noOfInteractions: 0,
         trainingPhrase1: "",
         trainingPhrase2: "",
@@ -5671,7 +5672,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
         id: "",
         intentName: "",
         intentID: "",
-        category: "",
+        category_id: "",
         noOfInteractions: "",
         trainingPhrase1: "",
         trainingPhrase2: "",
@@ -5696,24 +5697,34 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "addQuestion",
-    value: function addQuestion() {
+    key: "loadCategory",
+    value: function loadCategory() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
-        // console.log(this.state.newQuestionData);
-        var questions = _this3.state.questions;
-
-        _this3.loadQuestion();
-
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/categories").then(function (response) {
         _this3.setState({
+          categories: response.data
+        });
+      });
+    }
+  }, {
+    key: "addQuestion",
+    value: function addQuestion() {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
+        var questions = _this4.state.questions;
+
+        _this4.loadQuestion();
+
+        _this4.setState({
           questions: questions,
           newQuestionModal: false,
           newQuestionData: {
             id: "",
             intentName: "",
             intentID: "",
-            category: "Course Navigation",
+            category_id: 1,
             noOfInteractions: 0,
             trainingPhrase1: "",
             trainingPhrase2: "",
@@ -5733,13 +5744,13 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     }
   }, {
     key: "callUpdateQuestion",
-    value: function callUpdateQuestion(id, intentName, intentID, category, noOfInteractions, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
+    value: function callUpdateQuestion(id, intentName, intentID, category_id, noOfInteractions, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
       this.setState({
         updateQuestionData: {
           id: id,
           intentName: intentName,
           intentID: intentID,
-          category: category,
+          category_id: category_id,
           noOfInteractions: noOfInteractions,
           trainingPhrase1: trainingPhrase1,
           trainingPhrase2: trainingPhrase2,
@@ -5753,13 +5764,13 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "updateQuestion",
     value: function updateQuestion() {
-      var _this4 = this;
+      var _this5 = this;
 
       var _this$state$updateQue = this.state.updateQuestionData,
           id = _this$state$updateQue.id,
           intentName = _this$state$updateQue.intentName,
           intentID = _this$state$updateQue.intentID,
-          category = _this$state$updateQue.category,
+          category_id = _this$state$updateQue.category_id,
           noOfInteractions = _this$state$updateQue.noOfInteractions,
           trainingPhrase1 = _this$state$updateQue.trainingPhrase1,
           trainingPhrase2 = _this$state$updateQue.trainingPhrase2,
@@ -5769,7 +5780,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
         intentName: intentName,
         intentID: intentID,
-        category: category,
+        category_id: category_id,
         noOfInteractions: noOfInteractions,
         trainingPhrase1: trainingPhrase1,
         trainingPhrase2: trainingPhrase2,
@@ -5777,15 +5788,15 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
         trainingPhrase4: trainingPhrase4,
         response: response
       }).then(function (response) {
-        _this4.loadQuestion();
+        _this5.loadQuestion();
 
-        _this4.setState({
+        _this5.setState({
           updateQuestionModal: false,
           updateQuestionData: {
             id: "",
             intentName: "",
             intentID: "",
-            category: "",
+            category_id: "",
             noOfInteractions: "",
             trainingPhrase1: "",
             trainingPhrase2: "",
@@ -5799,16 +5810,17 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "deleteQuestion",
     value: function deleteQuestion(id) {
-      var _this5 = this;
+      var _this6 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
-        _this5.loadQuestion();
+        _this6.loadQuestion();
       });
     }
   }, {
     key: "componentWillMount",
     value: function componentWillMount() {
       this.loadQuestion();
+      this.loadCategory();
     }
   }, {
     key: "toggleUpdateQuestionModal",
@@ -5820,7 +5832,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       var questions = this.state.questions.map(function (question) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
@@ -5831,7 +5843,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.intentID
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-            children: question.category
+            children: question.category_id
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.noOfInteractions
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -5849,17 +5861,23 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
               color: "success",
               size: "sm",
               outline: true,
-              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.intentID, question.category, question.noOfInteractions, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
+              onClick: _this7.callUpdateQuestion.bind(_this7, question.id, question.intentName, question.intentID, question.category_id, question.noOfInteractions, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
               children: "Edit"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
               color: "danger",
               size: "sm",
               outline: true,
-              onClick: _this6.deleteQuestion.bind(_this6, question.id),
+              onClick: _this7.deleteQuestion.bind(_this7, question.id),
               children: "Delete"
             })]
           })]
         }, question.id);
+      });
+      var categories = this.state.categories.map(function (category) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+          value: category.id,
+          children: category.categoryName
+        }, category.id);
       });
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "container",
@@ -5886,50 +5904,32 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "intentName",
                   value: this.state.newQuestionData.intentName,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.intentName = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
-                  "for": "category",
+                  "for": "category_id",
                   children: "Select"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
-                  id: "category",
-                  name: "category",
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "category_id",
+                  name: "category_id",
                   type: "select",
-                  value: this.state.newQuestionData.category,
+                  value: this.state.newQuestionData.category_id,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
-                    newQuestionData.category = e.target.value;
+                    var newQuestionData = _this7.state.newQuestionData;
+                    newQuestionData.category_id = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Navigation"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Syllabus"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Structure"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Technical Issues"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Calendar"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Project Deliverables & Tips"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Assessment"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Discussion Forums & Course Activities"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Resources"
-                  })]
+                  children: categories
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
@@ -5939,10 +5939,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase1",
                   value: this.state.newQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase1 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -5955,10 +5955,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase2",
                   value: this.state.newQuestionData.trainingPhrase2,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase2 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -5971,10 +5971,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase3",
                   value: this.state.newQuestionData.trainingPhrase3,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase3 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -5987,10 +5987,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase4",
                   value: this.state.newQuestionData.trainingPhrase4,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase4 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6003,12 +6003,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "response",
                   value: this.state.newQuestionData.response,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.response = e.target.value; //**add intentID
 
                     newQuestionData.intentID = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6040,50 +6040,32 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "intentName",
                   value: this.state.updateQuestionData.intentName,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.intentName = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
-                  "for": "category",
+                  "for": "category_id",
                   children: "Select"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
-                  id: "category",
-                  name: "category",
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Input, {
+                  id: "category_id",
+                  name: "category_id",
                   type: "select",
-                  value: this.state.updateQuestionData.category,
+                  value: this.state.updateQuestionData.category_id,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
-                    updateQuestionData.category = e.target.value;
+                    var updateQuestionData = _this7.state.updateQuestionData;
+                    updateQuestionData.category_id = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Navigation"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Syllabus"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Structure"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Technical Issues"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Course Calendar"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Project Deliverables & Tips"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Assessment"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Discussion Forums & Course Activities"
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                    children: "Resources"
-                  })]
+                  children: categories
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
@@ -6093,10 +6075,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase1",
                   value: this.state.updateQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase1 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6109,10 +6091,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase2",
                   value: this.state.updateQuestionData.trainingPhrase2,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase2 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6125,10 +6107,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase3",
                   value: this.state.updateQuestionData.trainingPhrase3,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase3 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6141,10 +6123,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase4",
                   value: this.state.updateQuestionData.trainingPhrase4,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase4 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6157,10 +6139,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "response",
                   value: this.state.updateQuestionData.response,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.response = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6187,7 +6169,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "intentID"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                  children: "category"
+                  children: "category_id"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "noOfInteractions"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
