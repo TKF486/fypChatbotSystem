@@ -67,13 +67,13 @@ class BotManController extends Controller
         
         $botman->hears('(.*)', function ($bot) {
             $projectId = 'fyp-chatbot-jmea';
-            $sessionId = $bot->getUser()->getId();
-            // $sessionId = '123456';
+            $sessionId = '123456';
             $languageCode = 'en-US';
             $msg = $bot->getMessage()->getText();
             $IntentController = new IntentController();
             $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
             $bot->reply($response);
+            
         });
 
         $botman->listen();

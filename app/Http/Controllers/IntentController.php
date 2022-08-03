@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Question;
 
 use Illuminate\Http\Request;
 use Google\Cloud\Dialogflow\V2\Gapic;
@@ -192,19 +191,8 @@ function detect_intent_texts($projectId, $text , $sessionId , $languageCode)
     $queryResult = $response->getQueryResult();
     $queryText = $queryResult->getQueryText();
     $fulfilmentText = $queryResult->getFulfillmentText();
-    $intent = $queryResult->getIntent();
-    $displayName = $intent->getDisplayName();
 
     $sessionsClient->close();
-    intentTracking($displayName);
     return $fulfilmentText;
 }
-
-function intentTracking($displayName = "AssignTime"){
-    // $question = Question::where("intentName", $displayName)->update(['noOfInteractions' => 1]);
-    $question = Question::where("intentName", $displayName)->count();
-    echo $question;
-
-}
-
 }

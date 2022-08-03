@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->string('intentName');
             $table->string('intentID');
             $table->string('category');
-            $table->integer('noOfInteractions')->default('0');
+            $table->integer('noOfInteractions')->nullable();
             $table->string('trainingPhrase1');
             $table->string('trainingPhrase2')->nullable();
             $table->string('trainingPhrase3')->nullable();
