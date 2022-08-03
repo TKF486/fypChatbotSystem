@@ -194,17 +194,17 @@ function detect_intent_texts($projectId, $text , $sessionId , $languageCode)
     $fulfilmentText = $queryResult->getFulfillmentText();
     $intent = $queryResult->getIntent();
     $displayName = $intent->getDisplayName();
-
+    $this->intentTracking($displayName);
     $sessionsClient->close();
-    intentTracking($displayName);
     return $fulfilmentText;
 }
 
-function intentTracking($displayName = "AssignTime"){
-    // $question = Question::where("intentName", $displayName)->update(['noOfInteractions' => 1]);
-    $question = Question::where("intentName", $displayName)->count();
-    echo $question;
-
+function intentTracking($displayName){
+    $question = Question::where("intentName", $displayName);
+    $noOfInteractions = $question->value("noOfInteractions");
+    $noOfInteractions += 1;
+    // echo $noOfInteractions;
+    $question->update(['noOfInteractions' => $noOfInteractions]);
 }
 
 }
