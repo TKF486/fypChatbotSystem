@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Question;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 use Google\Cloud\Dialogflow\V2\Gapic;
@@ -199,12 +200,20 @@ function detect_intent_texts($projectId, $text , $sessionId , $languageCode)
     return $fulfilmentText;
 }
 
-function intentTracking($displayName){
+function intentTracking($displayName = "Gym.OpenTime"){
     $question = Question::where("intentName", $displayName);
     $noOfInteractions = $question->value("noOfInteractions");
+    $categoryID = $question->value("category_id");
     $noOfInteractions += 1;
-    // echo $noOfInteractions;
     $question->update(['noOfInteractions' => $noOfInteractions]);
+    $this->categoryTracking($categoryID);
+}
+
+function categoryTracking($category_id){
+    $category = Category::where("id", $category_id);
+    $noOfInteractions = $category->value("noOfInteractions"); 
+    $noOfInteractions += 1;
+    $category->update(['noOfInteractions' => $noOfInteractions]);
 }
 
 }

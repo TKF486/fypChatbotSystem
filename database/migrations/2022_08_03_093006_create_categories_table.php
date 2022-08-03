@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('categoryName');
             $table->integer('noOfInteractions')->default('0');
+            $table->timestamps();
         });
     }
 
