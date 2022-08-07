@@ -15,3 +15,4 @@ require("./bootstrap");
 require("./components/QuestionModal");
 require("./components/QuestionList");
 require("./components/NavBar");
+require("./components/QuestionCategory");

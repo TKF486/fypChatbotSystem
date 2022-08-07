@@ -26,3 +26,6 @@ Route::put('questionUpdate/{id}', [QuestionController::class, 'update']);
 Route::delete('questionDelete/{id}', [QuestionController::class, 'destroy']);
 
 Route::get('categories', [CategoryController::class, 'index']);
+Route::post('category', [CategoryController::class, 'store']);
+Route::put('categoryUpdate/{id}', [CategoryController::class, 'update']);
+Route::delete('categoryDelete/{id}', [CategoryController::class, 'destroy']);

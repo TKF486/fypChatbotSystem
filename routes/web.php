@@ -24,6 +24,10 @@ Route::get('/view', function () {
     return view('view');
 });
 
+Route::get('/category', function () {
+    return view('category');
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('questions', [QuestionController::class, 'index']);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

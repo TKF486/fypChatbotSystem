@@ -12,6 +12,9 @@ export default class NavBar extends Component {
                         <NavLink href="#">Dashboard</NavLink>
                     </NavItem>
                     <NavItem>
+                        <NavLink href="/category">Question Category</NavLink>
+                    </NavItem>
+                    <NavItem>
                         <NavLink href="../">Database</NavLink>
                     </NavItem>
 

@@ -3,13 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <link rel="stylesheet" href="{{ url('css/customised.css') }}"> -->
-        <link rel="stylesheet" href="{{ URL::asset('css/customised.css'); }} ">
+        <!-- <link rel="stylesheet" href="{{ URL::asset('css/customised.css'); }} "> -->
         <title>React Posts</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="/css/app.css" rel="stylesheet">
+        <link href="/css/customised.css" rel="stylesheet">
 
         <!-- Styles -->
         <style>
@@ -23,7 +23,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <div id="questionModal"></div>
+        <div id="questionCategory"></div>
     </body>
     <script src="/js/app.js"></script>
 </html>
