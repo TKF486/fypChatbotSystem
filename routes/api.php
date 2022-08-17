@@ -29,3 +29,5 @@ Route::get('categories', [CategoryController::class, 'index']);
 Route::post('category', [CategoryController::class, 'store']);
 Route::put('categoryUpdate/{id}', [CategoryController::class, 'update']);
 Route::delete('categoryDelete/{id}', [CategoryController::class, 'destroy']);
+
+Route::get('pieData', [CategoryController::class, 'pieData']);

@@ -27,16 +27,28 @@ class CategoryController extends Controller
         return 204;
     }
 
+    // public function pieData(){
+    //     $record = Category::all("categoryName","noOfInteractions");
+    //     $data = [];
+    //     foreach($record as $row) {
+    //         $data['label'][] = $row->categoryName;
+    //         $data['data'][] = $row->noOfInteractions;
+    //       }
+     
+    //     $data['chart_data'] = json_encode($data);
+    //     return view('pieChart', $data);
+    //     // echo $data['chart_data'];
+    // }
+
+    
     public function pieData(){
         $record = Category::all("categoryName","noOfInteractions");
         $data = [];
         foreach($record as $row) {
             $data['label'][] = $row->categoryName;
             $data['data'][] = $row->noOfInteractions;
-          }
-     
-        $data['chart_data'] = json_encode($data);
-        return view('pieChart', $data);
+        }
+        return $data;
         // echo $data['chart_data'];
     }
 }
