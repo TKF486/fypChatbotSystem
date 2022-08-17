@@ -1,113 +1,36 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import {
-    Table,
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Input,
-    FormGroup,
-    Label,
-    Nav,
-    NavItem,
-    NavLink,
-} from "reactstrap";
-import axios from "axios";
-import NavBar from "./NavBar";
+import React from "react";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Pie } from "react-chartjs-2";
 
-export default class PieChart extends Component {
-    constructor() {
-        super();
-        this.state = {};
-    }
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-    viewChart() {
-        //get the pie chart canvas
-        var cData = JSON.parse(`<?php echo $chart_data; ?>`);
-        var ctx = $("#pie-chart");
-
-        //pie chart data
-        var data = {
-            labels: cData.label,
-            datasets: [
-                {
-                    label: "Users Count",
-                    data: cData.data,
-                    backgroundColor: [
-                        "#DEB887",
-                        "#A9A9A9",
-                        "#DC143C",
-                        "#F4A460",
-                        "#2E8B57",
-                        "#1D7A46",
-                        "#CDA776",
-                    ],
-                    borderColor: [
-                        "#CDA776",
-                        "#989898",
-                        "#CB252B",
-                        "#E39371",
-                        "#1D7A46",
-                        "#F4A460",
-                        "#CDA776",
-                    ],
-                    borderWidth: [1, 1, 1, 1, 1, 1, 1],
-                },
+export const data = {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+        {
+            label: "# of Votes",
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
             ],
-        };
+            borderColor: [
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 159, 64, 1)",
+            ],
+            borderWidth: 1,
+        },
+    ],
+};
 
-        //options
-        var options = {
-            responsive: true,
-            title: {
-                display: true,
-                position: "top",
-                text: "CATEGORY ANALYSIS",
-                fontSize: 18,
-                fontColor: "#111",
-            },
-            legend: {
-                display: true,
-                position: "bottom",
-                labels: {
-                    fontColor: "#333",
-                    fontSize: 16,
-                },
-            },
-        };
-
-        //create Pie Chart class object
-        var chart1 = new Chart(ctx, {
-            type: "pie",
-            data: data,
-            options: options,
-        });
-    }
-
-    componentWillMount() {
-        this.viewChart();
-    }
-
-    render() {
-        return (
-            <div className="container">
-                <NavBar />
-                <div className="main">
-                    <h1>Dashboard</h1>
-                    <div class="pie-chart-container">
-                        <canvas
-                            id="pie-chart"
-                            style="width:100%;max-width:400px"
-                        ></canvas>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-if (document.getElementById("PieChart")) {
-    ReactDOM.render(<PieChart />, document.getElementById("PieChart"));
+export function PieChart() {
+    return <Pie data={data} />;
 }

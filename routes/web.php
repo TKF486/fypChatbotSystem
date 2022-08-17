@@ -30,9 +30,9 @@ Route::get('/category', function () {
     return view('category');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('questions', [QuestionController::class, 'index']);
@@ -45,5 +45,5 @@ Route::group(['middleware' => ['admin']], function () {
  });
 
 Route::get('/pieChart', [CategoryController::class,'pieData']);
-Route::get('/dashboard', [SessionController::class,'checkSessionID']);
+// Route::get('/dashboard', [SessionController::class,'checkSessionID']);
 //  Route::get('/intent/projectID/{projectID}/text/{text}/sessionId/{sessionId}', [IntentController::class,'detect_intent_texts']);

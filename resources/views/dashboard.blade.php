@@ -11,8 +11,7 @@
  
   
 <body class="antialiased">
-        <!-- <div id="PieChart"></div> -->
-        <?php echo $session_id; ?>
+<div id="root"></div>
     </body>
-    <!-- <script src="/js/app.js"></script> -->
+    <script src="/js/app.js"></script>
 </html>

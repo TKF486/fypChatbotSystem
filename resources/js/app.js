@@ -17,3 +17,4 @@ require("./components/QuestionList");
 require("./components/NavBar");
 require("./components/QuestionCategory");
 require("./components/PieChart");
+require("./components/Dashboard");
