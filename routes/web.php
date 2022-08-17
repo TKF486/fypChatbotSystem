@@ -44,6 +44,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/', [HomeController::class, 'adminView'])->name('admin.view');
  });
 
-Route::get('/pieChart', [CategoryController::class,'pieData']);
+Route::get('/pieChart', [QuestionController::class,'quesFreq']);
 // Route::get('/dashboard', [SessionController::class,'checkSessionID']);
 //  Route::get('/intent/projectID/{projectID}/text/{text}/sessionId/{sessionId}', [IntentController::class,'detect_intent_texts']);

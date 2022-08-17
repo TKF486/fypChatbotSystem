@@ -27,5 +27,10 @@ class SessionController extends Controller
 
     }
 
+    public function sessionCount(){
+        $session = Session::all()->count();
+        return $session;
+    }
+
 
 }

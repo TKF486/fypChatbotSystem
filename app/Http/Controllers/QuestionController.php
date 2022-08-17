@@ -99,4 +99,23 @@ class QuestionController extends Controller
         $question->delete();
         return 204;
     }
+
+    // public function quesFreq(){
+    //     $record = Question::all("intentName","noOfInteractions");
+    //     $data = [];
+    //     foreach($record as $row) {
+    //         $data['intentName'][] = $row->intentName;
+    //         $data['noOfInteractions'][] = $row->noOfInteractions;
+    //     }
+    //     return $data;
+    // }
+
+    public function quesFreq(){
+        $question =  Question::orderBy('noOfInteractions','DESC')->limit(10)->get();
+        // $question->sortBy('noOfInteractions')->first():
+        // Question::orderby('noOfInteractions' , 'DESC')->get();
+        return $question;
+    }
+
+    
 }
