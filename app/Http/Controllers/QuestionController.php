@@ -51,7 +51,6 @@ use Google\Cloud\Dialogflow\V2\Intent\Message;
 
 class QuestionController extends Controller
 {
-    // public $projectId = 'fyp-chatbot-jmea';
 
     public function index(){
         return Question::all();
@@ -64,8 +63,6 @@ class QuestionController extends Controller
         $trainingPhraseParts = [$input['trainingPhrase1'],$input['trainingPhrase2'],$input['trainingPhrase3'],$input['trainingPhrase4']];
         $messageTexts = [$input['response']];
         $input['intentID'] = app('App\Http\Controllers\IntentController')->intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts);
-        // $input['intentID'] = "ddd";
-        // app('App\Http\Controllers\IntentController')->intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts);
         return Question::create($input);
     }
 
@@ -77,7 +74,6 @@ class QuestionController extends Controller
         $messageTexts = [$input['response']];
 
         $question = Question::findOrFail($id);
-        // $intentObject = Intent::findOrFail($id);
         $intentID = $question['intentID'];   
         $intentsClient = new IntentsClient();
         try {
@@ -100,20 +96,8 @@ class QuestionController extends Controller
         return 204;
     }
 
-    // public function quesFreq(){
-    //     $record = Question::all("intentName","noOfInteractions");
-    //     $data = [];
-    //     foreach($record as $row) {
-    //         $data['intentName'][] = $row->intentName;
-    //         $data['noOfInteractions'][] = $row->noOfInteractions;
-    //     }
-    //     return $data;
-    // }
-
     public function quesFreq(){
         $question =  Question::orderBy('noOfInteractions','DESC')->limit(10)->get();
-        // $question->sortBy('noOfInteractions')->first():
-        // Question::orderby('noOfInteractions' , 'DESC')->get();
         return $question;
     }
 
