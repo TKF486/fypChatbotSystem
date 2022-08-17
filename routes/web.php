@@ -6,6 +6,7 @@ use App\Http\controllers\HomeController;
 use App\Http\controllers\BotManController;
 use App\Http\controllers\IntentController;
 use App\Http\controllers\CategoryController;
+use App\Http\controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,10 @@ Route::get('/category', function () {
     return view('category');
 });
 
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// });
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('questions', [QuestionController::class, 'index']);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -40,4 +45,5 @@ Route::group(['middleware' => ['admin']], function () {
  });
 
 Route::get('/pieChart', [CategoryController::class,'pieData']);
+Route::get('/dashboard', [SessionController::class,'checkSessionID']);
 //  Route::get('/intent/projectID/{projectID}/text/{text}/sessionId/{sessionId}', [IntentController::class,'detect_intent_texts']);

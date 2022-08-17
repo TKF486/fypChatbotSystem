@@ -72,13 +72,22 @@ class BotManController extends Controller
             $languageCode = 'en-US';
             $msg = $bot->getMessage()->getText();
             $IntentController = new IntentController();
+
+            $sessionID = session()->getId();
+
+            app('App\Http\Controllers\SessionController')->createSession();
+           
+
             $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
+
+           
             $bot->reply($response);
         });
 
         $botman->listen();
     }
-    
+
 }
+
 
 

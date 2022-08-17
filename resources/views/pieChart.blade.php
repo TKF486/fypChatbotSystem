@@ -10,7 +10,7 @@
 <body>
   <div class="chart-container">
     <div class="pie-chart-container">
-      <canvas id="pie-chart"></canvas>
+      <canvas id="pie-chart" style="width:100%;max-width:400px"></canvas>
     </div>
   </div>
  
@@ -58,7 +58,7 @@
         title: {
           display: true,
           position: "top",
-          text: "Last Week Registered Users -  Day Wise Count",
+          text: "CATEGORY ANALYSIS",
           fontSize: 18,
           fontColor: "#111"
         },
