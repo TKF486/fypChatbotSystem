@@ -9,7 +9,7 @@ export default class NavBar extends Component {
                 <p className="sidebar_welcome">Welcome Back Admin</p>
                 <Nav vertical>
                     <NavItem>
-                        <NavLink href="#">Dashboard</NavLink>
+                        <NavLink href="/dashboard">Dashboard</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink href="/category">Question Category</NavLink>
