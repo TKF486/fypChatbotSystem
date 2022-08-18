@@ -49,13 +49,10 @@ class BotManController extends Controller
         //     // $bot->userStorage()->delete();
         // })->middleware($dialogFlow);
 
-        $botman->hears('help', function ($bot) {
+           $botman->hears('help', function ($bot) {
             $bot->startConversation(new HelpConversation);
-            // $bot->reply(Question::create('Choose one option')->addButtons([
-            //     Button::create('Yes')->value('yes'),
-            //     Button::create('No')->value('no'),
-            // ]));
-        });
+            // $bot->userStorage()->delete();
+        })->middleware($dialogFlow);
 
         // $botman->fallback(function ($bot) {
         //     $bot->reply(__('Sorry, I did not understand you. Please try again.'));
