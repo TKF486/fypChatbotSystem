@@ -8,6 +8,8 @@ use BotMan\BotMan\Cache\LaravelCache;
 use BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Messages\Incoming;
+use BotMan\BotMan\Messages\Outgoing\Question;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 
 use App\Http\Conversations\InlineConversation;
 use App\Http\Conversations\HelpConversation;
@@ -16,7 +18,6 @@ use App\Http\Middleware\ReceivedMiddleware;
 use App\Http\Controllers\IntentController;
 
 $GlobalAction = "";
-
 class BotManController extends Controller
 {
     public function handle()
@@ -48,17 +49,16 @@ class BotManController extends Controller
         //     // $bot->userStorage()->delete();
         // })->middleware($dialogFlow);
 
-        // $botman->hears('help', function ($bot) {
-        //     $bot->startConversation(new HelpConversation);
-        //     // $bot->userStorage()->delete();
-        // })->middleware($dialogFlow);
+        $botman->hears('help', function ($bot) {
+            $bot->startConversation(new HelpConversation);
+            // $bot->reply(Question::create('Choose one option')->addButtons([
+            //     Button::create('Yes')->value('yes'),
+            //     Button::create('No')->value('no'),
+            // ]));
+        });
 
         // $botman->fallback(function ($bot) {
         //     $bot->reply(__('Sorry, I did not understand you. Please try again.'));
-        // });
-
-        // $botman->hears('Hello', function($bot) {
-        //     $bot->startConversation(new InlineConversation);
         // });
 
         // $botman->hears('(.*)', function($bot) {
@@ -68,7 +68,6 @@ class BotManController extends Controller
         $botman->hears('(.*)', function ($bot) {
             $projectId = 'fyp-chatbot-jmea';
             $sessionId = $bot->getUser()->getId();
-            // $sessionId = '123456';
             $languageCode = 'en-US';
             $msg = $bot->getMessage()->getText();
             $IntentController = new IntentController();
@@ -79,9 +78,10 @@ class BotManController extends Controller
            
 
             $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
+            if($response != null){
+                $bot->reply($response);
+            }
 
-           
-            $bot->reply($response);
         });
 
         $botman->listen();
