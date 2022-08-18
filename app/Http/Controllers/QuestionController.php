@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Question;
+use App\Models\Session;
 
 use Illuminate\Http\Request;
 
@@ -99,6 +100,16 @@ class QuestionController extends Controller
     public function quesFreq(){
         $question =  Question::orderBy('noOfInteractions','DESC')->limit(10)->get();
         return $question;
+    }
+
+    public function quesRetrieve($quesAsk){
+       $categoryID = app('App\Http\Controllers\SessionController')->getSessionID($quesAsk);
+       $question = Question::where('category_id ', $categoryID)->get();
+       $questions = [];
+       foreach($question as $row) {
+        array_push($questions,$row->intentName);
+    }
+    return $questions;
     }
 
     

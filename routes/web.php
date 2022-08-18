@@ -45,6 +45,6 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/', [HomeController::class, 'adminView'])->name('admin.view');
  });
 
-Route::get('/test', [HelpConversation::class,'retrieveCategory']);
+Route::get('/test', [CategoryController::class,'getCategoryID']);
 // Route::get('/dashboard', [SessionController::class,'checkSessionID']);
 //  Route::get('/intent/projectID/{projectID}/text/{text}/sessionId/{sessionId}', [IntentController::class,'detect_intent_texts']);

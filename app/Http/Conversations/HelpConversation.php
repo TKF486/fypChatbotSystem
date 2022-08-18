@@ -15,16 +15,13 @@ class HelpConversation extends Conversation
 {
 
     public function retrieveCategory(){
-       $category = app('App\Http\Controllers\CategoryController')->index();
-       $categories = [];
-       foreach($category as $row) {
-        array_push($categories,$row->categoryName);
-    }
-    $this->createButtons($categories);
+        $string = 'Here are some of the categories that is frequently ask by students, you can start by choosing one of the options below?';
+       $categories = app('App\Http\Controllers\CategoryController')->retrieveCategoryName();
+       $this->createButtons($categories, $string);
     //return $categories;
     }
 
-    public function createButtons($categories){
+    public function createButtons($categories, $string){
         $buttons = [];
         foreach($categories as $row) {
             $temp_button = Button::create($row)->value($row);
@@ -33,28 +30,68 @@ class HelpConversation extends Conversation
         }
 
         //return $buttons;
-        $this->askForDatabase($buttons);
+        $categoryAsk = $this->askForDatabase($buttons, $string);
+        //$this->askForDatabase($buttons, $string);
        
     }
 
-    public function askForDatabase($buttons)
-    {
-        $question = Question::create('Here are some of the questions that is frequently ask by students, you can start by choosing one of the options below?')->addButtons($buttons);
+    public function quesRetrieve($categoryAsk){
+        $string = 'Here are some of the questions that is frequently ask by students, you can start by choosing one of the options below?';
+        $questions = app('App\Http\Controllers\QuestionController')->quesRetrieve($categoryAsk);
+        //$buttons = $this->createButtons($questions, $string);
 
+        $buttons = [];
+        foreach($questions as $row) {
+            $temp_button = Button::create($row)->value($row);
+            array_push($buttons,$temp_button);
+          
+        }
+
+        return $buttons;
+
+
+    }
+
+    public function askForDatabase($buttons, $string)
+    {
+        $question = Question::create($string)->addButtons($buttons);
+        $category = null;
    
         $this->ask($question, function (Answer $answer) use ($question) {
             if ($answer->isInteractiveMessageReply()) {
                 $category = $answer->getValue();
-                if($category == 'category'){
-                    $this->bot->reply('Awesome');
-          
+
+
+
+                if( $category != null){
+                    $newBtn = $this->quesRetrieve($category);
+                    $newQuestion = Question::create($string)->addButtons($newBtn);
                 }
-                //$bot->reply(('Sorry, I did not understand you. Please try again.'));
+
+
+
+             
+          
+
+                    $this->ask($newQuestion, function (Answer $answer) use ($newQuestion) {
+                        if ($answer->isInteractiveMessageReply()) {
+                            $category = $answer->getValue();
+
+                    
+                        } else {
+                            $this->repeat($question);
+                            //console.log($answer->getValue());
+                        }
+                    })
+
+             
             } else {
                 $this->repeat($question);
                 //console.log($answer->getValue());
             }
         });
+
+        //return $category;
 
     // $this->ask($question, function (Answer $answer) use ($question) {
     //     // Detect if button was clicked:

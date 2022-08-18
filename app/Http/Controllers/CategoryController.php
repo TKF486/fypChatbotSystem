@@ -36,6 +36,31 @@ class CategoryController extends Controller
         }
         return $data;
     }
+
+    public function retrieveCategoryName(){
+        $category = $this->index();
+        $categories = [];
+        foreach($category as $row) {
+         array_push($categories,$row->categoryName);
+     }
+     return $categories;
+     }
+
+    //  public function getCategoryID($category){
+    //     $category = Category::where('categoryName', $category)->get();
+    //     $category->
+    // }
+
+    
+    public function getCategoryID(){
+        $category = Category::where('categoryName', 'Sports')->get();
+        $id = [];
+        foreach($category as $row) {
+         array_push($id,$row->id);
+     }
+     return $id[0];
+        //return $category->id;
+    }
 }
 
 
