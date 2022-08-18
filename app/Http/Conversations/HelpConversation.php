@@ -13,19 +13,41 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 
 class HelpConversation extends Conversation
 {
-    public function askForDatabase()
+
+    public function retrieveCategory(){
+       $category = app('App\Http\Controllers\CategoryController')->index();
+       $categories = [];
+       foreach($category as $row) {
+        array_push($categories,$row->categoryName);
+    }
+    $this->createButtons($categories);
+    //return $categories;
+    }
+
+    public function createButtons($categories){
+        $buttons = [];
+        foreach($categories as $row) {
+            $temp_button = Button::create($row)->value($row);
+            array_push($buttons,$temp_button);
+          
+        }
+
+        //return $buttons;
+        $this->askForDatabase($buttons);
+       
+    }
+
+    public function askForDatabase($buttons)
     {
-        $question = Question::create('Here are some of the questions that is frequently ask by students, you can start by choosing one of the options below?')->addButtons([
-            Button::create('Yes')->value('yes'),
-            Button::create('No')->value('no'),
-        ]);
+        $question = Question::create('Here are some of the questions that is frequently ask by students, you can start by choosing one of the options below?')->addButtons($buttons);
 
    
         $this->ask($question, function (Answer $answer) use ($question) {
             if ($answer->isInteractiveMessageReply()) {
                 $category = $answer->getValue();
-                if($category == 'yes'){
+                if($category == 'category'){
                     $this->bot->reply('Awesome');
+          
                 }
                 //$bot->reply(('Sorry, I did not understand you. Please try again.'));
             } else {
@@ -46,7 +68,7 @@ class HelpConversation extends Conversation
     public function run()
     {
         // This will be called immediately
-        $this->askForDatabase();
+        $this->retrieveCategory();
     }
 }
 
