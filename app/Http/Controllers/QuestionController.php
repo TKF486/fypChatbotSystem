@@ -107,7 +107,7 @@ class QuestionController extends Controller
        $question = Question::where('category_id', $categoryID)->get();
        $questions = [];
        foreach($question as $row) {
-        array_push($questions,$row->intentName);
+        array_push($questions,$row->trainingPhrase1);
     }
     return $questions;
     }

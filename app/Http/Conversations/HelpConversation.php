@@ -87,8 +87,8 @@ public function askForQuestion($newBtn){
     $newQuestion = Question::create("Choose questions")->addButtons($newBtn);
     $this->ask($newQuestion, function (Answer $answer) use ($newQuestion) {
         if ($answer->isInteractiveMessageReply()) {
-            $category = $answer->getValue();
-
+            $question = $answer->getValue();
+            $this->bot->reply($question);
          
         } else {
             $this->repeat($question);
