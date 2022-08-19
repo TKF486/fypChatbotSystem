@@ -49,10 +49,10 @@ class BotManController extends Controller
         //     // $bot->userStorage()->delete();
         // })->middleware($dialogFlow);
 
-           $botman->hears('help', function ($bot) {
-            $bot->startConversation(new HelpConversation);
-            // $bot->userStorage()->delete();
-        })->middleware($dialogFlow);
+        //    $botman->hears('help', function ($bot) {
+        //     $bot->startConversation(new HelpConversation);
+        //     // $bot->userStorage()->delete();
+        // })->middleware($dialogFlow);
 
         // $botman->fallback(function ($bot) {
         //     $bot->reply(__('Sorry, I did not understand you. Please try again.'));
@@ -67,17 +67,25 @@ class BotManController extends Controller
             $sessionId = $bot->getUser()->getId();
             $languageCode = 'en-US';
             $msg = $bot->getMessage()->getText();
-            $IntentController = new IntentController();
-
-            $sessionID = session()->getId();
-
-            app('App\Http\Controllers\SessionController')->createSession();
-           
-
-            $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
-            if($response != null){
-                $bot->reply($response);
+            
+            if($msg == 'help'){
+                $bot->startConversation(new HelpConversation);
             }
+
+            else{
+                $IntentController = new IntentController();
+
+                $sessionID = session()->getId();
+    
+                app('App\Http\Controllers\SessionController')->createSession();
+               
+    
+                $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
+                if($response != null){
+                    $bot->reply($response);
+                }
+            }
+        
 
         });
 
