@@ -38,7 +38,8 @@ class CategoryController extends Controller
     }
 
     public function retrieveCategoryName(){
-        $category = $this->index();
+        //show only top 5 categories that is asked
+        $category = Category::orderBy('noOfInteractions','DESC')->limit(5)->get();
         $categories = [];
         foreach($category as $row) {
          array_push($categories,$row->categoryName);

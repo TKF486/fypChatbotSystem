@@ -104,9 +104,11 @@ class QuestionController extends Controller
 
     public function quesRetrieve($categoryAsk){
        $categoryID = app('App\Http\Controllers\CategoryController')->getCategoryID($categoryAsk);
-       $question = Question::where('category_id', $categoryID)->get();
+       $question = Question::where('category_id', $categoryID);
+       //get Top5 question that is frequently asked
+       $order = $question->orderBy('noOfInteractions','DESC')->limit(5)->get();
        $questions = [];
-       foreach($question as $row) {
+       foreach($order as $row) {
         array_push($questions,$row->trainingPhrase1);
     }
     return $questions;
