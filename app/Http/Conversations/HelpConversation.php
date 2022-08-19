@@ -11,6 +11,8 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Incoming\Answer;
 
+use App\Http\Controllers\IntentController;
+
 class HelpConversation extends Conversation
 {
 
@@ -89,6 +91,20 @@ public function askForQuestion($newBtn){
         if ($answer->isInteractiveMessageReply()) {
             $question = $answer->getValue();
             $this->bot->reply($question);
+           
+            $projectId = 'fyp-chatbot-jmea';
+            $sessionId = $this->bot->getUser()->getId();
+            $languageCode = 'en-US';
+            $msg = $this->bot->getMessage()->getText();
+            $IntentController = new IntentController();
+
+            $sessionID = session()->getId();
+
+            app('App\Http\Controllers\SessionController')->createSession();
+           
+
+            $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
+            $this->bot->reply($response);
          
         } else {
             $this->repeat($question);
