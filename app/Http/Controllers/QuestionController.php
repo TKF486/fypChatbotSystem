@@ -102,9 +102,9 @@ class QuestionController extends Controller
         return $question;
     }
 
-    public function quesRetrieve($quesAsk){
-       $categoryID = app('App\Http\Controllers\SessionController')->getSessionID($quesAsk);
-       $question = Question::where('category_id ', $categoryID)->get();
+    public function quesRetrieve($categoryAsk){
+       $categoryID = app('App\Http\Controllers\CategoryController')->getCategoryID($categoryAsk);
+       $question = Question::where('category_id', $categoryID)->get();
        $questions = [];
        foreach($question as $row) {
         array_push($questions,$row->intentName);
@@ -112,5 +112,15 @@ class QuestionController extends Controller
     return $questions;
     }
 
+    
+    // public function quesRetrieve(){
+    //     $categoryID = app('App\Http\Controllers\CategoryController')->getCategoryID('Sports');
+    //     $question = Question::where('category_id', $categoryID)->get();
+    //     $questions = [];
+    //     foreach($question as $row) {
+    //      array_push($questions,$row->intentName);
+    //  }
+    //  return $questions;
+    //  }
     
 }

@@ -52,8 +52,8 @@ class CategoryController extends Controller
     // }
 
     
-    public function getCategoryID(){
-        $category = Category::where('categoryName', 'Sports')->get();
+    public function getCategoryID($categoryAsk){
+        $category = Category::where('categoryName', $categoryAsk)->get();
         $id = [];
         foreach($category as $row) {
          array_push($id,$row->id);

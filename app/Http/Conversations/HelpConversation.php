@@ -30,8 +30,8 @@ class HelpConversation extends Conversation
         }
 
         //return $buttons;
-        $categoryAsk = $this->askForDatabase($buttons, $string);
-        //$this->askForDatabase($buttons, $string);
+        $categoryAsk = $this->askForCategory($buttons, $string);
+        //$this->askForCategory($buttons, $string);
        
     }
 
@@ -52,7 +52,7 @@ class HelpConversation extends Conversation
 
     }
 
-    public function askForDatabase($buttons, $string)
+    public function askForCategory($buttons, $string)
     {
         $question = Question::create($string)->addButtons($buttons);
         $category = null;
@@ -60,29 +60,17 @@ class HelpConversation extends Conversation
         $this->ask($question, function (Answer $answer) use ($question) {
             if ($answer->isInteractiveMessageReply()) {
                 $category = $answer->getValue();
-
-
-
-                if( $category != null){
+                if($category != null){
+                    $this->bot->reply('You are currently asking about '. $category);
                     $newBtn = $this->quesRetrieve($category);
-                    $newQuestion = Question::create($string)->addButtons($newBtn);
+                    $this->askForQuestion($newBtn);
                 }
-
-
-
-             
-          
-
-                    $this->ask($newQuestion, function (Answer $answer) use ($newQuestion) {
-                        if ($answer->isInteractiveMessageReply()) {
-                            $category = $answer->getValue();
-
-                    
-                        } else {
-                            $this->repeat($question);
-                            //console.log($answer->getValue());
-                        }
-                    })
+                //$this->bot->reply('You are currently asking about'. $this->$category);
+                // if( $category != null){
+                //$newBtn = $this->quesRetrieve($category);
+                //$this->askForQuestion($newBtn);
+                //     $newQuestion = Question::create($string)->addButtons($newBtn);
+                // }
 
              
             } else {
@@ -92,14 +80,22 @@ class HelpConversation extends Conversation
         });
 
         //return $category;
+}
 
-    // $this->ask($question, function (Answer $answer) use ($question) {
-    //     // Detect if button was clicked:
-    //     if ($answer->isInteractiveMessageReply()) {
-    //         $selectedValue = $answer->getValue(); // will be either 'yes' or 'no'
-    //     }
 
-    // });
+public function askForQuestion($newBtn){
+    $newQuestion = Question::create("Choose questions")->addButtons($newBtn);
+    $this->ask($newQuestion, function (Answer $answer) use ($newQuestion) {
+        if ($answer->isInteractiveMessageReply()) {
+            $category = $answer->getValue();
+
+         
+        } else {
+            $this->repeat($question);
+            //console.log($answer->getValue());
+        }
+    });
+
 }
 
     public function run()
