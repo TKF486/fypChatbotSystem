@@ -30,8 +30,8 @@
     <script src="/js/app.js"></script>
     <script>
 var botmanWidget = {  
-    title: 'fypChatbot'
-    userId: "123"
+    title: 'fypChatbot',
+    introMessage: 'Hi welcome to FYP Chatbot! You can ask me anything, or type help if you need further assistant!'
 };
 </script>
 <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
