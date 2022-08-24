@@ -7,6 +7,7 @@ use App\Models\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 use Google\Cloud\Dialogflow\V2\Gapic;
 use  Google\Cloud\Dialogflow\V2\Gapic\IntentsGapicClient;
@@ -116,10 +117,6 @@ class QuestionController extends Controller
     return $questions;
     }
 
-    public function importQuestion(){
-
-    }
-
     public function BulkImportQuestion(Request $request){
         $validator = Validator::make($request->all(), [
             'file' => 'required'
@@ -140,9 +137,16 @@ class QuestionController extends Controller
 
         foreach ($rows as $row) {
             $row = array_combine($header, $row);
+            //handle mysql
+            $projectId = 'fyp-chatbot-jmea';
+            $displayName = $row['intentName'];
+            $trainingPhraseParts = [$row['trainingPhrase1'],$row['trainingPhrase2'], $row['trainingPhrase3'],$row['trainingPhrase4']];
+            $messageTexts = [$row['response']];   
+            $intentID = app('App\Http\Controllers\IntentController')->intent_create($projectId, $displayName, $trainingPhraseParts, $messageTexts);
+
             Question::create([
                 'intentName' => $row['intentName'],
-                'intentID' => $row['intentID'],
+                'intentID' => $intentID,
                 'category_id' => $row['category_id'],
                 'noOfInteractions' => $row['noOfInteractions'],
                 'trainingPhrase1' => $row['trainingPhrase1'],
@@ -152,9 +156,11 @@ class QuestionController extends Controller
                 'response' => $row['response'],
                 
             ]);
+
         }
 
-        return redirect('./');
+        return redirect('importUser');
     }
     
 }
+
