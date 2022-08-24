@@ -35,6 +35,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
+Route::get('/import', function () {
+    return view('importUser');
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('questions', [QuestionController::class, 'index']);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
@@ -48,3 +52,9 @@ Route::group(['middleware' => ['admin']], function () {
 Route::get('/test', [QuestionController::class,'quesRetrieve']);
 // Route::get('/dashboard', [SessionController::class,'checkSessionID']);
 //  Route::get('/intent/projectID/{projectID}/text/{text}/sessionId/{sessionId}', [IntentController::class,'detect_intent_texts']);
+
+// Route::get('import', 'QuestionController@importQuestion')->name('import-Question');
+// Route::post('import', 'QuestionController@BulkImportQuestion')->name('bulk-import-Question');
+
+// Route::get('questions', [QuestionController::class, 'importQuestion']);
+Route::post('/import', [QuestionController::class, 'BulkImportQuestion']);

@@ -5,6 +5,8 @@ use App\Models\Question;
 use App\Models\Session;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 
 use Google\Cloud\Dialogflow\V2\Gapic;
 use  Google\Cloud\Dialogflow\V2\Gapic\IntentsGapicClient;
@@ -114,15 +116,45 @@ class QuestionController extends Controller
     return $questions;
     }
 
-    
-    // public function quesRetrieve(){
-    //     $categoryID = app('App\Http\Controllers\CategoryController')->getCategoryID('Sports');
-    //     $question = Question::where('category_id', $categoryID)->get();
-    //     $questions = [];
-    //     foreach($question as $row) {
-    //      array_push($questions,$row->intentName);
-    //  }
-    //  return $questions;
-    //  }
+    public function importQuestion(){
+
+    }
+
+    public function BulkImportQuestion(Request $request){
+        $validator = Validator::make($request->all(), [
+            'file' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator);
+        }
+
+        $file = $request->file('file');
+        $csvData = file_get_contents($file);
+        // dd($csvData);
+        $rows = array_map("str_getcsv", explode("\n", $csvData));
+        array_pop($rows);
+        $header = array_shift($rows);
+
+        foreach ($rows as $row) {
+            $row = array_combine($header, $row);
+            Question::create([
+                'intentName' => $row['intentName'],
+                'intentID' => $row['intentID'],
+                'category_id' => $row['category_id'],
+                'noOfInteractions' => $row['noOfInteractions'],
+                'trainingPhrase1' => $row['trainingPhrase1'],
+                'trainingPhrase2' => $row['trainingPhrase2'],
+                'trainingPhrase3' => $row['trainingPhrase3'],
+                'trainingPhrase4' => $row['trainingPhrase4'],
+                'response' => $row['response'],
+                
+            ]);
+        }
+
+        return redirect('./');
+    }
     
 }
