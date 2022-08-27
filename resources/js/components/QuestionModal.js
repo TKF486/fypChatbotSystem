@@ -101,6 +101,10 @@ export default class QuestionModal extends Component {
         });
     }
 
+    toggleBulkImport() {
+        window.location.href = "/import";
+    }
+
     callUpdateQuestion(
         id,
         intentName,
@@ -263,6 +267,13 @@ export default class QuestionModal extends Component {
                         onClick={this.togglenewQuestionModal.bind(this)}
                     >
                         Add Question
+                    </Button>
+
+                    <Button
+                        color="primary"
+                        onClick={this.toggleBulkImport.bind(this)}
+                    >
+                        Bulk Import Question
                     </Button>
 
                     <Modal

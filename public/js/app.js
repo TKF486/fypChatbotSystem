@@ -6358,6 +6358,11 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "toggleBulkImport",
+    value: function toggleBulkImport() {
+      window.location.href = "/import";
+    }
+  }, {
     key: "callUpdateQuestion",
     value: function callUpdateQuestion(id, intentName, intentID, category_id, noOfInteractions, trainingPhrase1, trainingPhrase2, trainingPhrase3, trainingPhrase4, response) {
       this.setState({
@@ -6504,6 +6509,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             color: "primary",
             onClick: this.togglenewQuestionModal.bind(this),
             children: "Add Question"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
+            color: "primary",
+            onClick: this.toggleBulkImport.bind(this),
+            children: "Bulk Import Question"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Modal, {
             isOpen: this.state.newQuestionModal,
             toggle: this.togglenewQuestionModal.bind(this),

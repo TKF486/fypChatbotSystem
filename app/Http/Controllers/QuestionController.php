@@ -159,7 +159,7 @@ class QuestionController extends Controller
 
         }
 
-        return redirect('importUser');
+        return redirect('./');
     }
     
 }
