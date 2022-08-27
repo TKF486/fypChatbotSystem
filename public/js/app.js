@@ -5524,8 +5524,7 @@ var Dashboard = /*#__PURE__*/function (_Component) {
               children: sessions
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_6__.Col, {
-            className: "bg-light border",
-            children: "Column"
+            className: "bg-light border"
           })]
         })]
       });

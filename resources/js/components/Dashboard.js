@@ -73,7 +73,7 @@ export default class Dashboard extends Component {
                         <h1>Total User</h1>
                         <h3>{sessions}</h3>
                     </Col>
-                    <Col className="bg-light border">Column</Col>
+                    <Col className="bg-light border"></Col>
                 </Row>
             </div>
         );

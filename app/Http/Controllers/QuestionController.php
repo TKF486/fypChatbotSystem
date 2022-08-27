@@ -101,7 +101,7 @@ class QuestionController extends Controller
     }
 
     public function quesFreq(){
-        $question =  Question::orderBy('noOfInteractions','DESC')->limit(10)->get();
+        $question =  Question::where('noOfInteractions', '!=' , 0)->orderBy('noOfInteractions','DESC')->limit(10)->get();
         return $question;
     }
 
@@ -109,7 +109,7 @@ class QuestionController extends Controller
        $categoryID = app('App\Http\Controllers\CategoryController')->getCategoryID($categoryAsk);
        $question = Question::where('category_id', $categoryID);
        //get Top5 question that is frequently asked
-       $order = $question->orderBy('noOfInteractions','DESC')->limit(5)->get();
+       $order = $question::where('noOfInteractions', '!=' , 0)->orderBy('noOfInteractions','DESC')->limit(5)->get();
        $questions = [];
        foreach($order as $row) {
         array_push($questions,$row->trainingPhrase1);
