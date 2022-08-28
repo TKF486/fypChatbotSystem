@@ -6174,16 +6174,42 @@ var QuestionList = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
+      var temp_category = -1;
+      var curr_category = 0;
+      var end = false;
       var questions = this.state.questions.map(function (question) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
-          eventKey: question.id,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Header, {
-            children: question.trainingPhrase1
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Body, {
-            children: question.response
-          })]
-        });
-      });
+        curr_category = question.category_id;
+
+        if (curr_category != temp_category) {
+          temp_category = question.category_id;
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+            eventKey: question.category_id,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Header, {
+              children: question.category_id
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Body, {
+              children: _this3.state.questions.map(function (question) {
+                if (temp_category == question.category_id) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+                    children: question.trainingPhrase1
+                  });
+                }
+              })
+            })]
+          });
+        }
+      }); // let questions = this.state.questions.map((question) => {
+      //     return (
+      //         <Accordion.Item eventKey={question.id}>
+      //             <Accordion.Header>
+      //                 {question.trainingPhrase1}
+      //             </Accordion.Header>
+      //             <Accordion.Body>{question.response}</Accordion.Body>
+      //         </Accordion.Item>
+      //     );
+      // });
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "container",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {

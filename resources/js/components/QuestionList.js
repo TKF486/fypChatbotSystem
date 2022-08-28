@@ -24,16 +24,43 @@ export default class QuestionList extends Component {
     }
 
     render() {
+        let temp_category = -1;
+        let curr_category = 0;
+        let end = false;
+
         let questions = this.state.questions.map((question) => {
-            return (
-                <Accordion.Item eventKey={question.id}>
-                    <Accordion.Header>
-                        {question.trainingPhrase1}
-                    </Accordion.Header>
-                    <Accordion.Body>{question.response}</Accordion.Body>
-                </Accordion.Item>
-            );
+            curr_category = question.category_id;
+
+            if (curr_category != temp_category) {
+                temp_category = question.category_id;
+
+                return (
+                    <Accordion.Item eventKey={question.category_id}>
+                        <Accordion.Header>
+                            {question.category_id}
+                        </Accordion.Header>
+                        <Accordion.Body>
+                            {this.state.questions.map((question) => {
+                                if (temp_category == question.category_id) {
+                                    return <li>{question.trainingPhrase1}</li>;
+                                }
+                            })}
+                        </Accordion.Body>
+                    </Accordion.Item>
+                );
+            }
         });
+
+        // let questions = this.state.questions.map((question) => {
+        //     return (
+        //         <Accordion.Item eventKey={question.id}>
+        //             <Accordion.Header>
+        //                 {question.trainingPhrase1}
+        //             </Accordion.Header>
+        //             <Accordion.Body>{question.response}</Accordion.Body>
+        //         </Accordion.Item>
+        //     );
+        // });
 
         return (
             <div className="container">
