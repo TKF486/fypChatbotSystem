@@ -32,5 +32,6 @@ Route::post('category', [CategoryController::class, 'store']);
 Route::put('categoryUpdate/{id}', [CategoryController::class, 'update']);
 Route::delete('categoryDelete/{id}', [CategoryController::class, 'destroy']);
 Route::get('pieData', [CategoryController::class, 'pieData']);
+Route::get('categoryID_Name', [CategoryController::class, 'retreiveID_Name']);
 
 Route::get('sessions', [SessionController::class, 'sessionCount']);

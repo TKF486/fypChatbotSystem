@@ -6150,7 +6150,8 @@ var QuestionList = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this);
     _this.state = {
-      questions: []
+      questions: [],
+      categories: []
     };
     return _this;
   }
@@ -6167,35 +6168,49 @@ var QuestionList = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "loadCategory",
+    value: function loadCategory() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/categoryID_Name").then(function (response) {
+        _this3.setState({
+          categories: response.data
+        });
+      });
+    }
+  }, {
     key: "componentWillMount",
     value: function componentWillMount() {
+      this.loadCategory();
       this.loadQuestion();
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var temp_category = -1;
       var curr_category = 0;
-      var end = false;
       var questions = this.state.questions.map(function (question) {
         curr_category = question.category_id;
 
         if (curr_category != temp_category) {
           temp_category = question.category_id;
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
             eventKey: question.category_id,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Header, {
-              children: question.category_id
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Body, {
-              children: _this3.state.questions.map(function (question) {
-                if (temp_category == question.category_id) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
+              children: _this4.state.categories[question.category_id + ""]
+            }), _this4.state.questions.map(function (question) {
+              if (temp_category == question.category_id) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Item, {
+                  eventKey: question.id,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Header, {
                     children: question.trainingPhrase1
-                  });
-                }
-              })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"].Body, {
+                    children: question.response
+                  })]
+                });
+              }
             })]
           });
         }

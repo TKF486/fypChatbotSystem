@@ -62,6 +62,16 @@ class CategoryController extends Controller
      return $id[0];
         //return $category->id;
     }
+
+    public function retreiveID_Name(){
+
+        $record = Category::all("id","categoryName");
+        $data = [];
+        foreach($record as $row) {
+            $data[$row->id] = $row->categoryName;
+        }
+        return $data;
+     }
 }
 
 

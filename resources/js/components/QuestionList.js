@@ -9,6 +9,7 @@ export default class QuestionList extends Component {
         super();
         this.state = {
             questions: [],
+            categories: [],
         };
     }
     loadQuestion() {
@@ -19,14 +20,24 @@ export default class QuestionList extends Component {
         });
     }
 
+    loadCategory() {
+        axios
+            .get("http://127.0.0.1:8000/api/categoryID_Name")
+            .then((response) => {
+                this.setState({
+                    categories: response.data,
+                });
+            });
+    }
+
     componentWillMount() {
+        this.loadCategory();
         this.loadQuestion();
     }
 
     render() {
         let temp_category = -1;
         let curr_category = 0;
-        let end = false;
 
         let questions = this.state.questions.map((question) => {
             curr_category = question.category_id;
@@ -35,18 +46,25 @@ export default class QuestionList extends Component {
                 temp_category = question.category_id;
 
                 return (
-                    <Accordion.Item eventKey={question.category_id}>
-                        <Accordion.Header>
-                            {question.category_id}
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            {this.state.questions.map((question) => {
-                                if (temp_category == question.category_id) {
-                                    return <li>{question.trainingPhrase1}</li>;
-                                }
-                            })}
-                        </Accordion.Body>
-                    </Accordion.Item>
+                    <div eventKey={question.category_id}>
+                        <h2>
+                            {this.state.categories[question.category_id + ""]}
+                        </h2>
+                        {this.state.questions.map((question) => {
+                            if (temp_category == question.category_id) {
+                                return (
+                                    <Accordion.Item eventKey={question.id}>
+                                        <Accordion.Header>
+                                            {question.trainingPhrase1}
+                                        </Accordion.Header>
+                                        <Accordion.Body>
+                                            {question.response}
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                );
+                            }
+                        })}
+                    </div>
                 );
             }
         });
