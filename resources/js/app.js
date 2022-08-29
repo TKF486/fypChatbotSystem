@@ -18,3 +18,11 @@ require("./components/NavBar");
 require("./components/QuestionCategory");
 require("./components/PieChart");
 require("./components/Dashboard");
+
+// resources/assets/js/app.js
+
+import $ from "jquery";
+window.$ = window.jQuery = $;
+
+import "jquery-ui/ui/widgets/datepicker.js";
+//add as many widget as you may need

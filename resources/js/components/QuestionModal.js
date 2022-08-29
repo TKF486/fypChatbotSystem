@@ -117,14 +117,35 @@ export default class QuestionModal extends Component {
                 this.loadQuestion();
             });
 
-        // remove all checkbox select
-        // $("input:checkbox").prop("checked", $(this).prop("checked"));
-
-        this.loadQuestion();
+        this.clearCheckbox();
+        // this.loadQuestion();
     };
+
+    clearCheckbox() {
+        this.setState({ checkedBoxes: [] });
+
+        // remove all checkbox select
+        $("input#checkbox").prop("checked", false);
+    }
+
+    selectAllCheckBox() {
+        let selected = $("input#checkbox").is(":checked");
+
+        if (selected) {
+            // is selected now need to remove all
+            $("input#checkbox").prop("checked", false);
+            this.setState({ checkedBoxes: [] });
+        } else {
+            $("input#checkbox").prop("checked", true);
+            this.setState({ checkedBoxes: [11, 22, 33] });
+        }
+
+        // alert($("input#checkbox").is(":checked"));
+    }
 
     deleteQuestion(id) {
         // console.log(id);
+        this.clearCheckbox();
         axios
             .delete("http://127.0.0.1:8000/api/questionDelete/" + id)
             .then((response) => {
@@ -316,6 +337,12 @@ export default class QuestionModal extends Component {
                 <NavBar />
                 <div className="main">
                     <h1>Database</h1>
+                    <Button
+                        color="primary"
+                        onClick={this.selectAllCheckBox.bind(this)}
+                    >
+                        Select All
+                    </Button>
                     <Button
                         color="primary"
                         onClick={this.togglenewQuestionModal.bind(this)}
