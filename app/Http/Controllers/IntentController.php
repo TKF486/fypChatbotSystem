@@ -5,6 +5,7 @@ use App\Models\Question;
 use App\Models\Category;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Google\Cloud\Dialogflow\V2\Gapic;
 use  Google\Cloud\Dialogflow\V2\Gapic\IntentsGapicClient;
 
@@ -100,6 +101,24 @@ function intent_delete($projectId = 'fyp-chatbot-jmea', $intentId)
     $intentsClient->close();
 }
 
+function batch_intent_delete($projectId = 'fyp-chatbot-jmea', $json_id_list)
+{
+    $intentsClient = new IntentsClient();
+    $intentNameArray = [];
+    foreach($json_id_list as $id){
+        $intentName = $intentsClient->intentName($projectId, $id);
+        $intent = (new Intent())
+        ->setName($intentName);
+        array_push($intentNameArray, $intent);
+    }
+    //Log::emergency( $intentNameArray);
+    $parent = $intentsClient->agentName($projectId);
+    //Log::emergency( $parent);
+    $intentsClient->batchDeleteIntents($parent, $intentNameArray);
+    //printf('Intent deleted: %s' . PHP_EOL, $intentName);
+    $intentsClient->close();
+}
+
 function intent_update($displayName, $trainingPhraseParts, $messageTexts, $intentObject)
 {
     $intentsClient = new IntentsClient();
@@ -134,43 +153,6 @@ function intent_update($displayName, $trainingPhraseParts, $messageTexts, $inten
     }
 }
 
-//     function detect_intent_texts($projectId = 'fyp-chatbot-jmea', $text = 'hi', $sessionId = '123456', $languageCode = 'en-US')
-// {
-//     // new session
-//     $test = array('credentials' => 'F:/GITHUB/fypChatbotSystem/fyp-chatbot-jmea-6c7de335595c.json');
-//     $sessionsClient = new SessionsClient($test);
-//     $session = $sessionsClient->sessionName($projectId, $sessionId ?: uniqid());
-//     printf('Session path: %s' . PHP_EOL, $session);
-
-//     // create text input
-//     $textInput = new TextInput();
-//     $textInput->setText($text);
-//     $textInput->setLanguageCode($languageCode);
-
-//     // create query input
-//     $queryInput = new QueryInput();
-//     $queryInput->setText($textInput);
-
-//     // get response and relevant info
-//     $response = $sessionsClient->detectIntent($session, $queryInput);
-//     $queryResult = $response->getQueryResult();
-//     $queryText = $queryResult->getQueryText();
-//     $intent = $queryResult->getIntent();
-//     $displayName = $intent->getDisplayName();
-//     $confidence = $queryResult->getIntentDetectionConfidence();
-//     $fulfilmentText = $queryResult->getFulfillmentText();
-
-//     // output relevant info
-//     print(str_repeat("=", 20) . PHP_EOL);
-//     printf('Query text: %s' . PHP_EOL, $queryText);
-//     printf('Detected intent: %s (confidence: %f)' . PHP_EOL, $displayName,
-//         $confidence);
-//     print(PHP_EOL);
-//     printf('Fulfilment text: %s' . PHP_EOL, $fulfilmentText);
-
-//     $sessionsClient->close();
-// }
-// $projectId, $text , $sessionId , $languageCode
 function detect_intent_texts($projectId, $text , $sessionId , $languageCode)
 {
     // new session

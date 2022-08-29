@@ -100,6 +100,22 @@ class QuestionController extends Controller
         return 204;
     }
 
+    public function bulkDelete($id_list){
+        $projectId = 'fyp-chatbot-jmea';
+        $json_id_list = json_decode($id_list);
+       
+        $actual_json_id = [];
+        foreach($json_id_list as $id){
+            $question = Question::findOrFail($id);
+            $intentID = $question['intentID'];
+            array_push($actual_json_id, $intentID);   
+        }
+        app('App\Http\Controllers\IntentController')->batch_intent_delete($projectId, $actual_json_id);
+        Question::whereIn('id', $json_id_list)->delete();
+
+        return 204;
+    }
+
     public function quesFreq(){
         $question =  Question::where('noOfInteractions', '!=' , 0)->orderBy('noOfInteractions','DESC')->limit(10)->get();
         return $question;

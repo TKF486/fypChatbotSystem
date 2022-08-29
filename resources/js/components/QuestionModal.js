@@ -23,6 +23,10 @@ export default class QuestionModal extends Component {
         this.state = {
             questions: [],
             categories: [],
+            checkedBoxes: [],
+            toggleCheckbox: this.toggleCheckbox.bind(this),
+            toggleBulkDelete: this.toggleBulkDelete.bind(this),
+
             newQuestionModal: false,
             newQuestionData: {
                 id: "",
@@ -51,13 +55,13 @@ export default class QuestionModal extends Component {
             updateQuestionModal: false,
         };
     }
-    loadQuestion() {
+    loadQuestion = () => {
         axios.get("http://127.0.0.1:8000/api/questions").then((response) => {
             this.setState({
                 questions: response.data,
             });
         });
-    }
+    };
 
     loadCategory() {
         axios.get("http://127.0.0.1:8000/api/categories").then((response) => {
@@ -104,6 +108,51 @@ export default class QuestionModal extends Component {
     toggleBulkImport() {
         window.location.href = "/import";
     }
+
+    toggleBulkDelete = () => {
+        let id_list = JSON.stringify(this.state.checkedBoxes);
+        axios
+            .delete("http://127.0.0.1:8000/api/questionBulkDelete/" + id_list)
+            .then((response) => {
+                this.loadQuestion();
+            });
+
+        // remove all checkbox select
+        // $("input:checkbox").prop("checked", $(this).prop("checked"));
+
+        this.loadQuestion();
+    };
+
+    deleteQuestion(id) {
+        // console.log(id);
+        axios
+            .delete("http://127.0.0.1:8000/api/questionDelete/" + id)
+            .then((response) => {
+                this.loadQuestion();
+            });
+    }
+
+    toggleCheckbox = (e, question) => {
+        if (e.target.checked) {
+            let arr = this.state.checkedBoxes;
+            arr.push(question.id);
+
+            this.setState({ checkedBoxes: arr });
+        } else {
+            // console.log("splice done");
+
+            // this.setState({
+            //     checkedBoxes: question,
+            // });
+
+            var question = _.without(this.state.checkedBoxes, question.id);
+
+            this.setState({
+                checkedBoxes: question,
+            });
+        }
+        console.log(this.state.checkedBoxes);
+    };
 
     callUpdateQuestion(
         id,
@@ -181,13 +230,7 @@ export default class QuestionModal extends Component {
                 });
             });
     }
-    deleteQuestion(id) {
-        axios
-            .delete("http://127.0.0.1:8000/api/questionDelete/" + id)
-            .then((response) => {
-                this.loadQuestion();
-            });
-    }
+
     componentWillMount() {
         this.loadQuestion();
         this.loadCategory();
@@ -199,9 +242,20 @@ export default class QuestionModal extends Component {
         });
     }
     render() {
-        let questions = this.state.questions.map((question) => {
+        let questions = this.state.questions.map((question, index) => {
             return (
-                <tr key={question.id}>
+                <tr key={index}>
+                    <td>
+                        <input
+                            id="checkbox"
+                            type="checkbox"
+                            value={question.id}
+                            checked={this.state.checkedBoxes.find(
+                                (p) => p.id === question.id
+                            )}
+                            onChange={(e) => this.toggleCheckbox(e, question)}
+                        />
+                    </td>
                     <td>{question.id}</td>
                     <td>{question.intentName}</td>
                     <td>{question.intentID}</td>
@@ -274,6 +328,10 @@ export default class QuestionModal extends Component {
                         onClick={this.toggleBulkImport.bind(this)}
                     >
                         Bulk Import Question
+                    </Button>
+
+                    <Button color="danger" onClick={this.toggleBulkDelete}>
+                        Bulk Delete Question
                     </Button>
 
                     <Modal
@@ -637,6 +695,7 @@ export default class QuestionModal extends Component {
                     <Table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>ID</th>
                                 <th>intentName</th>
                                 <th>intentID</th>
@@ -647,6 +706,7 @@ export default class QuestionModal extends Component {
                                 <th>trainingPhrase3</th>
                                 <th>trainingPhrase4</th>
                                 <th>response</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>{questions}</tbody>

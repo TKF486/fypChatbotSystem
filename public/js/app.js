@@ -6288,6 +6288,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -6307,9 +6309,54 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, QuestionModal);
 
     _this = _super.call(this);
+
+    _defineProperty(_assertThisInitialized(_this), "loadQuestion", function () {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/questions").then(function (response) {
+        _this.setState({
+          questions: response.data
+        });
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleBulkDelete", function () {
+      var id_list = JSON.stringify(_this.state.checkedBoxes);
+      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionBulkDelete/" + id_list).then(function (response) {
+        _this.loadQuestion();
+      }); // remove all checkbox select
+      // $("input:checkbox").prop("checked", $(this).prop("checked"));
+
+      _this.loadQuestion();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleCheckbox", function (e, question) {
+      if (e.target.checked) {
+        var arr = _this.state.checkedBoxes;
+        arr.push(question.id);
+
+        _this.setState({
+          checkedBoxes: arr
+        });
+      } else {
+        // console.log("splice done");
+        // this.setState({
+        //     checkedBoxes: question,
+        // });
+        var question = _.without(_this.state.checkedBoxes, question.id);
+
+        _this.setState({
+          checkedBoxes: question
+        });
+      }
+
+      console.log(_this.state.checkedBoxes);
+    });
+
     _this.state = {
       questions: [],
       categories: [],
+      checkedBoxes: [],
+      toggleCheckbox: _this.toggleCheckbox.bind(_assertThisInitialized(_this)),
+      toggleBulkDelete: _this.toggleBulkDelete.bind(_assertThisInitialized(_this)),
       newQuestionModal: false,
       newQuestionData: {
         id: "",
@@ -6341,23 +6388,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(QuestionModal, [{
-    key: "loadQuestion",
-    value: function loadQuestion() {
-      var _this2 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/questions").then(function (response) {
-        _this2.setState({
-          questions: response.data
-        });
-      });
-    }
-  }, {
     key: "loadCategory",
     value: function loadCategory() {
-      var _this3 = this;
+      var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/categories").then(function (response) {
-        _this3.setState({
+        _this2.setState({
           categories: response.data
         });
       });
@@ -6365,14 +6401,14 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "addQuestion",
     value: function addQuestion() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
-        var questions = _this4.state.questions;
+        var questions = _this3.state.questions;
 
-        _this4.loadQuestion();
+        _this3.loadQuestion();
 
-        _this4.setState({
+        _this3.setState({
           questions: questions,
           newQuestionModal: false,
           newQuestionData: {
@@ -6401,6 +6437,16 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     key: "toggleBulkImport",
     value: function toggleBulkImport() {
       window.location.href = "/import";
+    }
+  }, {
+    key: "deleteQuestion",
+    value: function deleteQuestion(id) {
+      var _this4 = this;
+
+      // console.log(id);
+      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
+        _this4.loadQuestion();
+      });
     }
   }, {
     key: "callUpdateQuestion",
@@ -6468,15 +6514,6 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "deleteQuestion",
-    value: function deleteQuestion(id) {
-      var _this6 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
-        _this6.loadQuestion();
-      });
-    }
-  }, {
     key: "componentWillMount",
     value: function componentWillMount() {
       this.loadQuestion();
@@ -6492,11 +6529,23 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this7 = this;
+      var _this6 = this;
 
-      var questions = this.state.questions.map(function (question) {
+      var questions = this.state.questions.map(function (question, index) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+              id: "checkbox",
+              type: "checkbox",
+              value: question.id,
+              checked: _this6.state.checkedBoxes.find(function (p) {
+                return p.id === question.id;
+              }),
+              onChange: function onChange(e) {
+                return _this6.toggleCheckbox(e, question);
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.id
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
             children: question.intentName
@@ -6521,17 +6570,17 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
               color: "success",
               size: "sm",
               outline: true,
-              onClick: _this7.callUpdateQuestion.bind(_this7, question.id, question.intentName, question.intentID, question.category_id, question.noOfInteractions, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
+              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.intentID, question.category_id, question.noOfInteractions, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
               children: "Edit"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
               color: "danger",
               size: "sm",
               outline: true,
-              onClick: _this7.deleteQuestion.bind(_this7, question.id),
+              onClick: _this6.deleteQuestion.bind(_this6, question.id),
               children: "Delete"
             })]
           })]
-        }, question.id);
+        }, index);
       });
       var categories = this.state.categories.map(function (category) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
@@ -6553,6 +6602,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             color: "primary",
             onClick: this.toggleBulkImport.bind(this),
             children: "Bulk Import Question"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
+            color: "danger",
+            onClick: this.toggleBulkDelete,
+            children: "Bulk Delete Question"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Modal, {
             isOpen: this.state.newQuestionModal,
             toggle: this.togglenewQuestionModal.bind(this),
@@ -6568,10 +6621,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "intentName",
                   value: this.state.newQuestionData.intentName,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this7.state.newQuestionData;
+                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.intentName = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6586,10 +6639,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   type: "select",
                   value: this.state.newQuestionData.category_id,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this7.state.newQuestionData;
+                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.category_id = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       newQuestionData: newQuestionData
                     });
                   },
@@ -6603,10 +6656,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase1",
                   value: this.state.newQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this7.state.newQuestionData;
+                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.trainingPhrase1 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6619,10 +6672,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase2",
                   value: this.state.newQuestionData.trainingPhrase2,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this7.state.newQuestionData;
+                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.trainingPhrase2 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6635,10 +6688,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase3",
                   value: this.state.newQuestionData.trainingPhrase3,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this7.state.newQuestionData;
+                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.trainingPhrase3 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6651,10 +6704,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase4",
                   value: this.state.newQuestionData.trainingPhrase4,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this7.state.newQuestionData;
+                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.trainingPhrase4 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6667,12 +6720,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "response",
                   value: this.state.newQuestionData.response,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this7.state.newQuestionData;
+                    var newQuestionData = _this6.state.newQuestionData;
                     newQuestionData.response = e.target.value; //**add intentID
 
                     newQuestionData.intentID = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6704,10 +6757,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "intentName",
                   value: this.state.updateQuestionData.intentName,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this7.state.updateQuestionData;
+                    var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.intentName = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6722,10 +6775,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   type: "select",
                   value: this.state.updateQuestionData.category_id,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this7.state.updateQuestionData;
+                    var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.category_id = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       updateQuestionData: updateQuestionData
                     });
                   },
@@ -6739,10 +6792,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase1",
                   value: this.state.updateQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this7.state.updateQuestionData;
+                    var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.trainingPhrase1 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6755,10 +6808,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase2",
                   value: this.state.updateQuestionData.trainingPhrase2,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this7.state.updateQuestionData;
+                    var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.trainingPhrase2 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6771,10 +6824,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase3",
                   value: this.state.updateQuestionData.trainingPhrase3,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this7.state.updateQuestionData;
+                    var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.trainingPhrase3 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6787,10 +6840,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase4",
                   value: this.state.updateQuestionData.trainingPhrase4,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this7.state.updateQuestionData;
+                    var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.trainingPhrase4 = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6803,10 +6856,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "response",
                   value: this.state.updateQuestionData.response,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this7.state.updateQuestionData;
+                    var updateQuestionData = _this6.state.updateQuestionData;
                     updateQuestionData.response = e.target.value;
 
-                    _this7.setState({
+                    _this6.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6827,6 +6880,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "#"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "ID"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "intentName"
@@ -6846,6 +6901,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   children: "trainingPhrase4"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "response"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "Action"
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
