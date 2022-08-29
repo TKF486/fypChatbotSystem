@@ -6366,6 +6366,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       questions: [],
       categories: [],
       checkedBoxes: [],
+      quesID_List: [],
       toggleCheckbox: _this.toggleCheckbox.bind(_assertThisInitialized(_this)),
       toggleBulkDelete: _this.toggleBulkDelete.bind(_assertThisInitialized(_this)),
       newQuestionModal: false,
@@ -6410,16 +6411,27 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
-    key: "addQuestion",
-    value: function addQuestion() {
+    key: "loadQuestionID",
+    value: function loadQuestionID() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
-        var questions = _this3.state.questions;
-
-        _this3.loadQuestion();
-
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://127.0.0.1:8000/api/quesIDRetrieve").then(function (response) {
         _this3.setState({
+          quesID_List: response.data
+        });
+      });
+    }
+  }, {
+    key: "addQuestion",
+    value: function addQuestion() {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
+        var questions = _this4.state.questions;
+
+        _this4.loadQuestion();
+
+        _this4.setState({
           questions: questions,
           newQuestionModal: false,
           newQuestionData: {
@@ -6472,7 +6484,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       } else {
         $("input#checkbox").prop("checked", true);
         this.setState({
-          checkedBoxes: [11, 22, 33]
+          checkedBoxes: this.state.quesID_List
         });
       } // alert($("input#checkbox").is(":checked"));
 
@@ -6480,12 +6492,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "deleteQuestion",
     value: function deleteQuestion(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       // console.log(id);
       this.clearCheckbox();
       axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
-        _this4.loadQuestion();
+        _this5.loadQuestion();
       });
     }
   }, {
@@ -6510,7 +6522,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "updateQuestion",
     value: function updateQuestion() {
-      var _this5 = this;
+      var _this6 = this;
 
       var _this$state$updateQue = this.state.updateQuestionData,
           id = _this$state$updateQue.id,
@@ -6534,9 +6546,9 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
         trainingPhrase4: trainingPhrase4,
         response: response
       }).then(function (response) {
-        _this5.loadQuestion();
+        _this6.loadQuestion();
 
-        _this5.setState({
+        _this6.setState({
           updateQuestionModal: false,
           updateQuestionData: {
             id: "",
@@ -6558,6 +6570,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     value: function componentWillMount() {
       this.loadQuestion();
       this.loadCategory();
+      this.loadQuestionID();
     }
   }, {
     key: "toggleUpdateQuestionModal",
@@ -6569,7 +6582,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       var questions = this.state.questions.map(function (question, index) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
@@ -6578,11 +6591,11 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
               id: "checkbox",
               type: "checkbox",
               value: question.id,
-              checked: _this6.state.checkedBoxes.find(function (p) {
+              checked: _this7.state.checkedBoxes.find(function (p) {
                 return p.id === question.id;
               }),
               onChange: function onChange(e) {
-                return _this6.toggleCheckbox(e, question);
+                return _this7.toggleCheckbox(e, question);
               }
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -6610,13 +6623,13 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
               color: "success",
               size: "sm",
               outline: true,
-              onClick: _this6.callUpdateQuestion.bind(_this6, question.id, question.intentName, question.intentID, question.category_id, question.noOfInteractions, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
+              onClick: _this7.callUpdateQuestion.bind(_this7, question.id, question.intentName, question.intentID, question.category_id, question.noOfInteractions, question.trainingPhrase1, question.trainingPhrase2, question.trainingPhrase3, question.trainingPhrase4, question.response),
               children: "Edit"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
               color: "danger",
               size: "sm",
               outline: true,
-              onClick: _this6.deleteQuestion.bind(_this6, question.id),
+              onClick: _this7.deleteQuestion.bind(_this7, question.id),
               children: "Delete"
             })]
           })]
@@ -6665,10 +6678,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "intentName",
                   value: this.state.newQuestionData.intentName,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.intentName = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6683,10 +6696,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   type: "select",
                   value: this.state.newQuestionData.category_id,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.category_id = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   },
@@ -6700,10 +6713,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase1",
                   value: this.state.newQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase1 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6716,10 +6729,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase2",
                   value: this.state.newQuestionData.trainingPhrase2,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase2 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6732,10 +6745,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase3",
                   value: this.state.newQuestionData.trainingPhrase3,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase3 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6748,10 +6761,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase4",
                   value: this.state.newQuestionData.trainingPhrase4,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.trainingPhrase4 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6764,12 +6777,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "response",
                   value: this.state.newQuestionData.response,
                   onChange: function onChange(e) {
-                    var newQuestionData = _this6.state.newQuestionData;
+                    var newQuestionData = _this7.state.newQuestionData;
                     newQuestionData.response = e.target.value; //**add intentID
 
                     newQuestionData.intentID = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       newQuestionData: newQuestionData
                     });
                   }
@@ -6801,10 +6814,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "intentName",
                   value: this.state.updateQuestionData.intentName,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.intentName = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6819,10 +6832,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   type: "select",
                   value: this.state.updateQuestionData.category_id,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.category_id = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   },
@@ -6836,10 +6849,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase1",
                   value: this.state.updateQuestionData.trainingPhrase1,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase1 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6852,10 +6865,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase2",
                   value: this.state.updateQuestionData.trainingPhrase2,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase2 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6868,10 +6881,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase3",
                   value: this.state.updateQuestionData.trainingPhrase3,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase3 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6884,10 +6897,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "trainingPhrase4",
                   value: this.state.updateQuestionData.trainingPhrase4,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.trainingPhrase4 = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }
@@ -6900,10 +6913,10 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                   id: "response",
                   value: this.state.updateQuestionData.response,
                   onChange: function onChange(e) {
-                    var updateQuestionData = _this6.state.updateQuestionData;
+                    var updateQuestionData = _this7.state.updateQuestionData;
                     updateQuestionData.response = e.target.value;
 
-                    _this6.setState({
+                    _this7.setState({
                       updateQuestionData: updateQuestionData
                     });
                   }

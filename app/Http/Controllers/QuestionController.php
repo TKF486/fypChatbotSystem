@@ -121,6 +121,19 @@ class QuestionController extends Controller
         return $question;
     }
 
+    public function quesIDRetrieve(){
+        // $question = Question::all("id")->get();
+        //$question = Question::select('id')->get();
+        //return $question;
+
+        $record = Question::all("id");
+        $data = [];
+        foreach($record as $row) {
+            array_push($data,$row->id);
+        }
+        return $data;
+    }
+
     public function quesRetrieve($categoryAsk){
        $categoryID = app('App\Http\Controllers\CategoryController')->getCategoryID($categoryAsk);
        $question = Question::where('category_id', $categoryID);

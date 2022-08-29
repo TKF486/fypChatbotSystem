@@ -24,6 +24,7 @@ export default class QuestionModal extends Component {
             questions: [],
             categories: [],
             checkedBoxes: [],
+            quesID_List: [],
             toggleCheckbox: this.toggleCheckbox.bind(this),
             toggleBulkDelete: this.toggleBulkDelete.bind(this),
 
@@ -69,6 +70,16 @@ export default class QuestionModal extends Component {
                 categories: response.data,
             });
         });
+    }
+
+    loadQuestionID() {
+        axios
+            .get("http://127.0.0.1:8000/api/quesIDRetrieve")
+            .then((response) => {
+                this.setState({
+                    quesID_List: response.data,
+                });
+            });
     }
 
     addQuestion() {
@@ -137,7 +148,7 @@ export default class QuestionModal extends Component {
             this.setState({ checkedBoxes: [] });
         } else {
             $("input#checkbox").prop("checked", true);
-            this.setState({ checkedBoxes: [11, 22, 33] });
+            this.setState({ checkedBoxes: this.state.quesID_List });
         }
 
         // alert($("input#checkbox").is(":checked"));
@@ -255,6 +266,7 @@ export default class QuestionModal extends Component {
     componentWillMount() {
         this.loadQuestion();
         this.loadCategory();
+        this.loadQuestionID();
     }
 
     toggleUpdateQuestionModal() {
