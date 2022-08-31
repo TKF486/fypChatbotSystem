@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Dialogflow2\DialogFlowV2;
 use BotMan\BotMan\Cache\LaravelCache;
@@ -13,6 +13,7 @@ use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 
 use App\Http\Conversations\InlineConversation;
 use App\Http\Conversations\HelpConversation;
+use App\Http\Conversations\AlternateConversation;
 use App\Http\Middleware\ReceivedMiddleware;
 
 use App\Http\Controllers\IntentController;
@@ -44,17 +45,40 @@ class BotManController extends Controller
             $msg = $bot->getMessage()->getText();
             $IntentController = new IntentController();
             $sessionID = session()->getId();
-            
+            $help = new HelpConversation();
             if($msg == 'help'){
-                $bot->startConversation(new HelpConversation);
+                $bot->startConversation($help);
             }
             else{
                 app('App\Http\Controllers\SessionController')->createSession();
                
     
                 $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
-                if($response != null){
-                    $bot->reply($response);
+                // if($response != null){
+                //     $bot->reply($response);
+                // }
+                $confidence = $response[0];
+                $fulfilmentText = $response[1];
+                $displayName = $response[2];
+
+                if($confidence > 0.7){
+                    $bot->reply($fulfilmentText);
+                }
+
+                else{
+                    Log::debug('Conf level is '. $confidence);
+                    // Log::debug( $displayName);
+                    try{
+                        $Alter = new AlternateConversation();
+                        // $Alter->pre_run($displayName);
+                        $bot->startConversation($Alter);
+                        // $bot->startConversation($Alter->pre_run($displayName));
+                    }catch(Exception $e){
+
+                    }
+                    
+                    // $bot->startConversation($Alter);
+                    // Log::debug($response);
                 }
             }
         

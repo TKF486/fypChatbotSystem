@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Conversations;
-
+use Illuminate\Support\Facades\Log;
 use BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
 use BotMan\BotMan\Messages\Incoming;
@@ -104,7 +104,8 @@ public function askForQuestion($newBtn){
            
 
             $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
-            $this->bot->reply($response);
+            //Log::debug($response);
+            $this->bot->reply($response[1]);
          
         } else {
             $this->repeat($question);
