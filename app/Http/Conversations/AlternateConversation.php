@@ -17,6 +17,8 @@ use App\Http\Controllers\IntentController;
 class AlternateConversation extends Conversation
 {
 
+public $dispName = '';
+
 public function quesRetrieve($dispName){
     $string = "Could you elaborate more for me please? These are several topics based your question that I've found 👇.";
     $questions = app('App\Http\Controllers\QuestionController')->quesRetrieve_with_dispName($dispName);
@@ -52,32 +54,24 @@ public function askForQuestion($newBtn){
            
 
             $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
-            $this->bot->reply($response);
+            $this->bot->reply($response[1]);
          
         } else {
-            $this->repeat($question);
+            $this->repeat($newQuestion);
             //console.log($answer->getValue());
         }
     });
 
 }
-    // public $displayName;
-
-    // public function pre_run($dispName){
-    //     //$this->$displayName = $this->dispName;
-    //     $displayName = $dispName;
-    //     Log::debug('pre_run() = '.$displayName);
-    //     // $button =  $this->quesRetrieve($dispName);
-    //     // Log::debug($button);
-    //     // $this->askForQuestion($button);
-    //     $this->run();
-    // }
+  
+    public function pre_run($dispName){
+        $this->dispName = $dispName;
+    }
 
     public function run()
     {
-        $button =  $this->quesRetrieve('test17');
-
-        // This will be called immediately
+        
+        $button =  $this->quesRetrieve($this->dispName);
         $this->askForQuestion($button);
         //$this->retrieveCategory();
         // Log::debug("run ()");

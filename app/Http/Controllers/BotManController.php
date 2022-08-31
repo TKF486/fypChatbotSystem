@@ -70,7 +70,7 @@ class BotManController extends Controller
                     // Log::debug( $displayName);
                     try{
                         $Alter = new AlternateConversation();
-                        // $Alter->pre_run($displayName);
+                        $Alter->pre_run($displayName);
                         $bot->startConversation($Alter);
                         // $bot->startConversation($Alter->pre_run($displayName));
                     }catch(Exception $e){
