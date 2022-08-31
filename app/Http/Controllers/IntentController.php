@@ -173,13 +173,19 @@ function detect_intent_texts($projectId, $text , $sessionId , $languageCode)
     // get response and relevant info
     $response = $sessionsClient->detectIntent($session, $queryInput);
     $queryResult = $response->getQueryResult();
+    $confidence = $queryResult->getIntentDetectionConfidence();
     $queryText = $queryResult->getQueryText();
     $fulfilmentText = $queryResult->getFulfillmentText();
     $intent = $queryResult->getIntent();
     $displayName = $intent->getDisplayName();
     $this->intentTracking($displayName);
     $sessionsClient->close();
-    return $fulfilmentText;
+
+
+    //confidence level detection
+    $conf_array = array($confidence,$fulfilmentText,$displayName);
+    return $conf_array;
+    
 }
 
 function intentTracking($displayName = "Gym.OpenTime"){

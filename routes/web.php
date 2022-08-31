@@ -58,3 +58,5 @@ Route::group(['middleware' => ['admin']], function () {
 
 // Route::get('questions', [QuestionController::class, 'importQuestion']);
 Route::post('/import', [QuestionController::class, 'BulkImportQuestion']);
+
+Route::get('/test', [QuestionController::class, 'quesRetrieve_with_dispName']);

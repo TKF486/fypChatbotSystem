@@ -147,6 +147,15 @@ class QuestionController extends Controller
     return $questions;
     }
 
+    public function quesRetrieve_with_dispName($displayName = "test17"){
+        $question = Question::select('trainingPhrase1')->where('intentName', $displayName)->get();
+        $questions = [];
+        foreach($question as $row) {
+         array_push($questions,$row->trainingPhrase1);
+     }
+     return $questions;
+     }
+
     public function BulkImportQuestion(Request $request){
         $validator = Validator::make($request->all(), [
             'file' => 'required'
