@@ -6330,13 +6330,17 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleBulkDelete", function () {
-      var id_list = JSON.stringify(_this.state.checkedBoxes);
-      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionBulkDelete/" + id_list).then(function (response) {
-        _this.loadQuestion();
-      });
+      if ($("input#checkbox").is(":checked")) {
+        var id_list = JSON.stringify(_this.state.checkedBoxes);
+        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionBulkDelete/" + id_list).then(function (response) {
+          _this.loadQuestion();
+        });
 
-      _this.clearCheckbox(); // this.loadQuestion();
+        _this.clearCheckbox(); // this.loadQuestion();
 
+      } else {
+        alert("No Checkbox is selected");
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleCheckbox", function (e, question) {

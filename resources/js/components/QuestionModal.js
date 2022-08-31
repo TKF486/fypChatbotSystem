@@ -121,15 +121,21 @@ export default class QuestionModal extends Component {
     }
 
     toggleBulkDelete = () => {
-        let id_list = JSON.stringify(this.state.checkedBoxes);
-        axios
-            .delete("http://127.0.0.1:8000/api/questionBulkDelete/" + id_list)
-            .then((response) => {
-                this.loadQuestion();
-            });
+        if ($("input#checkbox").is(":checked")) {
+            let id_list = JSON.stringify(this.state.checkedBoxes);
+            axios
+                .delete(
+                    "http://127.0.0.1:8000/api/questionBulkDelete/" + id_list
+                )
+                .then((response) => {
+                    this.loadQuestion();
+                });
 
-        this.clearCheckbox();
-        // this.loadQuestion();
+            this.clearCheckbox();
+            // this.loadQuestion();
+        } else {
+            alert("No Checkbox is selected");
+        }
     };
 
     clearCheckbox() {
