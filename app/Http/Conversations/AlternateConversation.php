@@ -30,6 +30,9 @@ public function quesRetrieve($dispName){
         array_push($buttons,$temp_button);
       
     }
+
+        $no_button = Button::create("I cant find my question")->value("null");
+        array_push($buttons,$no_button);
     return $buttons;
 
 
@@ -40,21 +43,30 @@ public function askForQuestion($newBtn){
     $this->ask($newQuestion, function (Answer $answer) use ($newQuestion) {
         if ($answer->isInteractiveMessageReply()) {
             $question = $answer->getValue();
-            $this->bot->reply($question);
+            if($question == "null"){
+                $this->bot->reply("I cant find my question");
+                $this->bot->reply("Sorry it seems like i dont have an answer to your question");
+            }   
+
+            else{
+                $this->bot->reply($question);
+                $projectId = 'fyp-chatbot-jmea';
+                $sessionId = $this->bot->getUser()->getId();
+                $languageCode = 'en-US';
+                $msg = $this->bot->getMessage()->getText();
+                $IntentController = new IntentController();
+    
+                $sessionID = session()->getId();
+    
+                app('App\Http\Controllers\SessionController')->createSession();
+               
+    
+                $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
+                $this->bot->reply($response[1]);
+            }
+         
            
-            $projectId = 'fyp-chatbot-jmea';
-            $sessionId = $this->bot->getUser()->getId();
-            $languageCode = 'en-US';
-            $msg = $this->bot->getMessage()->getText();
-            $IntentController = new IntentController();
-
-            $sessionID = session()->getId();
-
-            app('App\Http\Controllers\SessionController')->createSession();
            
-
-            $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
-            $this->bot->reply($response[1]);
          
         } else {
             $this->repeat($newQuestion);
