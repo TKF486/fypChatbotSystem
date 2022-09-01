@@ -62,6 +62,7 @@ class BotManController extends Controller
                 $displayName = $response[2];
 
                 if($confidence > 0.7){
+                    $bot->typesAndWaits(1);
                     $bot->reply($fulfilmentText);
                 }
 
@@ -71,6 +72,7 @@ class BotManController extends Controller
                     try{
                         $Alter = new AlternateConversation();
                         $Alter->pre_run($displayName);
+                        $bot->typesAndWaits(1);
                         $bot->startConversation($Alter);
                         // $bot->startConversation($Alter->pre_run($displayName));
                     }catch(Exception $e){

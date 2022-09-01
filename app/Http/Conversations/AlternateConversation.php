@@ -62,6 +62,7 @@ public function askForQuestion($newBtn){
                
     
                 $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
+                $this->bot->typesAndWaits(1);
                 $this->bot->reply($response[1]);
             }
          

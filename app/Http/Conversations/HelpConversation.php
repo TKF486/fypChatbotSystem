@@ -63,6 +63,7 @@ class HelpConversation extends Conversation
             if ($answer->isInteractiveMessageReply()) {
                 $category = $answer->getValue();
                 if($category != null){
+                    $this->bot->typesAndWaits(1);
                     $this->bot->reply('You are currently asking about '. $category);
                     $newBtn = $this->quesRetrieve($category);
                     $this->askForQuestion($newBtn);
@@ -105,6 +106,7 @@ public function askForQuestion($newBtn){
 
             $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
             //Log::debug($response);
+            $this->bot->typesAndWaits(1);
             $this->bot->reply($response[1]);
          
         } else {
@@ -118,6 +120,7 @@ public function askForQuestion($newBtn){
     public function run()
     {
         // This will be called immediately
+        $this->bot->typesAndWaits(1);
         $this->retrieveCategory();
     }
 }

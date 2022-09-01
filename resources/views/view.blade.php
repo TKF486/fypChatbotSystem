@@ -31,7 +31,8 @@
     <script>
 var botmanWidget = {  
     title: 'kfEducation Chatbot',
-    introMessage: 'Hi welcome to kfEducation Chatbot! You can ask me anything, or type help if you need further assistant!'
+    introMessage: '<p>Hi welcome to kfEducation Chatbot 👋 You can ask me anything or type <b style="color:red;">"help"</b> if you need further assistant 🤖</p>'
+
 };
 </script>
 <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
