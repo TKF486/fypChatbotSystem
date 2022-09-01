@@ -36,7 +36,7 @@ Route::get('/dashboard', function () {
 });
 
 Route::get('/import', function () {
-    return view('importUser');
+    return view('importQuestion');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
