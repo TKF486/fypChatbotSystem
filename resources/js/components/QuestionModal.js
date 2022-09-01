@@ -9,6 +9,7 @@ import {
     ModalFooter,
     Input,
     FormGroup,
+    FormText,
     Label,
     Nav,
     NavItem,
@@ -404,6 +405,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    *Give a short name that represents the name
+                                    of the intent e.g.AssignTime
+                                </FormText>
                             </FormGroup>
 
                             {/* <FormGroup>
@@ -438,6 +443,9 @@ export default class QuestionModal extends Component {
                                 >
                                     {categories}
                                 </Input>
+                                <FormText>
+                                    *Select a category class for the question
+                                </FormText>
                             </FormGroup>
                             <FormGroup>
                                 <Label for="trainingPhrase1">
@@ -456,6 +464,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    *Input the 1st question or keyword that
+                                    might be ask by the student
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -475,6 +487,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    Input the 2nd question or keyword that might
+                                    be ask by the student *optional
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -494,6 +510,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    Input the 3rd question or keyword that might
+                                    be ask by the student *optional
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -513,6 +533,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    Input the 4th question or keyword that might
+                                    be ask by the student *optional
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -530,6 +554,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    *Input the response to the student after
+                                    they type in related keyword
+                                </FormText>
                             </FormGroup>
 
                             {/* <FormGroup>
@@ -588,23 +616,11 @@ export default class QuestionModal extends Component {
                                         this.setState({ updateQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    *Give a short name that represents the name
+                                    of the intent e.g.AssignTime
+                                </FormText>
                             </FormGroup>
-
-                            {/* <FormGroup>
-                                <Label for="category_id">category_id</Label>
-                                <Input
-                                    id="category_id"
-                                    value={
-                                        this.state.updateQuestionData.category_id
-                                    }
-                                    onChange={(e) => {
-                                        let { updateQuestionData } = this.state;
-                                        updateQuestionData.category_id =
-                                            e.target.value;
-                                        this.setState({ updateQuestionData });
-                                    }}
-                                ></Input>
-                            </FormGroup> */}
 
                             <FormGroup>
                                 <Label for="category_id">Select</Label>
@@ -625,6 +641,9 @@ export default class QuestionModal extends Component {
                                 >
                                     {categories}
                                 </Input>
+                                <FormText>
+                                    *Select a category class for the question
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -644,6 +663,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ updateQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    *Input the 1st question or keyword that
+                                    might be ask by the student
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -663,6 +686,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ updateQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    Input the 2nd question or keyword that might
+                                    be ask by the student *optional
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -682,6 +709,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ updateQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    Input the 3rd question or keyword that might
+                                    be ask by the student *optional
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -701,6 +732,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ updateQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    Input the 4th question or keyword that might
+                                    be ask by the student *optional
+                                </FormText>
                             </FormGroup>
 
                             <FormGroup>
@@ -717,6 +752,10 @@ export default class QuestionModal extends Component {
                                         this.setState({ updateQuestionData });
                                     }}
                                 ></Input>
+                                <FormText>
+                                    *Input the response to the student after
+                                    they type in related keyword
+                                </FormText>
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
