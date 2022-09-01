@@ -6378,7 +6378,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
         id: "",
         intentName: "",
         intentID: "",
-        category_id: 1,
+        category_id: 6,
         noOfInteractions: 0,
         trainingPhrase1: "",
         trainingPhrase2: "",
@@ -6430,28 +6430,57 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     value: function addQuestion() {
       var _this4 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
-        var questions = _this4.state.questions;
+      if ($("#intentName").val() == "") {
+        // alert("intentName can not be left blank");
+        $("#intentName").addClass("is-invalid ");
+      } else {
+        $("#intentName").removeClass("is-invalid ");
+        $("#intentName").addClass("is-valid ");
+      }
 
-        _this4.loadQuestion();
+      if ($("#trainingPhrase1").val() == "") {
+        // alert("trainingPhrase1 can not be left blank");
+        $("#trainingPhrase1").addClass("is-invalid ");
+      } else {
+        $("#trainingPhrase1").removeClass("is-invalid ");
+        $("#trainingPhrase1").addClass("is-valid ");
+      }
 
-        _this4.setState({
-          questions: questions,
-          newQuestionModal: false,
-          newQuestionData: {
-            id: "",
-            intentName: "",
-            intentID: "",
-            category_id: 1,
-            noOfInteractions: 0,
-            trainingPhrase1: "",
-            trainingPhrase2: "",
-            trainingPhrase3: "",
-            trainingPhrase4: "",
-            response: ""
-          }
+      if ($("#response").val() == "") {
+        // alert("response can not be left blank");
+        $("#response").addClass("is-invalid ");
+      } else {
+        $("#response").removeClass("is-invalid ");
+        $("#response").addClass("is-valid ");
+      }
+
+      if ($("#intentName").val() != "" && $("#trainingPhrase1").val() != "" && $("#response").val() != "") {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/question", this.state.newQuestionData).then(function (response) {
+          var questions = _this4.state.questions;
+
+          _this4.loadQuestion();
+
+          _this4.setState({
+            questions: questions,
+            newQuestionModal: false,
+            newQuestionData: {
+              id: "",
+              intentName: "",
+              intentID: "",
+              category_id: 6,
+              noOfInteractions: 0,
+              trainingPhrase1: "",
+              trainingPhrase2: "",
+              trainingPhrase3: "",
+              trainingPhrase4: "",
+              response: ""
+            }
+          });
         });
-      });
+      } else {// alert(
+        //     "intentName, trainingPhrase1 && response field cannot be empty!"
+        // );
+      }
     }
   }, {
     key: "togglenewQuestionModal",
@@ -6689,6 +6718,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                       newQuestionData: newQuestionData
                     });
                   }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormFeedback, {
+                  children: "Please enter some input!"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormText, {
                   children: "*Give a short name that represents the name of the intent e.g.AssignTime"
                 })]
@@ -6728,6 +6759,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                       newQuestionData: newQuestionData
                     });
                   }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormFeedback, {
+                  children: "Please enter some input!"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormText, {
                   children: "*Input the 1st question or keyword that might be ask by the student"
                 })]
@@ -6802,6 +6835,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
                       newQuestionData: newQuestionData
                     });
                   }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormFeedback, {
+                  children: "Please enter some input!"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormText, {
                   children: "*Input the response to the student after they type in related keyword"
                 })]

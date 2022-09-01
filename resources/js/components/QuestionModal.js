@@ -10,6 +10,7 @@ import {
     Input,
     FormGroup,
     FormText,
+    FormFeedback,
     Label,
     Nav,
     NavItem,
@@ -34,7 +35,7 @@ export default class QuestionModal extends Component {
                 id: "",
                 intentName: "",
                 intentID: "",
-                category_id: 1,
+                category_id: 6,
                 noOfInteractions: 0,
                 trainingPhrase1: "",
                 trainingPhrase2: "",
@@ -84,31 +85,65 @@ export default class QuestionModal extends Component {
     }
 
     addQuestion() {
-        axios
-            .post(
-                "http://127.0.0.1:8000/api/question",
-                this.state.newQuestionData
-            )
-            .then((response) => {
-                let { questions } = this.state;
-                this.loadQuestion();
-                this.setState({
-                    questions,
-                    newQuestionModal: false,
-                    newQuestionData: {
-                        id: "",
-                        intentName: "",
-                        intentID: "",
-                        category_id: 1,
-                        noOfInteractions: 0,
-                        trainingPhrase1: "",
-                        trainingPhrase2: "",
-                        trainingPhrase3: "",
-                        trainingPhrase4: "",
-                        response: "",
-                    },
+        if ($("#intentName").val() == "") {
+            // alert("intentName can not be left blank");
+            $("#intentName").addClass("is-invalid ");
+        } else {
+            $("#intentName").removeClass("is-invalid ");
+            $("#intentName").addClass("is-valid ");
+        }
+
+        if ($("#trainingPhrase1").val() == "") {
+            // alert("trainingPhrase1 can not be left blank");
+            $("#trainingPhrase1").addClass("is-invalid ");
+        } else {
+            $("#trainingPhrase1").removeClass("is-invalid ");
+            $("#trainingPhrase1").addClass("is-valid ");
+        }
+
+        if ($("#response").val() == "") {
+            // alert("response can not be left blank");
+            $("#response").addClass("is-invalid ");
+        } else {
+            $("#response").removeClass("is-invalid ");
+            $("#response").addClass("is-valid ");
+        }
+
+        if (
+            $("#intentName").val() != "" &&
+            $("#trainingPhrase1").val() != "" &&
+            $("#response").val() != ""
+        ) {
+            axios
+                .post(
+                    "http://127.0.0.1:8000/api/question",
+                    this.state.newQuestionData
+                )
+                .then((response) => {
+                    let { questions } = this.state;
+                    this.loadQuestion();
+                    this.setState({
+                        questions,
+                        newQuestionModal: false,
+                        newQuestionData: {
+                            id: "",
+                            intentName: "",
+                            intentID: "",
+                            category_id: 6,
+                            noOfInteractions: 0,
+                            trainingPhrase1: "",
+                            trainingPhrase2: "",
+                            trainingPhrase3: "",
+                            trainingPhrase4: "",
+                            response: "",
+                        },
+                    });
                 });
-            });
+        } else {
+            // alert(
+            //     "intentName, trainingPhrase1 && response field cannot be empty!"
+            // );
+        }
     }
 
     togglenewQuestionModal() {
@@ -405,6 +440,9 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormFeedback>
+                                    Please enter some input!
+                                </FormFeedback>
                                 <FormText>
                                     *Give a short name that represents the name
                                     of the intent e.g.AssignTime
@@ -443,6 +481,7 @@ export default class QuestionModal extends Component {
                                 >
                                     {categories}
                                 </Input>
+
                                 <FormText>
                                     *Select a category class for the question
                                 </FormText>
@@ -464,6 +503,9 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormFeedback>
+                                    Please enter some input!
+                                </FormFeedback>
                                 <FormText>
                                     *Input the 1st question or keyword that
                                     might be ask by the student
@@ -554,6 +596,9 @@ export default class QuestionModal extends Component {
                                         this.setState({ newQuestionData });
                                     }}
                                 ></Input>
+                                <FormFeedback>
+                                    Please enter some input!
+                                </FormFeedback>
                                 <FormText>
                                     *Input the response to the student after
                                     they type in related keyword
