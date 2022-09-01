@@ -6557,46 +6557,75 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     value: function updateQuestion() {
       var _this6 = this;
 
-      var _this$state$updateQue = this.state.updateQuestionData,
-          id = _this$state$updateQue.id,
-          intentName = _this$state$updateQue.intentName,
-          intentID = _this$state$updateQue.intentID,
-          category_id = _this$state$updateQue.category_id,
-          noOfInteractions = _this$state$updateQue.noOfInteractions,
-          trainingPhrase1 = _this$state$updateQue.trainingPhrase1,
-          trainingPhrase2 = _this$state$updateQue.trainingPhrase2,
-          trainingPhrase3 = _this$state$updateQue.trainingPhrase3,
-          trainingPhrase4 = _this$state$updateQue.trainingPhrase4,
-          response = _this$state$updateQue.response;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
-        intentName: intentName,
-        intentID: intentID,
-        category_id: category_id,
-        noOfInteractions: noOfInteractions,
-        trainingPhrase1: trainingPhrase1,
-        trainingPhrase2: trainingPhrase2,
-        trainingPhrase3: trainingPhrase3,
-        trainingPhrase4: trainingPhrase4,
-        response: response
-      }).then(function (response) {
-        _this6.loadQuestion();
+      if ($("#intentName").val() == "") {
+        // alert("intentName can not be left blank");
+        $("#intentName").addClass("is-invalid ");
+      } else {
+        $("#intentName").removeClass("is-invalid ");
+        $("#intentName").addClass("is-valid ");
+      }
 
-        _this6.setState({
-          updateQuestionModal: false,
-          updateQuestionData: {
-            id: "",
-            intentName: "",
-            intentID: "",
-            category_id: "",
-            noOfInteractions: "",
-            trainingPhrase1: "",
-            trainingPhrase2: "",
-            trainingPhrase3: "",
-            trainingPhrase4: "",
-            response: ""
-          }
+      if ($("#trainingPhrase1").val() == "") {
+        // alert("trainingPhrase1 can not be left blank");
+        $("#trainingPhrase1").addClass("is-invalid ");
+      } else {
+        $("#trainingPhrase1").removeClass("is-invalid ");
+        $("#trainingPhrase1").addClass("is-valid ");
+      }
+
+      if ($("#response").val() == "") {
+        // alert("response can not be left blank");
+        $("#response").addClass("is-invalid ");
+      } else {
+        $("#response").removeClass("is-invalid ");
+        $("#response").addClass("is-valid ");
+      }
+
+      if ($("#intentName").val() != "" && $("#trainingPhrase1").val() != "" && $("#response").val() != "") {
+        var _this$state$updateQue = this.state.updateQuestionData,
+            id = _this$state$updateQue.id,
+            intentName = _this$state$updateQue.intentName,
+            intentID = _this$state$updateQue.intentID,
+            category_id = _this$state$updateQue.category_id,
+            noOfInteractions = _this$state$updateQue.noOfInteractions,
+            trainingPhrase1 = _this$state$updateQue.trainingPhrase1,
+            trainingPhrase2 = _this$state$updateQue.trainingPhrase2,
+            trainingPhrase3 = _this$state$updateQue.trainingPhrase3,
+            trainingPhrase4 = _this$state$updateQue.trainingPhrase4,
+            response = _this$state$updateQue.response;
+        axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/questionUpdate/" + this.state.updateQuestionData.id, {
+          intentName: intentName,
+          intentID: intentID,
+          category_id: category_id,
+          noOfInteractions: noOfInteractions,
+          trainingPhrase1: trainingPhrase1,
+          trainingPhrase2: trainingPhrase2,
+          trainingPhrase3: trainingPhrase3,
+          trainingPhrase4: trainingPhrase4,
+          response: response
+        }).then(function (response) {
+          _this6.loadQuestion();
+
+          _this6.setState({
+            updateQuestionModal: false,
+            updateQuestionData: {
+              id: "",
+              intentName: "",
+              intentID: "",
+              category_id: "",
+              noOfInteractions: "",
+              trainingPhrase1: "",
+              trainingPhrase2: "",
+              trainingPhrase3: "",
+              trainingPhrase4: "",
+              response: ""
+            }
+          });
         });
-      });
+      } else {// alert(
+        //     "intentName, trainingPhrase1 && response field cannot be empty!"
+        // );
+      }
     }
   }, {
     key: "componentWillMount",

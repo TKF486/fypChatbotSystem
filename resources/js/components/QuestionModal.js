@@ -257,52 +257,86 @@ export default class QuestionModal extends Component {
         });
     }
     updateQuestion() {
-        let {
-            id,
-            intentName,
-            intentID,
-            category_id,
-            noOfInteractions,
-            trainingPhrase1,
-            trainingPhrase2,
-            trainingPhrase3,
-            trainingPhrase4,
-            response,
-        } = this.state.updateQuestionData;
-        axios
-            .put(
-                "http://127.0.0.1:8000/api/questionUpdate/" +
-                    this.state.updateQuestionData.id,
-                {
-                    intentName,
-                    intentID,
-                    category_id,
-                    noOfInteractions,
-                    trainingPhrase1,
-                    trainingPhrase2,
-                    trainingPhrase3,
-                    trainingPhrase4,
-                    response,
-                }
-            )
-            .then((response) => {
-                this.loadQuestion();
-                this.setState({
-                    updateQuestionModal: false,
-                    updateQuestionData: {
-                        id: "",
-                        intentName: "",
-                        intentID: "",
-                        category_id: "",
-                        noOfInteractions: "",
-                        trainingPhrase1: "",
-                        trainingPhrase2: "",
-                        trainingPhrase3: "",
-                        trainingPhrase4: "",
-                        response: "",
-                    },
+        if ($("#intentName").val() == "") {
+            // alert("intentName can not be left blank");
+            $("#intentName").addClass("is-invalid ");
+        } else {
+            $("#intentName").removeClass("is-invalid ");
+            $("#intentName").addClass("is-valid ");
+        }
+
+        if ($("#trainingPhrase1").val() == "") {
+            // alert("trainingPhrase1 can not be left blank");
+            $("#trainingPhrase1").addClass("is-invalid ");
+        } else {
+            $("#trainingPhrase1").removeClass("is-invalid ");
+            $("#trainingPhrase1").addClass("is-valid ");
+        }
+
+        if ($("#response").val() == "") {
+            // alert("response can not be left blank");
+            $("#response").addClass("is-invalid ");
+        } else {
+            $("#response").removeClass("is-invalid ");
+            $("#response").addClass("is-valid ");
+        }
+
+        if (
+            $("#intentName").val() != "" &&
+            $("#trainingPhrase1").val() != "" &&
+            $("#response").val() != ""
+        ) {
+            let {
+                id,
+                intentName,
+                intentID,
+                category_id,
+                noOfInteractions,
+                trainingPhrase1,
+                trainingPhrase2,
+                trainingPhrase3,
+                trainingPhrase4,
+                response,
+            } = this.state.updateQuestionData;
+            axios
+                .put(
+                    "http://127.0.0.1:8000/api/questionUpdate/" +
+                        this.state.updateQuestionData.id,
+                    {
+                        intentName,
+                        intentID,
+                        category_id,
+                        noOfInteractions,
+                        trainingPhrase1,
+                        trainingPhrase2,
+                        trainingPhrase3,
+                        trainingPhrase4,
+                        response,
+                    }
+                )
+                .then((response) => {
+                    this.loadQuestion();
+                    this.setState({
+                        updateQuestionModal: false,
+                        updateQuestionData: {
+                            id: "",
+                            intentName: "",
+                            intentID: "",
+                            category_id: "",
+                            noOfInteractions: "",
+                            trainingPhrase1: "",
+                            trainingPhrase2: "",
+                            trainingPhrase3: "",
+                            trainingPhrase4: "",
+                            response: "",
+                        },
+                    });
                 });
-            });
+        } else {
+            // alert(
+            //     "intentName, trainingPhrase1 && response field cannot be empty!"
+            // );
+        }
     }
 
     componentWillMount() {
