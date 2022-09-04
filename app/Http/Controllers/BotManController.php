@@ -46,43 +46,47 @@ class BotManController extends Controller
             $IntentController = new IntentController();
             $sessionID = session()->getId();
             $help = new HelpConversation();
-            if($msg == 'help'){
-                $bot->startConversation($help);
-            }
-            else{
+          
+                
+            
+     
                 app('App\Http\Controllers\SessionController')->createSession();
                
     
                 $response = $IntentController->detect_intent_texts($projectId, $msg, $sessionId, $languageCode);
-                // if($response != null){
-                //     $bot->reply($response);
-                // }
-                $confidence = $response[0];
-                $fulfilmentText = $response[1];
-                $displayName = $response[2];
-
-                if($confidence > 0.7){
-                    $bot->typesAndWaits(1);
-                    $bot->reply($fulfilmentText);
+                if($response == 'help'){
+                    $bot->startConversation($help);
                 }
-
+                
                 else{
-                    Log::debug('Conf level is '. $confidence);
-                    // Log::debug( $displayName);
-                    try{
-                        $Alter = new AlternateConversation();
-                        $Alter->pre_run($displayName);
+                    $confidence = $response[0];
+                    $fulfilmentText = $response[1];
+                    $displayName = $response[2];
+    
+                    if($confidence > 0.7){
                         $bot->typesAndWaits(1);
-                        $bot->startConversation($Alter);
-                        // $bot->startConversation($Alter->pre_run($displayName));
-                    }catch(Exception $e){
-
+                        $bot->reply($fulfilmentText);
                     }
-                    
-                    // $bot->startConversation($Alter);
-                    // Log::debug($response);
+    
+                    else{
+                        Log::debug('Conf level is '. $confidence);
+                        // Log::debug( $displayName);
+                        try{
+                            $Alter = new AlternateConversation();
+                            $Alter->pre_run($displayName);
+                            $bot->typesAndWaits(1);
+                            $bot->startConversation($Alter);
+                            // $bot->startConversation($Alter->pre_run($displayName));
+                        }catch(Exception $e){
+    
+                        }
+                        
+                        // $bot->startConversation($Alter);
+                        // Log::debug($response);
+                    }
                 }
-            }
+               
+            
         
 
         });

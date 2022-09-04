@@ -182,9 +182,15 @@ function detect_intent_texts($projectId, $text , $sessionId , $languageCode)
     $sessionsClient->close();
 
 
+    if($displayName == 'help'){
+        return 'help';
+    }
+    else{
     //confidence level detection
     $conf_array = array($confidence,$fulfilmentText,$displayName);
     return $conf_array;
+    }
+
     
 }
 
