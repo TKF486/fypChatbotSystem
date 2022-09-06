@@ -445,7 +445,7 @@ export default class QuestionModal extends Component {
             <div className="container">
                 <NavBar />
                 <div className="main">
-                    <h1>Database</h1>
+                    <h1>Intent Database</h1>
                     <Button
                         color="primary"
                         onClick={this.selectAllCheckBox.bind(this)}
