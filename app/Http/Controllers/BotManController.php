@@ -63,7 +63,7 @@ class BotManController extends Controller
                     $fulfilmentText = $response[1];
                     $displayName = $response[2];
     
-                    if($confidence > 0.7){
+                    if($confidence > 0.6){
                         $bot->typesAndWaits(1);
                         $bot->reply($fulfilmentText);
                     }

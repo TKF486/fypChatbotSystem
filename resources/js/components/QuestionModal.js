@@ -199,11 +199,13 @@ export default class QuestionModal extends Component {
     deleteQuestion(id) {
         // console.log(id);
         this.clearCheckbox();
+        // alert("Intent with id: ".id. "successfully deleted!");
         axios
             .delete("http://127.0.0.1:8000/api/questionDelete/" + id)
             .then((response) => {
                 this.loadQuestion();
             });
+        alert("Intent with id: " + id + " successfully deleted!");
     }
 
     toggleCheckbox = (e, question) => {
@@ -678,7 +680,7 @@ export default class QuestionModal extends Component {
                             toggle={this.toggleUpdateQuestionModal.bind(this)}
                         >
                             {" "}
-                            Update New Question
+                            Update Existing Question
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup>

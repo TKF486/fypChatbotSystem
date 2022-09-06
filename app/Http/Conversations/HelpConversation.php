@@ -87,7 +87,7 @@ class HelpConversation extends Conversation
 
 
 public function askForQuestion($newBtn){
-    $newQuestion = Question::create("Choose questions")->addButtons($newBtn);
+    $newQuestion = Question::create("Please Choose one of the questions below 👇")->addButtons($newBtn);
     $this->ask($newQuestion, function (Answer $answer) use ($newQuestion) {
         if ($answer->isInteractiveMessageReply()) {
             $question = $answer->getValue();
@@ -110,7 +110,7 @@ public function askForQuestion($newBtn){
             $this->bot->reply($response[1]);
          
         } else {
-            $this->repeat($question);
+            $this->repeat($newQuestion);
             //console.log($answer->getValue());
         }
     });

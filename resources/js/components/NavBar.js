@@ -12,10 +12,10 @@ export default class NavBar extends Component {
                         <NavLink href="/dashboard">Dashboard</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/category">Question Category</NavLink>
+                        <NavLink href="/category">Category Databse</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="../">Database</NavLink>
+                        <NavLink href="../">Intent Databse</NavLink>
                     </NavItem>
 
                     <NavItem>

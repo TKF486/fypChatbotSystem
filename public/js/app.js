@@ -5625,12 +5625,12 @@ var NavBar = /*#__PURE__*/function (_Component) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavItem, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
               href: "/category",
-              children: "Question Category"
+              children: "Category Databse"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavItem, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
               href: "../",
-              children: "Database"
+              children: "Intent Databse"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavItem, {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_3__.NavLink, {
@@ -6528,10 +6528,12 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       var _this5 = this;
 
       // console.log(id);
-      this.clearCheckbox();
+      this.clearCheckbox(); // alert("Intent with id: ".id. "successfully deleted!");
+
       axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
         _this5.loadQuestion();
       });
+      alert("Intent with id: " + id + " successfully deleted!");
     }
   }, {
     key: "callUpdateQuestion",
@@ -6886,7 +6888,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             toggle: this.toggleUpdateQuestionModal.bind(this),
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalHeader, {
               toggle: this.toggleUpdateQuestionModal.bind(this),
-              children: [" ", "Update New Question"]
+              children: [" ", "Update Existing Question"]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalBody, {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormGroup, {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Label, {
