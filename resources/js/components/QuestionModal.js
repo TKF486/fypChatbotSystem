@@ -158,20 +158,28 @@ export default class QuestionModal extends Component {
     }
 
     toggleBulkDelete = () => {
-        if ($("input#checkbox").is(":checked")) {
-            let id_list = JSON.stringify(this.state.checkedBoxes);
-            axios
-                .delete(
-                    "http://127.0.0.1:8000/api/questionBulkDelete/" + id_list
-                )
-                .then((response) => {
-                    this.loadQuestion();
-                });
+        var confirmBulkDelete = confirm(
+            "Are you sure you want to delete " + "all the selected intent?"
+        );
+        if (confirmBulkDelete == true) {
+            if ($("input#checkbox").is(":checked")) {
+                let id_list = JSON.stringify(this.state.checkedBoxes);
+                axios
+                    .delete(
+                        "http://127.0.0.1:8000/api/questionBulkDelete/" +
+                            id_list
+                    )
+                    .then((response) => {
+                        this.loadQuestion();
+                    });
 
-            this.clearCheckbox();
-            // this.loadQuestion();
+                this.clearCheckbox();
+                // this.loadQuestion();
+            } else {
+                alert("No Checkbox is selected");
+            }
+            alert("All selected intent is successfully deleted!");
         } else {
-            alert("No Checkbox is selected");
         }
     };
 
@@ -199,14 +207,19 @@ export default class QuestionModal extends Component {
 
     deleteQuestion(id) {
         // console.log(id);
-        this.clearCheckbox();
-        // alert("Intent with id: ".id. "successfully deleted!");
-        axios
-            .delete("http://127.0.0.1:8000/api/questionDelete/" + id)
-            .then((response) => {
-                this.loadQuestion();
-            });
-        alert("Intent with id: " + id + " successfully deleted!");
+        var confirmDelete = confirm(
+            "Are you sure you want to delete " + "Intent with id: " + id + "?"
+        );
+        if (confirmDelete == true) {
+            this.clearCheckbox();
+            axios
+                .delete("http://127.0.0.1:8000/api/questionDelete/" + id)
+                .then((response) => {
+                    this.loadQuestion();
+                });
+            alert("Intent with id: " + id + " successfully deleted!");
+        } else {
+        }
     }
 
     toggleCheckbox = (e, question) => {

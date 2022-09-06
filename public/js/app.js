@@ -6330,17 +6330,23 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleBulkDelete", function () {
-      if ($("input#checkbox").is(":checked")) {
-        var id_list = JSON.stringify(_this.state.checkedBoxes);
-        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionBulkDelete/" + id_list).then(function (response) {
-          _this.loadQuestion();
-        });
+      var confirmBulkDelete = confirm("Are you sure you want to delete " + "all the selected intent?");
 
-        _this.clearCheckbox(); // this.loadQuestion();
+      if (confirmBulkDelete == true) {
+        if ($("input#checkbox").is(":checked")) {
+          var id_list = JSON.stringify(_this.state.checkedBoxes);
+          axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionBulkDelete/" + id_list).then(function (response) {
+            _this.loadQuestion();
+          });
 
-      } else {
-        alert("No Checkbox is selected");
-      }
+          _this.clearCheckbox(); // this.loadQuestion();
+
+        } else {
+          alert("No Checkbox is selected");
+        }
+
+        alert("All selected intent is successfully deleted!");
+      } else {}
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleCheckbox", function (e, question) {
@@ -6529,12 +6535,15 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
       var _this5 = this;
 
       // console.log(id);
-      this.clearCheckbox(); // alert("Intent with id: ".id. "successfully deleted!");
+      var confirmDelete = confirm("Are you sure you want to delete " + "Intent with id: " + id + "?");
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
-        _this5.loadQuestion();
-      });
-      alert("Intent with id: " + id + " successfully deleted!");
+      if (confirmDelete == true) {
+        this.clearCheckbox();
+        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/questionDelete/" + id).then(function (response) {
+          _this5.loadQuestion();
+        });
+        alert("Intent with id: " + id + " successfully deleted!");
+      } else {}
     }
   }, {
     key: "callUpdateQuestion",
