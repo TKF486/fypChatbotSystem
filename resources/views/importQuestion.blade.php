@@ -16,10 +16,11 @@
   {{csrf_field()}}
     <div class="form-group">
     <label for="file">Select a file to import</label>
+    <br>
+    <label for="file" style="color:red;">*Only Submit CSV file format!</label>
     <input type="file" name="file" id="file" class="form-control" required>
     </div>
     
-    <!-- <button type="button" class="btn btn-primary">Primary</button> -->
     <a href="../" class="btn btn-info" role="button">Back to Admin Page</a>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>
