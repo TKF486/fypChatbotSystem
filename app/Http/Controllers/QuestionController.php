@@ -200,6 +200,26 @@ class QuestionController extends Controller
 
         return redirect('./');
     }
+
+    public function csvTemplate(){
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="bulkImportTemplate.csv"');
+
+        $user_CSV[0] = array('intentName', 'intentID', 'category_id', 'noOfInteractions', 'trainingPhrase1','trainingPhrase2','trainingPhrase3','trainingPhrase4','response');
+
+        // very simple to increment with i++ if looping through a database result 
+        $user_CSV[1] = array('', 'ignore', '',0,'','','','','',);
+        // $user_CSV[2] = array('Antoine', 'Del Torro', 55);
+        // $user_CSV[3] = array('Arthur', 'Vincente', 15);
+
+        $fp = fopen('php://output', 'wb');
+        foreach ($user_CSV as $line) {
+            // though CSV stands for "comma separated value"
+            // in many countries (including France) separator is ";"
+            fputcsv($fp, $line, ',');
+        }
+        fclose($fp);
+    }
     
 }
 

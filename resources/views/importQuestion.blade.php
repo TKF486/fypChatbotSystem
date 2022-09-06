@@ -12,6 +12,9 @@
 
 <div class="container">
   <h2>Bulk Import Question</h2>
+  <a href="../" class="btn btn-success" role="button" target="_blank">Export Bulk Import Template</a>
+  <br>
+  <br>
   <form action="import" method="post" enctype="multipart/form-data">
   {{csrf_field()}}
     <div class="form-group">
