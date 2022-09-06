@@ -139,6 +139,7 @@ export default class QuestionModal extends Component {
                         },
                     });
                 });
+            alert("Intent successfully created!");
         } else {
             // alert(
             //     "intentName, trainingPhrase1 && response field cannot be empty!"
@@ -339,6 +340,11 @@ export default class QuestionModal extends Component {
             //     "intentName, trainingPhrase1 && response field cannot be empty!"
             // );
         }
+        alert(
+            "Intent with id: " +
+                this.state.updateQuestionData.id +
+                " successfully updated!"
+        );
     }
 
     componentWillMount() {

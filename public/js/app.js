@@ -6477,6 +6477,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
             }
           });
         });
+        alert("Intent successfully created!");
       } else {// alert(
         //     "intentName, trainingPhrase1 && response field cannot be empty!"
         // );
@@ -6628,6 +6629,8 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
         //     "intentName, trainingPhrase1 && response field cannot be empty!"
         // );
       }
+
+      alert("Intent with id: " + this.state.updateQuestionData.id + " successfully updated!");
     }
   }, {
     key: "componentWillMount",
