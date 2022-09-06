@@ -13,7 +13,7 @@
 <div class="container">
   <h2>Bulk Import Question</h2>
   <a href="../" class="btn btn-default" role="button">Back to Admin Page</a>
-  <a href="../" class="btn btn-info" role="button" target="_blank">Export Bulk Import Template</a>
+  <a href="./csvExport" class="btn btn-info" role="button" target="_blank">Export Bulk Import Template</a>
   <br>
   <br>
   <form action="import" method="post" enctype="multipart/form-data">
