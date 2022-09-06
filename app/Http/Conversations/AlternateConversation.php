@@ -39,7 +39,7 @@ public function quesRetrieve($dispName){
 }
 
 public function askForQuestion($newBtn){
-    $newQuestion = Question::create("Choose questions")->addButtons($newBtn);
+    $newQuestion = Question::create("Could you elaborate more for me please? These are several topics based your question that I've found 👇.")->addButtons($newBtn);
     $this->ask($newQuestion, function (Answer $answer) use ($newQuestion) {
         if ($answer->isInteractiveMessageReply()) {
             $question = $answer->getValue();
