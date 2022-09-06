@@ -166,7 +166,6 @@ class QuestionController extends Controller
                 ->back()
                 ->withErrors($validator);
         }
-
         $file = $request->file('file');
         $csvData = file_get_contents($file);
         // dd($csvData);
@@ -197,7 +196,7 @@ class QuestionController extends Controller
             ]);
 
         }
-
+        // echo '<script>alert("Bulk Import performed successfully!")</script>';
         return redirect('./');
     }
 

@@ -12,7 +12,8 @@
 
 <div class="container">
   <h2>Bulk Import Question</h2>
-  <a href="../" class="btn btn-success" role="button" target="_blank">Export Bulk Import Template</a>
+  <a href="../" class="btn btn-default" role="button">Back to Admin Page</a>
+  <a href="../" class="btn btn-info" role="button" target="_blank">Export Bulk Import Template</a>
   <br>
   <br>
   <form action="import" method="post" enctype="multipart/form-data">
@@ -24,8 +25,8 @@
     <input type="file" name="file" id="file" class="form-control" required>
     </div>
     
-    <a href="../" class="btn btn-info" role="button">Back to Admin Page</a>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <!-- <a href="../" class="btn btn-info" role="button">Back to Admin Page</a> -->
+    <button type="submit" class="btn btn-success">Submit</button>
   </form>
 </div>
 

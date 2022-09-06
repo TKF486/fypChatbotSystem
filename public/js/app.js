@@ -5879,21 +5879,29 @@ var QuestionCategory = /*#__PURE__*/function (_Component) {
     value: function addCategory() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/category", this.state.newCategoryData).then(function (response) {
-        var categories = _this3.state.categories;
+      if ($("#categoryName").val() == "") {
+        // alert("intentName can not be left blank");
+        $("#categoryName").addClass("is-invalid ");
+      } else {
+        $("#categoryName").removeClass("is-invalid ");
+        $("#categoryName").addClass("is-valid ");
+        axios__WEBPACK_IMPORTED_MODULE_2___default().post("http://127.0.0.1:8000/api/category", this.state.newCategoryData).then(function (response) {
+          var categories = _this3.state.categories;
 
-        _this3.loadCategory();
+          _this3.loadCategory();
 
-        _this3.setState({
-          categories: categories,
-          newCategoryModal: false,
-          newCategoryData: {
-            id: "",
-            categoryName: "",
-            noOfInteractions: "0"
-          }
+          _this3.setState({
+            categories: categories,
+            newCategoryModal: false,
+            newCategoryData: {
+              id: "",
+              categoryName: "",
+              noOfInteractions: "0"
+            }
+          });
         });
-      });
+        alert("New Category successfully created!");
+      }
     }
   }, {
     key: "togglenewCategoryModal",
@@ -5919,34 +5927,46 @@ var QuestionCategory = /*#__PURE__*/function (_Component) {
     value: function updatecategory() {
       var _this4 = this;
 
-      var _this$state$updateCat = this.state.updateCategoryData,
-          id = _this$state$updateCat.id,
-          categoryName = _this$state$updateCat.categoryName,
-          noOfInteractions = _this$state$updateCat.noOfInteractions;
-      axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/categoryUpdate/" + this.state.updateCategoryData.id, {
-        categoryName: categoryName,
-        noOfInteractions: noOfInteractions
-      }).then(function (response) {
-        _this4.loadCategory();
+      if ($("#categoryName").val() == "") {
+        // alert("intentName can not be left blank");
+        $("#categoryName").addClass("is-invalid ");
+      } else {
+        $("#categoryName").removeClass("is-invalid ");
+        $("#categoryName").addClass("is-valid ");
+        var _this$state$updateCat = this.state.updateCategoryData,
+            id = _this$state$updateCat.id,
+            categoryName = _this$state$updateCat.categoryName,
+            noOfInteractions = _this$state$updateCat.noOfInteractions;
+        axios__WEBPACK_IMPORTED_MODULE_2___default().put("http://127.0.0.1:8000/api/categoryUpdate/" + this.state.updateCategoryData.id, {
+          categoryName: categoryName,
+          noOfInteractions: noOfInteractions
+        }).then(function (response) {
+          _this4.loadCategory();
 
-        _this4.setState({
-          updateCategoryModal: false,
-          updateCategoryData: {
-            id: "",
-            categoryName: "",
-            noOfInteractions: ""
-          }
+          _this4.setState({
+            updateCategoryModal: false,
+            updateCategoryData: {
+              id: "",
+              categoryName: "",
+              noOfInteractions: ""
+            }
+          });
         });
-      });
+        alert("Category with id: " + this.state.updateCategoryData.id + " successfully updated!");
+      }
     }
   }, {
     key: "deleteCategory",
     value: function deleteCategory(id) {
       var _this5 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/categoryDelete/" + id).then(function (response) {
-        _this5.loadCategory();
-      });
+      var confirmDelete = confirm("Are you sure you want to delete " + "category with id: " + id + "?");
+
+      if (confirmDelete == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("http://127.0.0.1:8000/api/categoryDelete/" + id).then(function (response) {
+          _this5.loadCategory();
+        });
+      } else {}
     }
   }, {
     key: "componentWillMount",
@@ -5995,7 +6015,7 @@ var QuestionCategory = /*#__PURE__*/function (_Component) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_NavBar__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "main",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-            children: "Database"
+            children: "Category Database"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.Button, {
             color: "primary",
             onClick: this.togglenewCategoryModal.bind(this),
@@ -6022,6 +6042,10 @@ var QuestionCategory = /*#__PURE__*/function (_Component) {
                       newCategoryData: newCategoryData
                     });
                   }
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormFeedback, {
+                  children: "Please enter some input!"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.FormText, {
+                  children: "*Enter the question Category name (e.g. Assessment)"
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(reactstrap__WEBPACK_IMPORTED_MODULE_5__.ModalFooter, {
@@ -6079,6 +6103,8 @@ var QuestionCategory = /*#__PURE__*/function (_Component) {
                   children: "categoryName"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
                   children: "noOfInteractions"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                  children: "Action"
                 })]
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
@@ -6225,21 +6251,11 @@ var QuestionList = /*#__PURE__*/function (_Component) {
             })]
           });
         }
-      }); // let questions = this.state.questions.map((question) => {
-      //     return (
-      //         <Accordion.Item eventKey={question.id}>
-      //             <Accordion.Header>
-      //                 {question.trainingPhrase1}
-      //             </Accordion.Header>
-      //             <Accordion.Body>{question.response}</Accordion.Body>
-      //         </Accordion.Item>
-      //     );
-      // });
-
+      });
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "container",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h1", {
-          children: "FAQ LIST"
+          children: "Frequently Asked Question"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_bootstrap_Accordion__WEBPACK_IMPORTED_MODULE_5__["default"], {
           defaultActiveKey: "0",
           children: questions

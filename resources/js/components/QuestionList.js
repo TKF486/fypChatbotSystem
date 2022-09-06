@@ -69,21 +69,10 @@ export default class QuestionList extends Component {
             }
         });
 
-        // let questions = this.state.questions.map((question) => {
-        //     return (
-        //         <Accordion.Item eventKey={question.id}>
-        //             <Accordion.Header>
-        //                 {question.trainingPhrase1}
-        //             </Accordion.Header>
-        //             <Accordion.Body>{question.response}</Accordion.Body>
-        //         </Accordion.Item>
-        //     );
-        // });
-
         return (
             <div className="container">
                 {/* <NavBar /> */}
-                <h1>FAQ LIST</h1>
+                <h1>Frequently Asked Question</h1>
                 <Accordion defaultActiveKey="0">{questions}</Accordion>
             </div>
         );

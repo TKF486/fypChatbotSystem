@@ -9,6 +9,8 @@ import {
     ModalFooter,
     Input,
     FormGroup,
+    FormText,
+    FormFeedback,
     Label,
     Nav,
     NavItem,
@@ -45,24 +47,32 @@ export default class QuestionCategory extends Component {
     }
 
     addCategory() {
-        axios
-            .post(
-                "http://127.0.0.1:8000/api/category",
-                this.state.newCategoryData
-            )
-            .then((response) => {
-                let { categories } = this.state;
-                this.loadCategory();
-                this.setState({
-                    categories,
-                    newCategoryModal: false,
-                    newCategoryData: {
-                        id: "",
-                        categoryName: "",
-                        noOfInteractions: "0",
-                    },
+        if ($("#categoryName").val() == "") {
+            // alert("intentName can not be left blank");
+            $("#categoryName").addClass("is-invalid ");
+        } else {
+            $("#categoryName").removeClass("is-invalid ");
+            $("#categoryName").addClass("is-valid ");
+            axios
+                .post(
+                    "http://127.0.0.1:8000/api/category",
+                    this.state.newCategoryData
+                )
+                .then((response) => {
+                    let { categories } = this.state;
+                    this.loadCategory();
+                    this.setState({
+                        categories,
+                        newCategoryModal: false,
+                        newCategoryData: {
+                            id: "",
+                            categoryName: "",
+                            noOfInteractions: "0",
+                        },
+                    });
                 });
-            });
+            alert("New Category successfully created!");
+        }
     }
 
     togglenewCategoryModal() {
@@ -82,35 +92,53 @@ export default class QuestionCategory extends Component {
         });
     }
     updatecategory() {
-        let { id, categoryName, noOfInteractions } =
-            this.state.updateCategoryData;
-        axios
-            .put(
-                "http://127.0.0.1:8000/api/categoryUpdate/" +
-                    this.state.updateCategoryData.id,
-                {
-                    categoryName,
-                    noOfInteractions,
-                }
-            )
-            .then((response) => {
-                this.loadCategory();
-                this.setState({
-                    updateCategoryModal: false,
-                    updateCategoryData: {
-                        id: "",
-                        categoryName: "",
-                        noOfInteractions: "",
-                    },
+        if ($("#categoryName").val() == "") {
+            // alert("intentName can not be left blank");
+            $("#categoryName").addClass("is-invalid ");
+        } else {
+            $("#categoryName").removeClass("is-invalid ");
+            $("#categoryName").addClass("is-valid ");
+            let { id, categoryName, noOfInteractions } =
+                this.state.updateCategoryData;
+            axios
+                .put(
+                    "http://127.0.0.1:8000/api/categoryUpdate/" +
+                        this.state.updateCategoryData.id,
+                    {
+                        categoryName,
+                        noOfInteractions,
+                    }
+                )
+                .then((response) => {
+                    this.loadCategory();
+                    this.setState({
+                        updateCategoryModal: false,
+                        updateCategoryData: {
+                            id: "",
+                            categoryName: "",
+                            noOfInteractions: "",
+                        },
+                    });
                 });
-            });
+            alert(
+                "Category with id: " +
+                    this.state.updateCategoryData.id +
+                    " successfully updated!"
+            );
+        }
     }
     deleteCategory(id) {
-        axios
-            .delete("http://127.0.0.1:8000/api/categoryDelete/" + id)
-            .then((response) => {
-                this.loadCategory();
-            });
+        var confirmDelete = confirm(
+            "Are you sure you want to delete " + "category with id: " + id + "?"
+        );
+        if (confirmDelete == true) {
+            axios
+                .delete("http://127.0.0.1:8000/api/categoryDelete/" + id)
+                .then((response) => {
+                    this.loadCategory();
+                });
+        } else {
+        }
     }
     componentWillMount() {
         this.loadCategory();
@@ -162,7 +190,7 @@ export default class QuestionCategory extends Component {
             <div className="container">
                 <NavBar />
                 <div className="main">
-                    <h1>Database</h1>
+                    <h1>Category Database</h1>
                     <Button
                         color="primary"
                         onClick={this.togglenewCategoryModal.bind(this)}
@@ -195,6 +223,13 @@ export default class QuestionCategory extends Component {
                                         this.setState({ newCategoryData });
                                     }}
                                 ></Input>
+                                <FormFeedback>
+                                    Please enter some input!
+                                </FormFeedback>
+                                <FormText>
+                                    *Enter the question Category name (e.g.
+                                    Assessment)
+                                </FormText>
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
@@ -266,6 +301,7 @@ export default class QuestionCategory extends Component {
                                 <th>ID</th>
                                 <th>categoryName</th>
                                 <th>noOfInteractions</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>{categories}</tbody>
