@@ -6345,7 +6345,7 @@ var QuestionModal = /*#__PURE__*/function (_Component) {
           alert("No Checkbox is selected");
         }
 
-        alert("All selected intent is successfully deleted!");
+        alert("All selected intents are successfully deleted!");
       } else {}
     });
 
