@@ -39,7 +39,9 @@ Route::get('/import', function () {
     return view('importQuestion');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function () {
+    return view('dashboard');
+});
 Route::get('questions', [QuestionController::class, 'index']);
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle'])->name('botman');
